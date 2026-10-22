@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" fill="none">
+  <!-- Navy Background with Rounded Corners -->
+  <rect width="32" height="32" rx="9" fill="#202c49" />
+  
+  <!-- Subtle border highlight -->
+  <rect width="30" height="30" x="1" y="1" rx="8" stroke="#3b4b72" stroke-width="0.75" fill="none" opacity="0.6" />
+  
+  <!-- Wihyfe "W" Icon -->
+  <path 
+    d="M 8.2 11.5 L 12.1 22.2 C 12.3 22.8 13.1 22.9 13.5 22.3 L 16 16.8 L 18.5 22.3 C 18.9 22.9 19.7 22.8 19.9 22.2 L 23.8 11.5" 
+    stroke="#ffffff" 
+    stroke-width="3.2" 
+    stroke-linecap="round" 
+    stroke-linejoin="round" 
+    fill="none" 
+  />
+</svg>

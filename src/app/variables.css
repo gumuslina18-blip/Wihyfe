@@ -1,0 +1,81 @@
+:root {
+  /* Brand Palette (Image 1 Specifications) */
+  --brand-primary: #0B1424;
+  --brand-rgb: 11, 20, 36;
+
+  /* Backgrounds: Arka Plan #030407 */
+  --bg-primary: #030407;
+  --bg-secondary: #070B13;
+  --bg-tertiary: #0B1424;
+  
+  /* Surfaces & Cards: Koyu Lacivert #0B1424 */
+  --surface: #0B1424;
+  --surface-card: #0B1424;
+  --surface-card-hover: #101C32;
+  --surface-elevated: #0E1A2E;
+  
+  /* Buttons & Links: Elektrik Mavisi Vurgu #0878FF */
+  --accent: #0878FF;
+  --accent-hover: #2688FF;
+  --accent-active: #0066E0;
+  --accent-rgb: 8, 120, 255;
+  --accent-glow: rgba(8, 120, 255, 0.25);
+  --accent-glow-strong: rgba(8, 120, 255, 0.45);
+  --accent-dim: rgba(8, 120, 255, 0.12);
+  --accent-border: rgba(8, 120, 255, 0.35);
+
+  /* Typography Colors: Ana Yazı #F2F5FA, İkincil Yazı #9AA6B7 */
+  --text-primary: #F2F5FA;
+  --text-secondary: #9AA6B7;
+  --text-muted: #64748B;
+  --text-inverse: #030407;
+
+  /* Borders & Dividers: Kenarlıklar #263447 */
+  --border: #263447;
+  --border-subtle: #1C2736;
+  --border-active: #0878FF;
+
+  /* Discord Mockup Dark Tone Preserved */
+  --discord-blurple: #5865F2;
+  --discord-bg: #2B2D31;
+  --discord-chat-bg: #1E1F22;
+  --discord-embed-bg: #2B2D31;
+  --discord-green: #23A55A;
+  --discord-text-muted: #949BA4;
+
+  /* Fonts */
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', Consolas, Monaco, monospace;
+
+  /* Layout */
+  --max-width: 1200px;
+  --header-height: 72px;
+  --container-padding: clamp(1.25rem, 4vw, 2.5rem);
+
+  /* Border Radius */
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+
+  /* Deep Space Cyber Shadows */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4), 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 16px -2px rgba(0, 0, 0, 0.6), 0 2px 6px -1px rgba(0, 0, 0, 0.4);
+  --shadow-card: 0 8px 32px -4px rgba(0, 0, 0, 0.7), 0 2px 8px -1px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 28px -2px rgba(8, 120, 255, 0.35);
+
+  /* Transitions */
+  --transition-fast: 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-normal: 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-slow: 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --transition-fast: 0s;
+    --transition-normal: 0s;
+    --transition-slow: 0s;
+  }
+}

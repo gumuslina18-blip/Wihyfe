@@ -1,0 +1,720 @@
+{
+  "orders": [
+    {
+      "id": "WSP-643621",
+      "customerDiscord": "lunaalvine#0001",
+      "customerEmail": "gumuslina18@gmail.com",
+      "serverId": "aaaaaaaaaaaaaaaa",
+      "serverName": "aaaaaaaaaaaaaaaa",
+      "packageName": "Discord Full Pack",
+      "periodLabel": "TL / ay",
+      "periodKey": "monthly",
+      "price": "1.300,00 TL",
+      "numericPrice": 1300,
+      "paytrUrl": "https://www.paytr.com/link/7MFXrXH",
+      "status": "pending_paytr",
+      "createdAt": "20.10.2026 03:27"
+    },
+    {
+      "id": "WSP-275149",
+      "customerDiscord": "lunaalvine#0001",
+      "customerEmail": "gumuslina18@gmail.com",
+      "serverId": "aaaaaaaaaaaaaaaa",
+      "serverName": "aaaaaaaaaaaaaaaa",
+      "packageName": "Website - Donate",
+      "periodLabel": "TL / ay",
+      "periodKey": "monthly",
+      "price": "750,00 TL",
+      "numericPrice": 750,
+      "paytrUrl": "",
+      "status": "pending_paytr",
+      "createdAt": "19.10.2026 19:59"
+    },
+    {
+      "id": "DEP-778370",
+      "customerDiscord": "Luna",
+      "customerDiscordId": "181209570092384257",
+      "customerEmail": "gumuslina18@gmail.com",
+      "serverId": "Cüzdan Bakiye Yükleme",
+      "serverName": "Wihyfe Cüzdan",
+      "packageName": "Bakiye Yükleme (PayTR 3D Secure)",
+      "periodLabel": "Tek Seferlik",
+      "periodKey": "monthly",
+      "price": "348.094,00 TL",
+      "numericPrice": 348094,
+      "status": "cancelled",
+      "createdAt": "18.10.2026 14:07",
+      "deliveryStatus": "İptal Edildi"
+    },
+    {
+      "id": "DEP-452820",
+      "customerDiscord": "Luna",
+      "customerDiscordId": "181209570092384257",
+      "customerEmail": "gumuslina18@gmail.com",
+      "serverId": "Cüzdan Bakiye Yükleme",
+      "serverName": "Wihyfe Cüzdan",
+      "packageName": "Bakiye Yükleme (PayTR 3D Secure)",
+      "periodLabel": "Tek Seferlik",
+      "periodKey": "monthly",
+      "price": "500,00 TL",
+      "numericPrice": 500,
+      "status": "pending_paytr",
+      "createdAt": "18.10.2026 14:07",
+      "deliveryStatus": "Beklemede"
+    },
+    {
+      "id": "DEP-574450",
+      "customerDiscord": "Luna",
+      "customerDiscordId": "181209570092384257",
+      "customerEmail": "gumuslina18@gmail.com",
+      "serverId": "Cüzdan Bakiye Yükleme",
+      "serverName": "Wihyfe Cüzdan",
+      "packageName": "Bakiye Yükleme (PayTR 3D Secure)",
+      "periodLabel": "Tek Seferlik",
+      "periodKey": "monthly",
+      "price": "534.533,00 TL",
+      "numericPrice": 534533,
+      "status": "active",
+      "createdAt": "18.10.2026 13:46"
+    },
+    {
+      "id": "DEP-220296",
+      "customerDiscord": "Luna",
+      "customerDiscordId": "181209570092384257",
+      "customerEmail": "gumuslina18@gmail.com",
+      "serverId": "Cüzdan Bakiye Yükleme",
+      "serverName": "Wihyfe Cüzdan",
+      "packageName": "Bakiye Yükleme (PayTR 3D Secure)",
+      "periodLabel": "Tek Seferlik",
+      "periodKey": "monthly",
+      "price": "2.500,00 TL",
+      "numericPrice": 2500,
+      "status": "active",
+      "createdAt": "18.10.2026 13:44"
+    }
+  ],
+  "tickets": [],
+  "logs": [
+    {
+      "id": "LOG-2216",
+      "timestamp": "20.10.2026 03:27",
+      "staffName": "Sistem",
+      "action": "Yeni PayTR Siparişi (WSP-643621)",
+      "details": "Discord Full Pack (lunaalvine#0001) - 1.300,00 TL",
+      "type": "order"
+    },
+    {
+      "id": "LOG-1183",
+      "timestamp": "19.10.2026 19:59",
+      "staffName": "Sistem",
+      "action": "Yeni PayTR Siparişi (WSP-275149)",
+      "details": "Website - Donate (lunaalvine#0001) - 750,00 TL",
+      "type": "order"
+    },
+    {
+      "id": "LOG-3217",
+      "timestamp": "19.10.2026 19:00",
+      "staffName": "lunaalvine (Owner)",
+      "action": "Gün Sonu Kapatıldı (Z-19102026-01)",
+      "details": "19.10.2026 Gün Sonu Raporu: Ciro: ₺0 • Sipariş: 0 • Bakiye: ₺0",
+      "type": "auth"
+    },
+    {
+      "id": "LOG-9976",
+      "timestamp": "18.10.2026 15:24",
+      "staffName": "Luna (Owner)",
+      "action": "Gün Sonu Kapatıldı (Z-18102026-01)",
+      "details": "18.10.2026 Gün Sonu Raporu: Ciro: ₺537.033 • Sipariş: 4 • Bakiye: ₺537.033",
+      "type": "auth"
+    },
+    {
+      "id": "LOG-9176",
+      "timestamp": "18.10.2026 15:24",
+      "staffName": "Luna",
+      "action": "Bakiye Silindi (-₺350.594)",
+      "details": "Luna (181209570092384257) | Önceki: ₺350.594 -> Yeni: ₺0 | Neden: Manuel bakiye düzenlemesi / Yetkili işlemi",
+      "type": "auth"
+    },
+    {
+      "id": "LOG-5670",
+      "timestamp": "18.10.2026 14:18",
+      "staffName": "lunaalvine (Owner)",
+      "action": "Gün Sonu Kapatıldı (Z-18102026-01)",
+      "details": "18.10.2026 Gün Sonu Raporu: Ciro: ₺537.033 • Sipariş: 4 • Bakiye: ₺537.033",
+      "type": "auth"
+    },
+    {
+      "id": "LOG-3362",
+      "timestamp": "18.10.2026 14:18",
+      "staffName": "lunaalvine (Owner)",
+      "action": "Gün Sonu Kapatıldı (Z-18102026-01)",
+      "details": "18.10.2026 Gün Sonu Raporu: Ciro: ₺537.033 • Sipariş: 4 • Bakiye: ₺537.033",
+      "type": "auth"
+    },
+    {
+      "id": "LOG-3229",
+      "timestamp": "18.10.2026 14:09",
+      "staffName": "Yetkili Ekip",
+      "action": "Teslimat Durumu Güncellendi (DEP-452820)",
+      "details": "Teslimat Durumu: \"Beklemede\" olarak güncellendi.",
+      "type": "order"
+    },
+    {
+      "id": "LOG-7815",
+      "timestamp": "18.10.2026 14:08",
+      "staffName": "lunaalvine",
+      "action": "Bakiye Talebi Reddedildi (DEP-452820)",
+      "details": "Luna - ₺500 talebi iptal edildi.",
+      "type": "auth"
+    },
+    {
+      "id": "LOG-5992",
+      "timestamp": "18.10.2026 14:08",
+      "staffName": "lunaalvine",
+      "action": "Bakiye Talebi Reddedildi (DEP-778370)",
+      "details": "Luna - ₺348.094 talebi iptal edildi.",
+      "type": "auth"
+    },
+    {
+      "id": "LOG-1208",
+      "timestamp": "18.10.2026 14:07",
+      "staffName": "Yetkili Ekip",
+      "action": "Teslimat Durumu Güncellendi (DEP-778370)",
+      "details": "Teslimat Durumu: \"Tamamlandı\" olarak güncellendi.",
+      "type": "order"
+    },
+    {
+      "id": "LOG-3638",
+      "timestamp": "18.10.2026 14:07",
+      "staffName": "Sistem (PayTR)",
+      "action": "Bakiye Yükleme Talebi (DEP-778370)",
+      "details": "Luna - ₺348.094 (PayTR 3D Secure)",
+      "type": "order"
+    },
+    {
+      "id": "LOG-0814",
+      "timestamp": "18.10.2026 14:07",
+      "staffName": "Sistem (PayTR)",
+      "action": "Bakiye Yükleme Talebi (DEP-452820)",
+      "details": "Luna - ₺500 (PayTR 3D Secure)",
+      "type": "order"
+    },
+    {
+      "id": "LOG-9019",
+      "timestamp": "18.10.2026 13:50",
+      "staffName": "lunaalvine",
+      "action": "Bakiye Talebi Onaylandı (DEP-220296)",
+      "details": "Luna hesabına ₺2.500 bakiye eklendi.",
+      "type": "auth"
+    },
+    {
+      "id": "LOG-5553",
+      "timestamp": "18.10.2026 13:47",
+      "staffName": "lunaalvine",
+      "action": "Bakiye Talebi Onaylandı (DEP-574450)",
+      "details": "Luna hesabına ₺534.533 bakiye eklendi.",
+      "type": "auth"
+    },
+    {
+      "id": "LOG-7986",
+      "timestamp": "18.10.2026 13:46",
+      "staffName": "Sistem (PayTR)",
+      "action": "Bakiye Yükleme Talebi (DEP-574450)",
+      "details": "Luna - ₺534.533 (PayTR 3D Secure)",
+      "type": "order"
+    },
+    {
+      "id": "LOG-8693",
+      "timestamp": "18.10.2026 13:44",
+      "staffName": "Sistem (PayTR)",
+      "action": "Bakiye Yükleme Talebi (DEP-220296)",
+      "details": "Luna - ₺2.500 (PayTR 3D Secure)",
+      "type": "order"
+    },
+    {
+      "id": "LOG-5151",
+      "timestamp": "17.10.2026 23:36",
+      "staffName": "Luna",
+      "action": "Lisans Kodu Aktif Edildi (PLUS26)",
+      "details": "Plus Lisansı kullanıcı hesabına tanımlandı.",
+      "type": "pricing"
+    },
+    {
+      "id": "LOG-2960",
+      "timestamp": "17.10.2026 23:34",
+      "staffName": "Luna",
+      "action": "Lisans Kodu Aktif Edildi (WZ83J3)",
+      "details": "Plus+ Lisansı kullanıcı hesabına tanımlandı.",
+      "type": "pricing"
+    },
+    {
+      "id": "LOG-6085",
+      "timestamp": "17.10.2026 23:33",
+      "staffName": "Luna",
+      "action": "Lisans Kodu Aktif Edildi (FREE26)",
+      "details": "Free Lisansı kullanıcı hesabına tanımlandı.",
+      "type": "pricing"
+    },
+    {
+      "id": "LOG-4643",
+      "timestamp": "17.10.2026 23:29",
+      "staffName": "Luna",
+      "action": "Lisans Kodu Aktif Edildi (WZ83J3)",
+      "details": "Plus+ Lisansı kullanıcı hesabına tanımlandı.",
+      "type": "pricing"
+    }
+  ],
+  "customerBots": [],
+  "customerLicenses": [
+    {
+      "id": "LIC-FREE26",
+      "packageName": "Plus Paketi",
+      "serverId": "1525360529433165874",
+      "serverName": "Los Santos Medical Department #ENİYİSİBİZİZ",
+      "periodLabel": "Yıllık",
+      "price": "0,00 TL",
+      "startDate": "17.10.2026",
+      "expireDate": "31.12.2026",
+      "daysRemaining": 365,
+      "status": "active"
+    }
+  ],
+  "packageConfig": {
+    "discord-full-pack": {
+      "monthly": {
+        "isAvailable": false,
+        "paytrUrl": "https://www.paytr.com/link/7MFXrXH",
+        "statusBadge": "Yakında"
+      },
+      "quarterly": {
+        "isAvailable": false,
+        "statusBadge": "Yakında",
+        "paytrUrl": "https://www.paytr.com/link/TEST3AYLIK",
+        "customPrice": "2.200"
+      },
+      "semi-annual": {
+        "isAvailable": false,
+        "statusBadge": "Yakında",
+        "paytrUrl": ""
+      },
+      "annual": {
+        "isAvailable": false,
+        "statusBadge": "Yakında",
+        "paytrUrl": ""
+      }
+    },
+    "discord-pack": {
+      "monthly": {
+        "isAvailable": false,
+        "statusBadge": "Yakında",
+        "paytrUrl": "https://www.paytr.com/link/A3L1Mxc",
+        "customPrice": "900"
+      },
+      "quarterly": {
+        "isAvailable": false,
+        "statusBadge": "Yakında",
+        "paytrUrl": "",
+        "customPrice": "2.430"
+      },
+      "semi-annual": {
+        "isAvailable": false,
+        "statusBadge": "Yakında",
+        "paytrUrl": "",
+        "customPrice": "4.320"
+      },
+      "annual": {
+        "isAvailable": false,
+        "statusBadge": "Yakında",
+        "paytrUrl": "",
+        "customPrice": "7.020"
+      }
+    },
+    "legal-pack": {
+      "monthly": {
+        "isAvailable": false,
+        "paytrUrl": "https://www.paytr.com/link/UYZRQ17",
+        "statusBadge": "Yakında"
+      },
+      "quarterly": {
+        "isAvailable": false,
+        "statusBadge": "Yakında",
+        "paytrUrl": ""
+      },
+      "semi-annual": {
+        "isAvailable": false,
+        "statusBadge": "Yakında",
+        "paytrUrl": ""
+      },
+      "annual": {
+        "isAvailable": false,
+        "statusBadge": "Yakında",
+        "paytrUrl": ""
+      }
+    },
+    "garrys-mod-full": {
+      "monthly": {
+        "isAvailable": false,
+        "statusBadge": "Yakında",
+        "paytrUrl": "https://www.paytr.com/link/fzN5wEF"
+      },
+      "quarterly": {
+        "isAvailable": false,
+        "statusBadge": "Yakında",
+        "paytrUrl": ""
+      },
+      "semi-annual": {
+        "isAvailable": false,
+        "statusBadge": "Yakında",
+        "paytrUrl": ""
+      },
+      "annual": {
+        "isAvailable": false,
+        "statusBadge": "Yakında",
+        "paytrUrl": ""
+      }
+    },
+    "garrys-mod": {
+      "monthly": {
+        "isAvailable": false,
+        "statusBadge": "Yakında",
+        "paytrUrl": "https://www.paytr.com/link/zTJyByr"
+      },
+      "quarterly": {
+        "isAvailable": false,
+        "statusBadge": "Yakında",
+        "paytrUrl": ""
+      },
+      "semi-annual": {
+        "isAvailable": false,
+        "statusBadge": "Yakında",
+        "paytrUrl": ""
+      },
+      "annual": {
+        "isAvailable": false,
+        "statusBadge": "Yakında",
+        "paytrUrl": ""
+      }
+    },
+    "ekip-pack": {
+      "monthly": {
+        "isAvailable": false,
+        "paytrUrl": "https://www.paytr.com/link/RLJTW7n",
+        "statusBadge": "Yakında"
+      },
+      "quarterly": {
+        "isAvailable": false,
+        "statusBadge": "Yakında",
+        "paytrUrl": ""
+      },
+      "semi-annual": {
+        "isAvailable": false,
+        "statusBadge": "Yakında",
+        "paytrUrl": ""
+      },
+      "annual": {
+        "isAvailable": false,
+        "statusBadge": "Yakında",
+        "paytrUrl": ""
+      }
+    }
+  },
+  "pins": [],
+  "productOverrides": {
+    "prod_discord-pack": {
+      "id": "prod_discord-pack",
+      "originalId": "discord-pack",
+      "name": "Discord Pack",
+      "category": "Bot",
+      "price": 900,
+      "period": "Aylik",
+      "periods": {
+        "monthly": {
+          "price": 900,
+          "periodLabel": "Aylik",
+          "isAvailable": false,
+          "paytrUrl": "https://www.paytr.com/link/A3L1Mxc",
+          "statusBadge": "Yakında"
+        },
+        "quarterly": {
+          "price": 2430,
+          "periodLabel": "3 Aylik",
+          "isAvailable": false,
+          "statusBadge": "Yakında",
+          "discountBadge": "%10 Indirim"
+        },
+        "semi-annual": {
+          "price": 4320,
+          "periodLabel": "6 Aylik",
+          "isAvailable": false,
+          "statusBadge": "Yakında",
+          "discountBadge": "%20 Indirim"
+        },
+        "annual": {
+          "price": 7020,
+          "periodLabel": "Yillik",
+          "isAvailable": false,
+          "statusBadge": "Yakında",
+          "discountBadge": "%35 Indirim"
+        }
+      },
+      "updatedAt": "17.10.2026"
+    },
+    "discord-pack": {
+      "id": "prod_discord-pack",
+      "originalId": "discord-pack",
+      "name": "Discord Pack",
+      "category": "Bot",
+      "price": 900,
+      "period": "Aylik",
+      "periods": {
+        "monthly": {
+          "price": 900,
+          "periodLabel": "Aylik",
+          "isAvailable": false,
+          "paytrUrl": "https://www.paytr.com/link/A3L1Mxc",
+          "statusBadge": "Yakında"
+        },
+        "quarterly": {
+          "price": 2430,
+          "periodLabel": "3 Aylik",
+          "isAvailable": false,
+          "statusBadge": "Yakında",
+          "discountBadge": "%10 Indirim"
+        },
+        "semi-annual": {
+          "price": 4320,
+          "periodLabel": "6 Aylik",
+          "isAvailable": false,
+          "statusBadge": "Yakında",
+          "discountBadge": "%20 Indirim"
+        },
+        "annual": {
+          "price": 7020,
+          "periodLabel": "Yillik",
+          "isAvailable": false,
+          "statusBadge": "Yakında",
+          "discountBadge": "%35 Indirim"
+        }
+      },
+      "updatedAt": "17.10.2026"
+    }
+  },
+  "depositRequests": [
+    {
+      "id": "DEP-778370",
+      "userId": "181209570092384257",
+      "userName": "Luna",
+      "userEmail": "gumuslina18@gmail.com",
+      "amount": 348094,
+      "status": "rejected",
+      "paymentMethod": "PayTR 3D Secure",
+      "createdAt": "18.10.2026 14:07",
+      "updatedAt": "18.10.2026 14:08"
+    },
+    {
+      "id": "DEP-452820",
+      "userId": "181209570092384257",
+      "userName": "Luna",
+      "userEmail": "gumuslina18@gmail.com",
+      "amount": 500,
+      "status": "rejected",
+      "paymentMethod": "PayTR 3D Secure",
+      "createdAt": "18.10.2026 14:07",
+      "updatedAt": "18.10.2026 14:08"
+    },
+    {
+      "id": "DEP-574450",
+      "userId": "181209570092384257",
+      "userName": "Luna",
+      "userEmail": "gumuslina18@gmail.com",
+      "amount": 534533,
+      "status": "approved",
+      "paymentMethod": "PayTR 3D Secure",
+      "createdAt": "18.10.2026 13:46",
+      "updatedAt": "18.10.2026 13:47"
+    },
+    {
+      "id": "DEP-220296",
+      "userId": "181209570092384257",
+      "userName": "Luna",
+      "userEmail": "gumuslina18@gmail.com",
+      "amount": 2500,
+      "status": "approved",
+      "paymentMethod": "PayTR 3D Secure",
+      "createdAt": "18.10.2026 13:44",
+      "updatedAt": "18.10.2026 13:50"
+    }
+  ],
+  "users": {
+    "181209570092384257": {
+      "id": "181209570092384257",
+      "username": "lunaalvine",
+      "discriminator": "#0001",
+      "avatarUrl": "https://cdn.discordapp.com/avatars/181209570092384257/98431da8e14a33f014cc52110a0fff95.png?size=128",
+      "email": "gumuslina18@gmail.com",
+      "tier": "Free",
+      "role": "Owner",
+      "balance": 0,
+      "transactions": [
+        {
+          "id": "TX-249176",
+          "date": "18.10.2026 15:24",
+          "type": "spend",
+          "amount": 350594,
+          "amountFormatted": "-₺350.594,00",
+          "description": "Manuel bakiye düzenlemesi / Yetkili işlemi",
+          "status": "Tamamlandı",
+          "paymentMethod": "Yetkili Panel"
+        },
+        {
+          "id": "TX-651207",
+          "date": "18.10.2026 14:07",
+          "type": "deposit",
+          "amount": 348094,
+          "amountFormatted": "+348.094,00 TL",
+          "description": "Sipariş Üzerinden Onaylanan Bakiye (DEP-778370)",
+          "status": "Tamamlandı",
+          "paymentMethod": "PayTR 3D Secure"
+        },
+        {
+          "id": "TX-220296",
+          "date": "18.10.2026 13:50",
+          "type": "deposit",
+          "amount": 2500,
+          "amountFormatted": "+2.500,00 TL",
+          "description": "Bakiye Yükleme (DEP-220296 - PayTR 3D Secure)",
+          "status": "Tamamlandı",
+          "paymentMethod": "PayTR 3D Secure"
+        }
+      ],
+      "orders": [
+        {
+          "orderId": "LIC-PLUS26",
+          "date": "17.10.2026 23:36",
+          "items": [
+            {
+              "name": "Plus Lisansı",
+              "periodLabel": "Lisans Koduyla Aktif Edildi",
+              "price": "0,00 TL"
+            }
+          ],
+          "totalFormatted": "0,00",
+          "serverId": "Tüm Sunucular",
+          "serverName": "Wihyfe Lisans Sistemi",
+          "status": "Aktif",
+          "paymentMethod": "Lisans PIN Kodu"
+        },
+        {
+          "orderId": "LIC-WZ83J3",
+          "date": "17.10.2026 23:34",
+          "items": [
+            {
+              "name": "Plus+ Lisansı",
+              "periodLabel": "Lisans Koduyla Aktif Edildi",
+              "price": "0,00 TL"
+            }
+          ],
+          "totalFormatted": "0,00",
+          "serverId": "Tüm Sunucular",
+          "serverName": "Wihyfe Lisans Sistemi",
+          "status": "Aktif",
+          "paymentMethod": "Lisans PIN Kodu"
+        },
+        {
+          "orderId": "LIC-FREE26",
+          "date": "17.10.2026 23:33",
+          "items": [
+            {
+              "name": "Free Lisansı",
+              "periodLabel": "Lisans Koduyla Aktif Edildi",
+              "price": "0,00 TL"
+            }
+          ],
+          "totalFormatted": "0,00",
+          "serverId": "Tüm Sunucular",
+          "serverName": "Wihyfe Lisans Sistemi",
+          "status": "Aktif",
+          "paymentMethod": "Lisans PIN Kodu"
+        },
+        {
+          "orderId": "LIC-WZ83J3",
+          "date": "17.10.2026 23:29",
+          "items": [
+            {
+              "name": "Plus+ Lisansı",
+              "periodLabel": "Lisans Koduyla Aktif Edildi",
+              "price": "0,00 TL"
+            }
+          ],
+          "totalFormatted": "0,00",
+          "serverId": "Tüm Sunucular",
+          "serverName": "Wihyfe Lisans Sistemi",
+          "status": "Aktif",
+          "paymentMethod": "Lisans PIN Kodu"
+        }
+      ],
+      "phone": "",
+      "notifications": {
+        "email": true,
+        "sms": false,
+        "discord": true
+      },
+      "twoFactorEnabled": false,
+      "serversCount": 8,
+      "activeBotsCount": 0,
+      "guilds": [
+        {
+          "id": "1525360529433165874",
+          "name": "Los Santos Medical Department #ENİYİSİBİZİZ",
+          "icon": "https://cdn.discordapp.com/icons/1525360529433165874/b64ccab6ff54fee9bd998fcb2c162e0e.png?size=64",
+          "owner": true
+        },
+        {
+          "id": "1530468471677128894",
+          "name": "Red Roleplay S2 #YAKINDA",
+          "icon": "https://cdn.discordapp.com/icons/1530468471677128894/e62d96997348e8acee80853d2437ba9e.png?size=64",
+          "owner": false
+        },
+        {
+          "id": "1542843064970645554",
+          "name": "rasinia",
+          "icon": "https://cdn.discordapp.com/icons/1542843064970645554/3eac3941ede259f1baa6f397256dac6a.png?size=64",
+          "owner": false
+        },
+        {
+          "id": "1544816296011505696",
+          "name": "Wispwood #The Village Beyond the Veil",
+          "icon": "https://cdn.discordapp.com/icons/1544816296011505696/2e6088c3101b57f20aa4aa5a7ef91279.png?size=64",
+          "owner": true
+        },
+        {
+          "id": "1548145146565107813",
+          "name": "𓂃 ࣪˖ ִֶָluna MC",
+          "icon": "https://cdn.discordapp.com/icons/1548145146565107813/19e172a1e40259a155cb0f95b090d9a2.png?size=64",
+          "owner": true
+        },
+        {
+          "id": "1553718545714512004",
+          "name": "Red Roleplay #DONATE",
+          "icon": "https://cdn.discordapp.com/icons/1553718545714512004/971c5c5c21e4c59c16fc489d051079d1.png?size=64",
+          "owner": true
+        },
+        {
+          "id": "1553718949386911754",
+          "name": "Red Roleplay #LOG",
+          "icon": "https://cdn.discordapp.com/icons/1553718949386911754/3a8ae1530d4bce3d2810401dd386f843.png?size=64",
+          "owner": true
+        },
+        {
+          "id": "1554849214574362654",
+          "name": "Red Roleplay #İTEM - KODLAR",
+          "icon": null,
+          "owner": true
+        }
+      ],
+      "joinedDate": "17.10.2026 23:06",
+      "createdAt": "17.10.2026 21:00",
+      "updatedAt": "20.10.2026 03:27"
+    }
+  }
+}
