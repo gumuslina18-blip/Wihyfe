@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getUserRecord, saveUserRecord } from '@/lib/serverStore';
+import { getUserRecord, saveUserRecord, syncUserToCloudStore } from '@/lib/serverStore';
 import { verifyUserSession } from '@/lib/adminAuth';
 
 export const dynamic = 'force-dynamic';
@@ -65,6 +65,7 @@ export async function GET(request: NextRequest) {
         persistedUser.role = 'Müşteri';
       }
       saveUserRecord(persistedUser);
+      syncUserToCloudStore(persistedUser).catch(() => {});
     }
 
     const effectiveEmail = persistedUser.email || sessionUser.email || (isOwner ? 'gumuslina18@gmail.com' : '');

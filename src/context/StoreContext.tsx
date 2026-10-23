@@ -305,6 +305,20 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
           if (Array.isArray(parsedUser.orders)) {
             setOrders(parsedUser.orders);
           }
+          fetch('/api/user/sync', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              userId: parsedUser.id,
+              username: parsedUser.username,
+              discriminator: parsedUser.discriminator,
+              avatarUrl: parsedUser.avatarUrl,
+              email: parsedUser.email,
+              role: parsedUser.role || 'Müşteri',
+              tier: parsedUser.tier || 'Free',
+              balance: parsedUser.balance || 0,
+            }),
+          }).catch(() => {});
         } else {
           // Incomplete or invalid cached user
           setUser(null);
@@ -346,6 +360,22 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
               localStorage.setItem(STORAGE_TRANSACTIONS_KEY, JSON.stringify(u.transactions || []));
               localStorage.setItem(STORAGE_ORDERS_KEY, JSON.stringify(u.orders || []));
             } catch {}
+
+            // Proactively sync this customer presence to server and cloud store
+            fetch('/api/user/sync', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                userId: u.id,
+                username: u.username,
+                discriminator: u.discriminator,
+                avatarUrl: u.avatarUrl,
+                email: u.email,
+                role: u.role || 'Müşteri',
+                tier: u.tier || 'Free',
+                balance: u.balance || 0,
+              }),
+            }).catch(() => {});
           } else {
             // Server confirmed NOT LOGGED IN: Wipe all user-specific data!
             setUser(null);

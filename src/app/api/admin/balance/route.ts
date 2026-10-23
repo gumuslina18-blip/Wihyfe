@@ -45,7 +45,7 @@ export async function POST(request: NextRequest) {
       newBalance: result.newBalance,
       previousBalance: result.previousBalance,
       log: result.log,
-      users: getAllUsersForAdmin(),
+      users: await getAllUsersForAdmin(),
     });
   } catch (err: any) {
     console.error('Error in POST /api/admin/balance:', err);

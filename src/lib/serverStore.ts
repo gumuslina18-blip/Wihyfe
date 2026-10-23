@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import os from 'os';
 import { AdminOrder, AdminTicket, AdminAuditLog } from '@/config/admin';
 import { CustomerBot, CustomerLicense } from '@/config/customer';
 import { SITE_CONFIG, getAllBotProducts } from '@/config/site';
@@ -146,6 +147,8 @@ declare global {
 
 const DATA_DIR = path.join(process.cwd(), 'src', 'data');
 const STORE_FILE = path.join(DATA_DIR, 'store.json');
+const TMP_STORE_FILE = path.join(os.tmpdir(), 'wisp_store_v1.json');
+export const CLOUD_STORE_URL = 'https://api.restful-api.dev/objects/ff808181a09d98f701a169d0888871d9';
 
 export function initializePackageConfig(): Record<string, Record<string, PackagePeriodConfigState>> {
   const config: Record<string, Record<string, PackagePeriodConfigState>> = {};
@@ -210,6 +213,8 @@ export function initializePackageConfig(): Record<string, Record<string, Package
 }
 
 function loadStoreFromFile(): WispGlobalStore {
+  let loadedStore: WispGlobalStore | null = null;
+
   try {
     if (fs.existsSync(STORE_FILE)) {
       const content = fs.readFileSync(STORE_FILE, 'utf-8');
@@ -226,7 +231,7 @@ function loadStoreFromFile(): WispGlobalStore {
         });
       }
 
-      return {
+      loadedStore = {
         orders: Array.isArray(parsed.orders) ? parsed.orders : [],
         tickets: Array.isArray(parsed.tickets) ? parsed.tickets : [],
         logs: Array.isArray(parsed.logs) ? parsed.logs : [],
@@ -243,6 +248,40 @@ function loadStoreFromFile(): WispGlobalStore {
     }
   } catch (err) {
     console.error('Failed to load store from file:', err);
+  }
+
+  // Also merge from TMP_STORE_FILE (Vercel serverless persistence)
+  try {
+    if (fs.existsSync(TMP_STORE_FILE)) {
+      const tmpContent = fs.readFileSync(TMP_STORE_FILE, 'utf-8');
+      const tmpParsed = JSON.parse(tmpContent);
+      if (tmpParsed && typeof tmpParsed.users === 'object' && tmpParsed.users !== null) {
+        if (!loadedStore) {
+          loadedStore = {
+            orders: [],
+            tickets: [],
+            logs: [],
+            customerBots: [],
+            customerLicenses: [],
+            packageConfig: initializePackageConfig(),
+            pins: [],
+            productOverrides: {},
+            depositRequests: [],
+            users: {},
+          };
+        }
+        loadedStore.users = {
+          ...loadedStore.users,
+          ...tmpParsed.users,
+        };
+      }
+    }
+  } catch (tmpErr) {
+    // Quiet fallback
+  }
+
+  if (loadedStore) {
+    return loadedStore;
   }
 
   const initial: WispGlobalStore = {
@@ -264,7 +303,13 @@ function loadStoreFromFile(): WispGlobalStore {
     }
     fs.writeFileSync(STORE_FILE, JSON.stringify(initial, null, 2), 'utf-8');
   } catch (e) {
-    console.error('Error writing initial store:', e);
+    // Ignore on read-only environments
+  }
+
+  try {
+    fs.writeFileSync(TMP_STORE_FILE, JSON.stringify(initial, null, 2), 'utf-8');
+  } catch (e) {
+    // Ignore
   }
 
   return initial;
@@ -288,13 +333,20 @@ export function reloadStore(): WispGlobalStore {
 }
 
 export function saveStore() {
+  const serialized = JSON.stringify(serverStore, null, 2);
   try {
     if (!fs.existsSync(DATA_DIR)) {
       fs.mkdirSync(DATA_DIR, { recursive: true });
     }
-    fs.writeFileSync(STORE_FILE, JSON.stringify(serverStore, null, 2), 'utf-8');
+    fs.writeFileSync(STORE_FILE, serialized, 'utf-8');
   } catch (err) {
-    console.error('Failed to save store to file:', err);
+    // On Vercel / read-only filesystem, file writing fails silently
+  }
+
+  try {
+    fs.writeFileSync(TMP_STORE_FILE, serialized, 'utf-8');
+  } catch (err) {
+    // Quiet fallback
   }
 }
 
@@ -325,6 +377,63 @@ export function getUserRecord(identifier?: string): UserRecord | undefined {
     );
   });
   return foundKey ? users[foundKey] : undefined;
+}
+
+export async function syncUserToCloudStore(record: UserRecord): Promise<void> {
+  try {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 4000);
+    const res = await fetch(CLOUD_STORE_URL, { signal: controller.signal, cache: 'no-store' });
+    clearTimeout(timeout);
+    if (res.ok) {
+      const json = await res.json();
+      const currentUsers: Record<string, any> = json.data?.usersMap || {};
+      const cleanDisc = (record.discriminator || '0001').replace(/^#/, '');
+      currentUsers[record.id] = {
+        id: record.id,
+        username: record.username,
+        discriminator: cleanDisc,
+        avatarUrl: record.avatarUrl || 'https://cdn.discordapp.com/embed/avatars/0.png',
+        email: record.email || '',
+        tier: record.tier || 'Free',
+        role: record.role || 'Müşteri',
+        balance: Number(record.balance) || 0,
+        status: record.status || 'Aktif',
+        joinedDate: record.joinedDate || new Date().toLocaleDateString('tr-TR'),
+        lastLogin: record.lastLogin || 'Çevrimiçi',
+        ipAddress: record.ipAddress || '127.0.0.1 (Kayıtlı Kullanıcı)',
+        panelAccess: Boolean(record.panelAccess),
+        restrictionsNote: record.restrictionsNote,
+        password: record.password,
+      };
+      await fetch(CLOUD_STORE_URL, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: 'wihyfe_users',
+          data: { usersMap: currentUsers },
+        }),
+      });
+    }
+  } catch (e) {
+    // Quiet fallback
+  }
+}
+
+export async function getCloudStoreUsers(): Promise<Record<string, any>> {
+  try {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 3500);
+    const res = await fetch(CLOUD_STORE_URL, { signal: controller.signal, cache: 'no-store' });
+    clearTimeout(timeout);
+    if (res.ok) {
+      const json = await res.json();
+      return json.data?.usersMap || {};
+    }
+  } catch (e) {
+    // Quiet fallback
+  }
+  return {};
 }
 
 export function saveUserRecord(userData: Partial<UserRecord> & { id: string; username: string }): UserRecord {
@@ -375,6 +484,7 @@ export function saveUserRecord(userData: Partial<UserRecord> & { id: string; use
 
   serverStore.users[record.id] = record;
   saveStore();
+  syncUserToCloudStore(record).catch(() => {});
   return record;
 }
 
@@ -536,13 +646,25 @@ export function modifyUserBalanceInStore({
   };
 }
 
-export function getAllUsersForAdmin() {
+export async function getAllUsersForAdmin() {
   reloadStore();
   const usersMap = serverStore.users || {};
   const orders = serverStore.orders || [];
   const userList: Record<string, any> = {};
 
-  // 1. Process all registered users from serverStore.users (all real Discord logins)
+  // Dynamically merge latest cloud users (persisted across all Vercel serverless containers)
+  try {
+    const cloudUsers = await getCloudStoreUsers();
+    if (cloudUsers && typeof cloudUsers === 'object') {
+      Object.assign(usersMap, cloudUsers);
+      if (!serverStore.users) serverStore.users = {};
+      Object.assign(serverStore.users, cloudUsers);
+    }
+  } catch (e) {
+    // Quiet fallback
+  }
+
+  // 1. Process all registered users from serverStore.users & cloud store (all real Discord logins)
   Object.values(usersMap).forEach((u) => {
     const isOwner = u.id === '181209570092384257' || u.username?.toLowerCase() === 'lunaalvine';
     const role = isOwner ? 'Owner' : u.role === 'Member' ? 'Müşteri' : u.role || 'Müşteri';

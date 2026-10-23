@@ -144,7 +144,7 @@ export async function GET(request: NextRequest) {
     const usernameStr = userData.global_name || userData.username;
 
     // 5. Look up existing persisted user or create new record
-    const { getUserRecord, saveUserRecord } = await import('@/lib/serverStore');
+    const { getUserRecord, saveUserRecord, syncUserToCloudStore } = await import('@/lib/serverStore');
     const existingRecord = getUserRecord(userData.id) || getUserRecord(usernameStr);
     const userEmail = userData.email || existingRecord?.email || '';
 
@@ -163,7 +163,7 @@ export async function GET(request: NextRequest) {
       ' ' +
       new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' });
 
-    saveUserRecord({
+    const savedRecord = saveUserRecord({
       id: userData.id,
       username: usernameStr,
       discriminator: discriminatorStr,
@@ -186,6 +186,9 @@ export async function GET(request: NextRequest) {
       status: existingRecord?.status || 'Aktif',
       panelAccess: existingRecord?.panelAccess ?? (isOwner || userRole === 'Admin'),
     });
+
+    // Await cloud sync to ensure user is immediately accessible by all Vercel lambdas
+    await syncUserToCloudStore(savedRecord);
 
     // 6. Create Response & Set HTTP-Only Cookie with HMAC signature
     const response = NextResponse.redirect(`${appUrl}/?auth_success=1`);

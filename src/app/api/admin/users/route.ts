@@ -1,12 +1,19 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getAllUsersForAdmin, getUserRecord, saveUserRecord, saveStore, serverStore } from '@/lib/serverStore';
+import {
+  getAllUsersForAdmin,
+  getUserRecord,
+  saveUserRecord,
+  saveStore,
+  serverStore,
+  syncUserToCloudStore,
+} from '@/lib/serverStore';
 import { verifyAdminSession } from '@/lib/adminAuth';
 
 export const dynamic = 'force-dynamic';
 
 export async function GET(request: NextRequest) {
   try {
-    const users = getAllUsersForAdmin();
+    const users = await getAllUsersForAdmin();
     return NextResponse.json(
       {
         success: true,
@@ -37,7 +44,7 @@ export async function PATCH(request: NextRequest) {
 
     let user = getUserRecord(userId);
     if (!user) {
-      const all = getAllUsersForAdmin();
+      const all = await getAllUsersForAdmin();
       const found = all.find((u) => u.id === userId || u.username.toLowerCase() === userId.toLowerCase());
       if (found) {
         user = saveUserRecord({
@@ -77,10 +84,13 @@ export async function PATCH(request: NextRequest) {
     serverStore.users[user.id] = user;
     saveStore();
 
+    // Persist to cloud store
+    await syncUserToCloudStore(user);
+
     return NextResponse.json({
       success: true,
       user,
-      users: getAllUsersForAdmin(),
+      users: await getAllUsersForAdmin(),
     });
   } catch (err: any) {
     console.error('Error in PATCH /api/admin/users:', err);
