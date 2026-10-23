@@ -350,12 +350,12 @@ export default function DownloadSection({ isStandalonePage = false }: DownloadSe
         {/* Section Heading for Steps */}
         <div className="download-steps-header">
           <span className="steps-header-tag">3 Kolay Adım</span>
-          <h2 className="steps-header-title">Bot Kurulum &amp; Entegrasyon Süreci</h2>
+          <h2 className="steps-header-title">İstemci Kurulum &amp; Panel Erişim Süreci</h2>
         </div>
 
         {/* Bottom 3 Steps/Feature Cards with Rich Animated Visual Mockups */}
         <div className="download-steps-grid">
-          {/* ================= CARD 01: Davet Et & İndir ================= */}
+          {/* ================= CARD 01: PIN Doğrula & İndir ================= */}
           <div className="download-step-card">
             <div className="download-step-card-header">
               <div className="step-card-icon-box">
@@ -371,7 +371,7 @@ export default function DownloadSection({ isStandalonePage = false }: DownloadSe
             <h3 className="step-card-title">{t.downloadPage.card1.title}</h3>
             <p className="step-card-desc">{t.downloadPage.card1.desc}</p>
 
-            {/* Visual Mockup 1: Bot Package & Live Gateway Progress */}
+            {/* Visual Mockup 1: Client Package & Live Verification Progress */}
             <div className="step-mockup-frame mockup-package">
               <div className="mockup-exe-header">
                 <div className="mockup-file-icon">
@@ -384,8 +384,8 @@ export default function DownloadSection({ isStandalonePage = false }: DownloadSe
                   />
                 </div>
                 <div className="mockup-file-meta">
-                  <span className="mockup-file-name">Wihyfe_Bot_v4.exe</span>
-                  <span className="mockup-file-size">Bot Suite • v4.2 Taşınabilir</span>
+                  <span className="mockup-file-name">Wihyfe_Client_Setup.exe</span>
+                  <span className="mockup-file-size">Masaüstü İstemcisi • v2.4.8 (x64)</span>
                 </div>
                 <span className="mockup-verified-tag">Doğrulandı</span>
               </div>
@@ -393,8 +393,8 @@ export default function DownloadSection({ isStandalonePage = false }: DownloadSe
               {/* Progress Bar with Shimmer Beam */}
               <div className="mockup-download-bar-wrap">
                 <div className="mockup-download-bar-head">
-                  <span>Hazırlık &amp; Kurulum: %100</span>
-                  <span>14ms Gateway</span>
+                  <span>İstemci Doğrulaması: %100</span>
+                  <span>SHA-256 İmzalı</span>
                 </div>
                 <div className="mockup-download-bar-track">
                   <div className="mockup-download-bar-fill">
@@ -405,12 +405,12 @@ export default function DownloadSection({ isStandalonePage = false }: DownloadSe
 
               <div className="mockup-cert-row">
                 <span className="cert-dot" />
-                <span>Discord API &amp; Gateway v10 (SSL/TLS)</span>
+                <span>Panel Ağ Geçidi &amp; Güvenli İstemci (SSL/TLS v1.3)</span>
               </div>
             </div>
           </div>
 
-          {/* ================= CARD 02: Yapılandır & Başlat ================= */}
+          {/* ================= CARD 02: İstemciyi Aç & Panellere Bağlan ================= */}
           <div className="download-step-card">
             <div className="download-step-card-header">
               <div className="step-card-icon-box step-icon-orange">
@@ -432,21 +432,21 @@ export default function DownloadSection({ isStandalonePage = false }: DownloadSe
                   <span className="dot dot-yellow" />
                   <span className="dot dot-green" />
                 </div>
-                <span className="uac-terminal-title">Wihyfe Console: Bot Gateway</span>
+                <span className="uac-terminal-title">Wihyfe Client: Panel Gateway Console</span>
               </div>
 
               <div className="uac-terminal-body">
                 <div className="terminal-cmd-line">
                   <span className="t-prompt">PS C:\&gt;</span>
-                  <span className="t-cmd">.\WihyfeBot.exe --start --guild-sync</span>
+                  <span className="t-cmd">.\WihyfeClient.exe --connect-panels</span>
                 </div>
                 <div className="terminal-log-row">
                   <span className="t-badge-ok">[OK]</span>
-                  <span className="t-msg">Guard &amp; Anti-Raid modules loaded</span>
+                  <span className="t-msg">FiveM Live Admin &amp; MDT Panel linked</span>
                 </div>
                 <div className="terminal-log-row">
                   <span className="t-badge-ok">[OK]</span>
-                  <span className="t-msg">Discord Gateway v10 connected (14ms)</span>
+                  <span className="t-msg">Yönetim Paneli oturumu bağlandı (12ms)</span>
                 </div>
               </div>
 
@@ -454,12 +454,12 @@ export default function DownloadSection({ isStandalonePage = false }: DownloadSe
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" strokeWidth="2.5">
                   <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                 </svg>
-                <span>Bot Yetkileri Doğrulandı</span>
+                <span>Panel Erişim Yetkileri Doğrulandı</span>
               </div>
             </div>
           </div>
 
-          {/* ================= CARD 03: Canlı Yönetim ================= */}
+          {/* ================= CARD 03: Canlı Panel Kontrolü ================= */}
           <div className="download-step-card">
             <div className="download-step-card-header">
               <div className="step-card-icon-box step-icon-cyan">
@@ -474,7 +474,7 @@ export default function DownloadSection({ isStandalonePage = false }: DownloadSe
             <h3 className="step-card-title">{t.downloadPage.card3.title}</h3>
             <p className="step-card-desc">{t.downloadPage.card3.desc}</p>
 
-            {/* Visual Mockup 3: Animated Radar Sweeper & Live Command Telemetry */}
+            {/* Visual Mockup 3: Animated Radar Sweeper & Live Panel Telemetry */}
             <div className="step-mockup-frame mockup-radar">
               <div className="radar-circle-wrap">
                 <div className="radar-grid-ring ring-1" />
@@ -483,19 +483,19 @@ export default function DownloadSection({ isStandalonePage = false }: DownloadSe
                 <div className="radar-grid-cross cross-v" />
                 <div className="radar-sweep-beam" />
                 {/* Blinking detected telemetry nodes */}
-                <span className="radar-blip blip-1" title="Guard" />
-                <span className="radar-blip blip-2" title="Tickets" />
-                <span className="radar-blip blip-3" title="AutoMod" />
+                <span className="radar-blip blip-1" title="FiveM Panel" />
+                <span className="radar-blip blip-2" title="MDT Portal" />
+                <span className="radar-blip blip-3" title="Staff Hub" />
               </div>
 
               <div className="radar-telemetry-side">
                 <div className="radar-stat-box">
-                  <span className="radar-stat-label">Komut &amp; Olay Akışı</span>
+                  <span className="radar-stat-label">Aktif Panel &amp; Veri Akışı</span>
                   <span className="radar-stat-val">{scannedObjects.toLocaleString()} <small>işlem/sn</small></span>
                 </div>
                 <div className="radar-status-badge">
                   <span className="pulse-green-dot" />
-                  <span>Sunucuya Senkronize</span>
+                  <span>Paneller Senkronize</span>
                 </div>
               </div>
             </div>
@@ -506,22 +506,22 @@ export default function DownloadSection({ isStandalonePage = false }: DownloadSe
         <div className="download-system-specs-bar">
           <div className="spec-item">
             <span className="spec-label">Desteklenen Platform</span>
-            <span className="spec-val">Discord (Web / Masaüstü / Mobil)</span>
+            <span className="spec-val">Windows 10 / 11 (64-bit)</span>
           </div>
           <div className="spec-divider" />
           <div className="spec-item">
-            <span className="spec-label">Kurulum Tipi</span>
-            <span className="spec-val">Bulut Tabanlı (Cloud Gateway)</span>
+            <span className="spec-label">İstemci Mimarisi</span>
+            <span className="spec-val">Hafif Masaüstü (Native Client)</span>
           </div>
           <div className="spec-divider" />
           <div className="spec-item">
-            <span className="spec-label">Sunucu Yükü</span>
-            <span className="spec-val">Sıfır Yük (&lt; 15ms Ping)</span>
+            <span className="spec-label">Sistem Yükü</span>
+            <span className="spec-val">Düşük Kaynak (&lt; %1 CPU / 35MB RAM)</span>
           </div>
           <div className="spec-divider" />
           <div className="spec-item">
-            <span className="spec-label">Uptime &amp; Koruma</span>
-            <span className="spec-val">%99.9 Kesintisiz (7/24 Guard)</span>
+            <span className="spec-label">Bağlantı &amp; Güvenlik</span>
+            <span className="spec-val">Uçtan Uca Şifreli (SSL/TLS v1.3)</span>
           </div>
         </div>
       </div>
