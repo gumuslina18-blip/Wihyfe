@@ -5,6 +5,7 @@ import WebsitesSection from '@/components/WebsitesSection';
 import WebsiteLiveShowcase from '@/components/WebsiteLiveShowcase';
 import LiveAuditTicker from '@/components/LiveAuditTicker';
 import AdditionalServices from '@/components/AdditionalServices';
+import AdvertisementsSection from '@/components/AdvertisementsSection';
 import WhyUs from '@/components/WhyUs';
 import DdosDefenseRadar from '@/components/DdosDefenseRadar';
 import DashboardPreview from '@/components/DashboardPreview';
@@ -26,6 +27,7 @@ export default function HomePage() {
       <WebsitesSection />
       <WebsiteLiveShowcase />
       <AdditionalServices />
+      <AdvertisementsSection />
       <WhyUs />
       <DdosDefenseRadar />
       <LiveAuditTicker />
