@@ -39,9 +39,9 @@ export default function PartnersSection() {
 
   const servers = SITE_CONFIG.partnerServers || [];
 
-  // Repeat servers 4 times across the track so -50% translation is completely seamless on any viewport
+  // Repeat servers across the track so -50% translation is completely seamless on any viewport
   const repeatedServers = useMemo(() => {
-    return [...servers, ...servers, ...servers, ...servers];
+    return Array.from({ length: 16 }, () => servers).flat();
   }, [servers]);
 
   return (
