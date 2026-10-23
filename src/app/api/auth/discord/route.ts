@@ -4,21 +4,22 @@ import crypto from 'crypto';
 export const dynamic = 'force-dynamic';
 
 export async function GET(request: Request) {
-  const clientId = process.env.DISCORD_CLIENT_ID;
-  const host = request.headers.get('x-forwarded-host') || request.headers.get('host') || 'localhost:3001';
+  const host = request.headers.get('x-forwarded-host') || request.headers.get('host') || 'wihyfe.com';
   const proto = request.headers.get('x-forwarded-proto') || (host.includes('localhost') || host.includes('127.0.0.1') ? 'http' : 'https');
   const currentOrigin = `${proto}://${host}`;
 
-  const appUrl = currentOrigin;
-  // If running on localhost, dynamically use active port (3000, 3001 etc.) so it doesn't mismatch
-  const redirectUri = (host.includes('localhost') || host.includes('127.0.0.1') || !process.env.DISCORD_REDIRECT_URI)
-    ? `${currentOrigin}/api/auth/discord/callback`
-    : process.env.DISCORD_REDIRECT_URI;
+  const clientId = process.env.DISCORD_CLIENT_ID || '1563000519377817610';
+
+  // Bulletproof redirectUri: always matches the active domain (e.g. https://wihyfe.com/api/auth/discord/callback)
+  let redirectUri = `${currentOrigin}/api/auth/discord/callback`;
+  if (process.env.DISCORD_REDIRECT_URI && process.env.DISCORD_REDIRECT_URI.includes(host)) {
+    redirectUri = process.env.DISCORD_REDIRECT_URI;
+  }
 
   // If Client ID is not configured yet
   if (!clientId || clientId.trim() === '') {
     return NextResponse.redirect(
-      `${appUrl}/?auth_error=${encodeURIComponent('Lütfen .env.local dosyasında DISCORD_CLIENT_ID ve DISCORD_CLIENT_SECRET tanımlayın.')}`
+      `${currentOrigin}/?auth_error=${encodeURIComponent('Lütfen DISCORD_CLIENT_ID ve DISCORD_CLIENT_SECRET tanımlayın.')}`
     );
   }
 

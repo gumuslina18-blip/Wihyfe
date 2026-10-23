@@ -66,8 +66,8 @@ export interface AdminPackageSetting {
 export const ADMIN_CONFIG = {
   // Authorized Discord User IDs
   authorizedDiscordIds: [
-    '1557022423625371688', // Primary Client ID
-    // Add additional staff Discord snowflake IDs here
+    '1563000519377817610',
+    '1557022423625371688',
   ],
 
   // Master Passcode for staff access
