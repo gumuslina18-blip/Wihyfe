@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { AdminOrder, AdminTicket, AdminAuditLog } from '@/config/admin';
 import { CustomerBot, CustomerLicense } from '@/config/customer';
-import { SITE_CONFIG } from '@/config/site';
+import { SITE_CONFIG, getAllBotProducts } from '@/config/site';
 import { FinanceTransaction } from '@/types/admin';
 
 export interface PackagePeriodConfigState {
@@ -145,7 +145,7 @@ const STORE_FILE = path.join(DATA_DIR, 'store.json');
 
 export function initializePackageConfig(): Record<string, Record<string, PackagePeriodConfigState>> {
   const config: Record<string, Record<string, PackagePeriodConfigState>> = {};
-  SITE_CONFIG.bots.forEach((bot) => {
+  getAllBotProducts().forEach((bot) => {
     config[bot.id] = {
       monthly: {
         isAvailable: true,

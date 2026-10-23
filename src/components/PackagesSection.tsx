@@ -196,57 +196,59 @@ export default function PackagesSection() {
           </div>
         </div>
 
-        {/* Slider Controls Bar */}
-        <div className="card-slider-header-bar">
-          <div className="card-slider-telemetry">
-            <span className="card-slider-pulse-dot" />
-            <span>
-              {language === 'EN'
-                ? `Page ${currentPage + 1} / ${totalPages} • ${totalBots} Packages`
-                : `Sayfa ${currentPage + 1} / ${totalPages} • ${totalBots} Paket`}
-            </span>
-          </div>
-
-          <div className="card-slider-nav">
-            <button
-              type="button"
-              className="card-slider-btn"
-              onClick={() => setCurrentPage((p) => Math.max(0, p - 1))}
-              disabled={currentPage === 0}
-              aria-label="Önceki Sayfa"
-            >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <polyline points="15 18 9 12 15 6" />
-              </svg>
-            </button>
-
-            <div className="card-slider-dots-row" role="tablist" aria-label="Sayfa Göstergesi">
-              {Array.from({ length: totalPages }).map((_, i) => (
-                <button
-                  key={i}
-                  type="button"
-                  role="tab"
-                  aria-selected={i === currentPage}
-                  className={`card-slider-dot ${i === currentPage ? 'is-active' : ''}`}
-                  onClick={() => setCurrentPage(i)}
-                  aria-label={`Sayfa ${i + 1}`}
-                />
-              ))}
+        {/* Slider Controls Bar (only if more than 1 page) */}
+        {totalPages > 1 && (
+          <div className="card-slider-header-bar">
+            <div className="card-slider-telemetry">
+              <span className="card-slider-pulse-dot" />
+              <span>
+                {language === 'EN'
+                  ? `Page ${currentPage + 1} / ${totalPages} • ${totalBots} Packages`
+                  : `Sayfa ${currentPage + 1} / ${totalPages} • ${totalBots} Paket`}
+              </span>
             </div>
 
-            <button
-              type="button"
-              className="card-slider-btn"
-              onClick={() => setCurrentPage((p) => Math.min(totalPages - 1, p + 1))}
-              disabled={currentPage === totalPages - 1}
-              aria-label="Sonraki Sayfa"
-            >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <polyline points="9 18 15 12 9 6" />
-              </svg>
-            </button>
+            <div className="card-slider-nav">
+              <button
+                type="button"
+                className="card-slider-btn"
+                onClick={() => setCurrentPage((p) => Math.max(0, p - 1))}
+                disabled={currentPage === 0}
+                aria-label="Önceki Sayfa"
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="15 18 9 12 15 6" />
+                </svg>
+              </button>
+
+              <div className="card-slider-dots-row" role="tablist" aria-label="Sayfa Göstergesi">
+                {Array.from({ length: totalPages }).map((_, i) => (
+                  <button
+                    key={i}
+                    type="button"
+                    role="tab"
+                    aria-selected={i === currentPage}
+                    className={`card-slider-dot ${i === currentPage ? 'is-active' : ''}`}
+                    onClick={() => setCurrentPage(i)}
+                    aria-label={`Sayfa ${i + 1}`}
+                  />
+                ))}
+              </div>
+
+              <button
+                type="button"
+                className="card-slider-btn"
+                onClick={() => setCurrentPage((p) => Math.min(totalPages - 1, p + 1))}
+                disabled={currentPage === totalPages - 1}
+                aria-label="Sonraki Sayfa"
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="9 18 15 12 9 6" />
+                </svg>
+              </button>
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Sliding Carousel Viewport */}
         <div
@@ -255,17 +257,19 @@ export default function PackagesSection() {
           onTouchEnd={handleTouchEnd}
         >
           {/* Edge Left Button (Desktop) */}
-          <button
-            type="button"
-            className="card-slider-edge-btn edge-prev"
-            onClick={() => setCurrentPage((p) => Math.max(0, p - 1))}
-            disabled={currentPage === 0}
-            aria-label="Önceki Sayfa"
-          >
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <polyline points="15 18 9 12 15 6" />
-            </svg>
-          </button>
+          {totalPages > 1 && (
+            <button
+              type="button"
+              className="card-slider-edge-btn edge-prev"
+              onClick={() => setCurrentPage((p) => Math.max(0, p - 1))}
+              disabled={currentPage === 0}
+              aria-label="Önceki Sayfa"
+            >
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="15 18 9 12 15 6" />
+              </svg>
+            </button>
+          )}
 
           <div className="card-slider-viewport">
             <div
@@ -442,28 +446,32 @@ export default function PackagesSection() {
           </div>
 
           {/* Edge Right Button (Desktop) */}
-          <button
-            type="button"
-            className="card-slider-edge-btn edge-next"
-            onClick={() => setCurrentPage((p) => Math.min(totalPages - 1, p + 1))}
-            disabled={currentPage === totalPages - 1}
-            aria-label="Sonraki Sayfa"
-          >
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <polyline points="9 18 15 12 9 6" />
-            </svg>
-          </button>
+          {totalPages > 1 && (
+            <button
+              type="button"
+              className="card-slider-edge-btn edge-next"
+              onClick={() => setCurrentPage((p) => Math.min(totalPages - 1, p + 1))}
+              disabled={currentPage === totalPages - 1}
+              aria-label="Sonraki Sayfa"
+            >
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="9 18 15 12 9 6" />
+              </svg>
+            </button>
+          )}
         </div>
 
-        <div className="card-slider-hint">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <polyline points="15 18 9 12 15 6" />
-          </svg>
-          <span>{language === 'EN' ? 'Swipe left or right to browse packages' : 'Paketleri görmek için sağa / sola kaydırın'}</span>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <polyline points="9 18 15 12 9 6" />
-          </svg>
-        </div>
+        {totalPages > 1 && (
+          <div className="card-slider-hint">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="15 18 9 12 15 6" />
+            </svg>
+            <span>{language === 'EN' ? 'Swipe left or right to browse packages' : 'Paketleri görmek için sağa / sola kaydırın'}</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="9 18 15 12 9 6" />
+            </svg>
+          </div>
+        )}
       </div>
     </section>
   );

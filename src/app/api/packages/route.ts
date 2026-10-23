@@ -1,18 +1,19 @@
 import { NextResponse } from 'next/server';
 import { reloadStore } from '@/lib/serverStore';
-import { BILLING_PERIODS, SITE_CONFIG } from '@/config/site';
+import { BILLING_PERIODS, getAllBotProducts } from '@/config/site';
 
 export const dynamic = 'force-dynamic';
 
 export async function GET() {
   const currentStore = reloadStore();
+  const allProducts = getAllBotProducts();
 
   // Compute dynamic periods
   const dynamicPeriods = BILLING_PERIODS.map((period) => {
     let anyPackageAvailable = false;
     let anyStatusBadge: string | undefined = undefined;
 
-    SITE_CONFIG.bots.forEach((bot) => {
+    allProducts.forEach((bot) => {
       const cfg = currentStore.packageConfig[bot.id]?.[period.id];
       if (cfg?.isAvailable) {
         anyPackageAvailable = true;

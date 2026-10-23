@@ -141,7 +141,9 @@ export const SITE_CONFIG = {
   navLinks: [
     { label: 'Ana Sayfa', href: '#hero' },
     { label: 'Nelere Hitap Ediyoruz?', href: '#hitap-ettiklerimiz' },
-    { label: 'Yazılım Çözümleri', href: '#paketler' },
+    { label: 'Bot Paketleri', href: '#paketler' },
+    { label: 'Yönetim Panelleri', href: '#paneller' },
+    { label: 'Özel Yazılım', href: '#ozel-yazilim' },
     { label: 'Websiteler', href: '#websiteler' },
     { label: 'Ek Hizmetler', href: '#ek-hizmetler' },
     { label: 'İlanlar', href: '#ilanlar' },
@@ -206,6 +208,52 @@ export const SITE_CONFIG = {
         },
       },
     },
+    {
+      id: 'fivem-full',
+      name: 'Fivem Full Pack',
+      badge: 'FiveM Botu',
+      description: 'FiveM sunucularına özel mesai, başvuru, guard ve hızlı giriş bot altyapısı.',
+      icon: 'shield',
+      buttonText: 'Sepete Ekle',
+      features: [
+        'FiveM Oyuncu & Sunucu Bilgi Botu',
+        'Mesai & Vardiya Takip Sistemi',
+        'Yetkili Başvuru & Mülakat Modülü',
+        'Guard & Sunucu Koruma Altyapısı',
+        'Hızlı Giriş & Whitelist Doğrulama',
+      ],
+      pricing: {
+        monthly: {
+          totalPrice: '850,00',
+          periodLabel: 'TL / ay',
+          paytrUrl: 'https://www.paytr.com/link/zTJyByr',
+        },
+        quarterly: {
+          totalPrice: '2.295,00',
+          periodLabel: 'TL / 3 ay',
+          originalPrice: '2.550,00 TL',
+          discountBadge: '%10 İndirim',
+          monthlyEquivalent: '765 TL / ay',
+        },
+        'semi-annual': {
+          totalPrice: '4.080,00',
+          periodLabel: 'TL / 6 ay',
+          originalPrice: '5.100,00 TL',
+          discountBadge: '%20 İndirim',
+          monthlyEquivalent: '680 TL / ay',
+        },
+        annual: {
+          totalPrice: '6.630,00',
+          periodLabel: 'TL / yıl',
+          originalPrice: '10.200,00 TL',
+          discountBadge: '%35 İndirim',
+          monthlyEquivalent: '552 TL / ay',
+        },
+      },
+    },
+  ] as BotProduct[],
+
+  panels: [
     {
       id: 'fivem-admin-panel',
       name: 'FiveM Oyun İçi Admin Paneli',
@@ -293,55 +341,16 @@ export const SITE_CONFIG = {
         },
       },
     },
-    {
-      id: 'fivem-full',
-      name: 'Fivem Full Pack',
-      badge: 'FiveM Botu',
-      description: 'FiveM sunucularına özel mesai, başvuru, guard ve hızlı giriş bot altyapısı.',
-      icon: 'shield',
-      buttonText: 'Sepete Ekle',
-      features: [
-        'FiveM Oyuncu & Sunucu Bilgi Botu',
-        'Mesai & Vardiya Takip Sistemi',
-        'Yetkili Başvuru & Mülakat Modülü',
-        'Guard & Sunucu Koruma Altyapısı',
-        'Hızlı Giriş & Whitelist Doğrulama',
-      ],
-      pricing: {
-        monthly: {
-          totalPrice: '850,00',
-          periodLabel: 'TL / ay',
-          paytrUrl: 'https://www.paytr.com/link/zTJyByr',
-        },
-        quarterly: {
-          totalPrice: '2.295,00',
-          periodLabel: 'TL / 3 ay',
-          originalPrice: '2.550,00 TL',
-          discountBadge: '%10 İndirim',
-          monthlyEquivalent: '765 TL / ay',
-        },
-        'semi-annual': {
-          totalPrice: '4.080,00',
-          periodLabel: 'TL / 6 ay',
-          originalPrice: '5.100,00 TL',
-          discountBadge: '%20 İndirim',
-          monthlyEquivalent: '680 TL / ay',
-        },
-        annual: {
-          totalPrice: '6.630,00',
-          periodLabel: 'TL / yıl',
-          originalPrice: '10.200,00 TL',
-          discountBadge: '%35 İndirim',
-          monthlyEquivalent: '552 TL / ay',
-        },
-      },
-    },
+  ] as BotProduct[],
+
+  customApps: [
     {
       id: 'custom-app',
       name: 'Kişiye Özel Uygulama',
       badge: 'Özel Yazılım',
       description: 'Projenize özel masaüstü (Windows), otomasyon istemcileri ve entegre araçlar.',
       icon: 'code',
+      popular: true,
       buttonText: 'Sepete Ekle',
       features: [
         'Özel Windows / Masaüstü İstemcisi',
@@ -930,8 +939,17 @@ export const SITE_CONFIG = {
   ] as PartnerServer[],
 };
 
+export function getAllBotProducts(): BotProduct[] {
+  return [
+    ...SITE_CONFIG.bots,
+    ...(SITE_CONFIG.panels || []),
+    ...(SITE_CONFIG.customApps || []),
+  ];
+}
+
 export function getPaytrUrl(productId: string, period?: BillingPeriod): string | undefined {
-  const bot = SITE_CONFIG.bots.find((b) => b.id === productId);
+  const allProducts = getAllBotProducts();
+  const bot = allProducts.find((b) => b.id === productId);
   if (bot && period && bot.pricing[period]?.paytrUrl) {
     return bot.pricing[period].paytrUrl;
   }
@@ -949,3 +967,4 @@ export function getPaytrUrl(productId: string, period?: BillingPeriod): string |
   }
   return undefined;
 }
+

@@ -7,7 +7,7 @@ import {
   AdminPin,
   FinanceTransaction,
 } from '@/types/admin';
-import { SITE_CONFIG } from '@/config/site';
+import { SITE_CONFIG, getAllBotProducts } from '@/config/site';
 
 // 100% Real users: Only actual site staff/owner (lunaalvine & Gumus). No fabricated demo users.
 export const INITIAL_USERS: AdminUser[] = [
@@ -53,8 +53,8 @@ function parsePrice(priceStr?: string): number {
 
 // 100% Real products: Dynamically mapped from SITE_CONFIG (All real bots, standalone bots, and websites)
 export const INITIAL_PRODUCTS: AdminProduct[] = [
-  // 1. Packaged Bots (Aylık, 3 Aylık, 6 Aylık, Yıllık periyotlarıyla)
-  ...SITE_CONFIG.bots.map((bot) => ({
+  // 1. Packaged Bots, Panels & Apps (Aylık, 3 Aylık, 6 Aylık, Yıllık periyotlarıyla)
+  ...getAllBotProducts().map((bot) => ({
     id: `prod_${bot.id}`,
     originalId: bot.id,
     name: bot.name,
