@@ -21,7 +21,7 @@ export const SHOWCASE_TEMPLATES: ShowcaseTemplate[] = [
     id: 'donate-market',
     name: 'Donate & Market Sistemi',
     tag: 'Web - Donate',
-    badge: 'En Popüler',
+    badge: 'Yakında',
     icon: (
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
@@ -36,7 +36,7 @@ export const SHOWCASE_TEMPLATES: ShowcaseTemplate[] = [
     id: 'mdt-cad',
     name: 'LSPD Polis & MDT/CAD Portalı',
     tag: 'Web - Legal',
-    badge: 'Gelişmiş CAD',
+    badge: 'Yakında',
     icon: (
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
@@ -129,11 +129,12 @@ const DEVICE_CONFIGS: Record<DeviceType, DeviceConfig> = {
 };
 
 export default function WebsiteLiveShowcase() {
-  const { t } = useLanguage();
-  const [selectedTemplate, setSelectedTemplate] = useState<ShowcaseTemplate>(SHOWCASE_TEMPLATES[0]);
+  const defaultTmpl = SHOWCASE_TEMPLATES.find((t) => t.id === 'community-cashv') || SHOWCASE_TEMPLATES[0];
+  const [selectedTemplate, setSelectedTemplate] = useState<ShowcaseTemplate>(defaultTmpl);
   const [selectedDevice, setSelectedDevice] = useState<DeviceType>('desktop');
-  const [currentUrl, setCurrentUrl] = useState<string>(SHOWCASE_TEMPLATES[0].url);
-  const [addressBarInput, setAddressBarInput] = useState<string>('https://demo.wihyfe.com' + SHOWCASE_TEMPLATES[0].url);
+  const [currentUrl, setCurrentUrl] = useState<string>(defaultTmpl.url);
+  const [addressBarInput, setAddressBarInput] = useState<string>('https://demo.wihyfe.com' + defaultTmpl.url);
+  const [showMockupPreview, setShowMockupPreview] = useState<boolean>(false);
   const [is3DMode, setIs3DMode] = useState<boolean>(true);
   const [isAutoFloating, setIsAutoFloating] = useState<boolean>(false);
   const [isReloading, setIsReloading] = useState<boolean>(false);
@@ -178,6 +179,7 @@ export default function WebsiteLiveShowcase() {
   const handleSelectTemplate = (template: ShowcaseTemplate) => {
     setSelectedTemplate(template);
     setCurrentUrl(template.url);
+    setShowMockupPreview(false);
     if (template.url.startsWith('http://') || template.url.startsWith('https://')) {
       setAddressBarInput(template.url);
     } else {
@@ -355,7 +357,11 @@ export default function WebsiteLiveShowcase() {
                   <span className="template-name">{tmpl.name}</span>
                   <span className="template-tag">{tmpl.tag}</span>
                 </div>
-                {tmpl.badge && <span className="template-badge">{tmpl.badge}</span>}
+                {tmpl.badge && (
+                  <span className={`template-badge ${tmpl.badge === 'Yakında' ? 'badge-soon' : ''}`}>
+                    {tmpl.badge}
+                  </span>
+                )}
               </button>
             );
           })}
@@ -594,6 +600,51 @@ export default function WebsiteLiveShowcase() {
                 <div className="device-loading-state">
                   <div className="showcase-loader-spinner" />
                   <span>Canlı demo yükleniyor...</span>
+                </div>
+              ) : (selectedTemplate.id === 'donate-market' || selectedTemplate.id === 'mdt-cad') && !showMockupPreview ? (
+                <div className="device-coming-soon-screen">
+                  <div className="coming-soon-badge-row">
+                    <span className="pulse-dot-amber" />
+                    <span>ÇOK YAKINDA</span>
+                  </div>
+                  <div className="coming-soon-icon-box">
+                    {selectedTemplate.id === 'donate-market' ? (
+                      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
+                        <line x1="3" y1="6" x2="21" y2="6" />
+                        <path d="M16 10a4 4 0 0 1-8 0" />
+                      </svg>
+                    ) : (
+                      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                      </svg>
+                    )}
+                  </div>
+                  <h3 className="coming-soon-title">{selectedTemplate.name}</h3>
+                  <p className="coming-soon-desc">
+                    {selectedTemplate.id === 'donate-market'
+                      ? 'PayTR otomatik teslimatlı bakiye, araç ve VIP paket market altyapısı geliştirme aşamasındadır. Çok yakında hizmete sunulacaktır.'
+                      : 'FiveM canlı 911 ihbar akışı, GBT vatandaş sorgulama ve devriye takip CAD sistemi geliştirme aşamasındadır. Çok yakında aktif olacaktır.'}
+                  </p>
+                  <div className="coming-soon-btn-group">
+                    <button
+                      type="button"
+                      className="coming-soon-cta-btn"
+                      onClick={() => {
+                        const cashv = SHOWCASE_TEMPLATES.find((t) => t.id === 'community-cashv');
+                        if (cashv) handleSelectTemplate(cashv);
+                      }}
+                    >
+                      <span>⚡ Aktif CashV Canlı Vitrinini İncele</span>
+                    </button>
+                    <button
+                      type="button"
+                      className="coming-soon-secondary-btn"
+                      onClick={() => setShowMockupPreview(true)}
+                    >
+                      <span>👁️ Tasarım Önizlemesini Gör</span>
+                    </button>
+                  </div>
                 </div>
               ) : selectedTemplate.id === 'donate-market' && !currentUrl.startsWith('http://') && !currentUrl.startsWith('https://') ? (
                 <div className="device-screen-scroll-container">
