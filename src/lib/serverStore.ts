@@ -172,6 +172,34 @@ export function initializePackageConfig(): Record<string, Record<string, Package
       },
     };
   });
+
+  SITE_CONFIG.websites.forEach((site) => {
+    config[site.id] = {
+      monthly: {
+        isAvailable: !site.isCustomQuote,
+        paytrUrl: site.pricing.monthly.paytrUrl || '',
+        customPrice: site.pricing.monthly.totalPrice,
+      },
+      quarterly: {
+        isAvailable: false,
+        statusBadge: 'Yakında',
+        paytrUrl: site.pricing.quarterly.paytrUrl || '',
+        customPrice: site.pricing.quarterly.totalPrice,
+      },
+      'semi-annual': {
+        isAvailable: false,
+        statusBadge: 'Yakında',
+        paytrUrl: site.pricing['semi-annual'].paytrUrl || '',
+        customPrice: site.pricing['semi-annual'].totalPrice,
+      },
+      annual: {
+        isAvailable: false,
+        statusBadge: 'Yakında',
+        paytrUrl: site.pricing.annual.paytrUrl || '',
+        customPrice: site.pricing.annual.totalPrice,
+      },
+    };
+  });
   return config;
 }
 
