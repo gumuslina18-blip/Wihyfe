@@ -29323,6 +29323,879 @@ img, a {
   margin-top: 2px;
 }
 
+/* =========================================================================
+   CASHV ROLEPLAY - COMMUNITY SHOWCASE STYLING (localhost:3001)
+   ========================================================================= */
+.demo-cashv-container {
+  background: #080210;
+  color: #f3f4f6;
+  font-family: inherit;
+  min-height: 100%;
+  position: relative;
+  overflow-x: hidden;
+  padding-bottom: 2rem;
+}
+
+.demo-cashv-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: rgba(12, 4, 26, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(168, 85, 247, 0.22);
+  padding: 0.75rem 1.25rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.demo-cashv-nav-left {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.demo-cashv-logo-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.demo-cashv-logo-img {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 8px rgba(168, 85, 247, 0.8));
+}
+
+.demo-cashv-brand-text {
+  font-size: 1.15rem;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+}
+
+.demo-cashv-accent {
+  color: #c084fc;
+}
+
+.demo-cashv-tagline {
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  color: #a855f7;
+}
+
+.demo-cashv-nav-links {
+  display: flex;
+  gap: 1.25rem;
+}
+
+.demo-cashv-nav-link {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #94a3b8;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.demo-cashv-nav-link:hover,
+.demo-cashv-nav-link.active {
+  color: #e9d5ff;
+}
+
+.demo-cashv-nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.demo-cashv-btn-apply {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.85rem;
+  background: linear-gradient(135deg, #9333ea, #7c3aed);
+  border: 1px solid rgba(192, 132, 252, 0.5);
+  border-radius: 8px;
+  color: #ffffff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 0 14px rgba(147, 51, 234, 0.35);
+}
+
+.demo-cashv-btn-apply:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 0 20px rgba(147, 51, 234, 0.6);
+}
+
+.demo-cashv-btn-discord {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.85rem;
+  background: rgba(88, 101, 242, 0.15);
+  border: 1px solid rgba(88, 101, 242, 0.4);
+  border-radius: 8px;
+  color: #a5b4fc;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.demo-cashv-btn-discord:hover {
+  background: rgba(88, 101, 242, 0.3);
+  color: #ffffff;
+}
+
+/* HERO SECTION */
+.demo-cashv-hero {
+  position: relative;
+  padding: 2.25rem 1.5rem 1.75rem;
+  overflow: hidden;
+}
+
+.demo-cashv-hero-glow {
+  position: absolute;
+  top: 10%;
+  left: 25%;
+  width: 450px;
+  height: 250px;
+  background: radial-gradient(circle, rgba(168, 85, 247, 0.25) 0%, transparent 70%);
+  pointer-events: none;
+  filter: blur(40px);
+}
+
+.demo-cashv-hero-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 0.8fr;
+  align-items: center;
+  gap: 2rem;
+  max-width: 1080px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 10;
+}
+
+.demo-cashv-badges-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-bottom: 0.85rem;
+}
+
+.demo-cashv-pill-glow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  background: rgba(168, 85, 247, 0.15);
+  border: 1px solid rgba(192, 132, 252, 0.4);
+  color: #d8b4fe;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  box-shadow: 0 0 12px rgba(168, 85, 247, 0.3);
+}
+
+.demo-cashv-pill-live {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #e2e8f0;
+  font-size: 0.68rem;
+}
+
+.demo-cashv-live-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 9999px;
+  background: #10b981;
+  box-shadow: 0 0 8px #10b981;
+  animation: pulse 1.5s infinite;
+}
+
+.demo-cashv-kendi-hikayen {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  color: #c084fc;
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+}
+
+.demo-cashv-main-title {
+  font-size: 2.35rem;
+  font-weight: 950;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  color: #ffffff;
+  margin: 0 0 0.5rem;
+}
+
+.demo-cashv-title-gradient {
+  background: linear-gradient(135deg, #c084fc, #f472b6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.demo-cashv-subtitle {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #e9d5ff;
+  margin-bottom: 0.65rem;
+}
+
+.demo-cashv-desc {
+  font-size: 0.78rem;
+  line-height: 1.55;
+  color: #cbd5e1;
+  max-width: 520px;
+  margin-bottom: 1.25rem;
+}
+
+.demo-cashv-hero-btns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1.15rem;
+}
+
+.demo-cashv-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.25rem;
+  background: linear-gradient(135deg, #9333ea, #6b21a8);
+  border: 1px solid rgba(216, 180, 254, 0.45);
+  border-radius: 9px;
+  color: #ffffff;
+  font-size: 0.8rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 0 20px rgba(147, 51, 234, 0.4);
+}
+
+.demo-cashv-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 28px rgba(168, 85, 247, 0.7);
+}
+
+.demo-cashv-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.15rem;
+  background: rgba(168, 85, 247, 0.12);
+  border: 1px solid rgba(168, 85, 247, 0.35);
+  border-radius: 9px;
+  color: #e9d5ff;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.demo-cashv-btn-secondary:hover {
+  background: rgba(168, 85, 247, 0.24);
+  color: #ffffff;
+}
+
+.demo-cashv-f8-box {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.65);
+  border: 1px solid rgba(168, 85, 247, 0.3);
+  font-size: 0.7rem;
+}
+
+.demo-cashv-f8-label {
+  color: #94a3b8;
+}
+
+.demo-cashv-f8-code {
+  color: #c084fc;
+  font-family: monospace;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.demo-cashv-f8-copy-btn {
+  background: transparent;
+  border: none;
+  color: #a855f7;
+  font-size: 0.68rem;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0.15rem 0.35rem;
+}
+
+.demo-cashv-hero-right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.demo-cashv-logo-3d-wrap {
+  position: relative;
+  width: 170px;
+  height: 170px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.demo-cashv-logo-ambient-glow {
+  position: absolute;
+  inset: -15px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(168, 85, 247, 0.45) 0%, transparent 70%);
+  filter: blur(25px);
+  animation: pulse 3s ease-in-out infinite alternate;
+}
+
+.demo-cashv-logo-3d-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 0 25px rgba(168, 85, 247, 0.75));
+  position: relative;
+  z-index: 2;
+  transition: transform 0.4s ease;
+}
+
+.demo-cashv-logo-3d-img:hover {
+  transform: scale(1.06) rotate(-2deg);
+}
+
+/* METRICS */
+.demo-cashv-metrics {
+  background: rgba(18, 5, 36, 0.6);
+  border-top: 1px solid rgba(168, 85, 247, 0.18);
+  border-bottom: 1px solid rgba(168, 85, 247, 0.18);
+  padding: 1.25rem 1.5rem;
+  max-width: 1080px;
+  margin: 0 auto 2rem;
+  border-radius: 14px;
+}
+
+.demo-cashv-metrics-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.demo-cashv-metrics-title-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.demo-cashv-ping-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #a855f7;
+  animation: pulse 1.2s infinite;
+}
+
+.demo-cashv-metrics-title {
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #ffffff;
+}
+
+.demo-cashv-metrics-sub {
+  font-size: 0.68rem;
+  color: #a855f7;
+  font-family: monospace;
+}
+
+.demo-cashv-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.85rem;
+}
+
+.demo-cashv-stat-card {
+  background: rgba(12, 4, 26, 0.85);
+  border: 1px solid rgba(168, 85, 247, 0.2);
+  border-radius: 10px;
+  padding: 0.85rem;
+  transition: all 0.2s ease;
+}
+
+.demo-cashv-stat-card:hover {
+  border-color: rgba(192, 132, 252, 0.5);
+  transform: translateY(-2px);
+}
+
+.demo-cashv-stat-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #c084fc;
+  margin-bottom: 0.35rem;
+}
+
+.demo-cashv-stat-val {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin-bottom: 0.4rem;
+}
+
+.demo-cashv-stat-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.62rem;
+  color: #64748b;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  padding-top: 0.35rem;
+}
+
+/* FEATURES SECTION */
+.demo-cashv-features-section {
+  max-width: 1080px;
+  margin: 0 auto 2.5rem;
+  padding: 0 1.5rem;
+}
+
+.demo-cashv-features-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.demo-cashv-features-tag {
+  display: inline-block;
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: #c084fc;
+  background: rgba(168, 85, 247, 0.12);
+  border: 1px solid rgba(168, 85, 247, 0.3);
+  padding: 0.15rem 0.5rem;
+  border-radius: 9999px;
+  margin-bottom: 0.35rem;
+}
+
+.demo-cashv-features-title {
+  font-size: 1.35rem;
+  font-weight: 900;
+  color: #ffffff;
+  margin: 0 0 0.25rem;
+}
+
+.demo-cashv-features-desc {
+  font-size: 0.75rem;
+  color: #94a3b8;
+  margin: 0;
+}
+
+.demo-cashv-tab-group {
+  display: flex;
+  gap: 0.35rem;
+  background: rgba(18, 5, 36, 0.7);
+  border: 1px solid rgba(168, 85, 247, 0.25);
+  border-radius: 9px;
+  padding: 0.25rem;
+}
+
+.demo-cashv-tab-btn {
+  padding: 0.35rem 0.75rem;
+  border-radius: 6px;
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  font-size: 0.7rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.demo-cashv-tab-btn.active {
+  background: #9333ea;
+  color: #ffffff;
+  box-shadow: 0 0 12px rgba(147, 51, 234, 0.45);
+}
+
+.demo-cashv-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.demo-cashv-feature-card {
+  background: rgba(14, 5, 28, 0.8);
+  border: 1px solid rgba(168, 85, 247, 0.2);
+  border-radius: 12px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.25s ease;
+}
+
+.demo-cashv-feature-card:hover {
+  border-color: rgba(192, 132, 252, 0.6);
+  transform: translateY(-3px);
+  box-shadow: 0 0 25px rgba(168, 85, 247, 0.22);
+}
+
+.demo-cashv-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.demo-cashv-card-icon-box {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: rgba(168, 85, 247, 0.15);
+  border: 1px solid rgba(168, 85, 247, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #d8b4fe;
+}
+
+.demo-cashv-card-badge {
+  font-size: 0.6rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+}
+
+.demo-cashv-card-title {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0 0 0.35rem;
+}
+
+.demo-cashv-card-desc {
+  font-size: 0.72rem;
+  line-height: 1.45;
+  color: #94a3b8;
+  margin: 0 0 0.85rem;
+  flex-grow: 1;
+}
+
+.demo-cashv-card-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  padding-top: 0.6rem;
+}
+
+.demo-cashv-active-pill {
+  font-size: 0.62rem;
+  font-weight: 700;
+  color: #34d399;
+}
+
+.demo-cashv-card-link {
+  background: none;
+  border: none;
+  color: #c084fc;
+  font-size: 0.68rem;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0;
+}
+
+.demo-cashv-card-link:hover {
+  text-decoration: underline;
+}
+
+/* VINEWOOD BANNER */
+.demo-cashv-vinewood-banner {
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(46, 16, 82, 0.85) 0%, rgba(13, 3, 26, 0.95) 100%);
+  border: 1px solid rgba(168, 85, 247, 0.35);
+  padding: 1.5rem 1.75rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.demo-cashv-vinewood-tag {
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: #c084fc;
+  letter-spacing: 0.1em;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.demo-cashv-vinewood-title {
+  font-size: 1.25rem;
+  font-weight: 900;
+  color: #ffffff;
+  margin: 0 0 0.35rem;
+}
+
+.demo-cashv-vinewood-desc {
+  font-size: 0.75rem;
+  color: #cbd5e1;
+  max-width: 580px;
+  margin: 0 0 1rem;
+}
+
+.demo-cashv-vinewood-btns {
+  display: flex;
+  gap: 0.75rem;
+}
+
+/* DISCORD BANNER */
+.demo-cashv-discord-banner {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto 2rem;
+  padding: 1.5rem 1rem;
+}
+
+.demo-cashv-discord-pill-live {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.25rem 0.85rem;
+  border-radius: 9999px;
+  background: rgba(168, 85, 247, 0.18);
+  border: 1px solid rgba(192, 132, 252, 0.4);
+  color: #e9d5ff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+
+.demo-cashv-discord-heading {
+  font-size: 1.6rem;
+  font-weight: 950;
+  color: #ffffff;
+  margin: 0 0 0.25rem;
+}
+
+.demo-cashv-discord-quote {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #d8b4fe;
+  margin: 0 0 0.35rem;
+}
+
+.demo-cashv-discord-sub {
+  font-size: 0.72rem;
+  color: #94a3b8;
+  max-width: 480px;
+  margin: 0 auto 1.25rem;
+}
+
+.demo-cashv-discord-center-action {
+  display: flex;
+  justify-content: center;
+}
+
+.demo-cashv-discord-giant-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 2rem;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, rgba(88, 101, 242, 0.8), rgba(124, 58, 237, 0.9));
+  border: 2px solid rgba(192, 132, 252, 0.6);
+  color: #ffffff;
+  font-size: 0.95rem;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  text-decoration: none;
+  box-shadow: 0 0 35px rgba(124, 58, 237, 0.55);
+  transition: all 0.25s ease;
+}
+
+.demo-cashv-discord-giant-pill:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 50px rgba(168, 85, 247, 0.85);
+}
+
+.demo-cashv-wave {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.demo-cashv-wave span {
+  display: inline-block;
+  background: #ffffff;
+  border-radius: 2px;
+  width: 3px;
+}
+
+.demo-cashv-wave .w-1 { height: 7px; }
+.demo-cashv-wave .w-2 { height: 14px; animation: pulse 0.8s infinite; }
+.demo-cashv-wave .w-3 { height: 9px; }
+
+/* FOOTER */
+.demo-cashv-footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 1.25rem 1.5rem 0.5rem;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+.demo-cashv-footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  font-size: 0.65rem;
+  color: #64748b;
+}
+
+.demo-cashv-footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.demo-cashv-footer-logo {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+}
+
+/* MODAL */
+.demo-cashv-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(6px);
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+
+.demo-cashv-modal {
+  background: #110526;
+  border: 1px solid rgba(168, 85, 247, 0.4);
+  border-radius: 14px;
+  max-width: 440px;
+  width: 100%;
+  padding: 1.25rem;
+  box-shadow: 0 0 40px rgba(168, 85, 247, 0.35);
+}
+
+.demo-cashv-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+  border-bottom: 1px solid rgba(168, 85, 247, 0.2);
+  padding-bottom: 0.5rem;
+}
+
+.demo-cashv-modal-close {
+  background: none;
+  border: none;
+  color: #94a3b8;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.demo-cashv-form-group {
+  margin-bottom: 0.75rem;
+}
+
+.demo-cashv-form-group label {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #cbd5e1;
+  margin-bottom: 0.25rem;
+}
+
+.demo-cashv-form-group input,
+.demo-cashv-form-group textarea {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(168, 85, 247, 0.3);
+  border-radius: 6px;
+  padding: 0.45rem 0.65rem;
+  font-size: 0.72rem;
+  color: #ffffff;
+  outline: none;
+}
+
+.demo-cashv-form-group input:focus,
+.demo-cashv-form-group textarea:focus {
+  border-color: #c084fc;
+}
+
+/* RESPONSIVE DEMO CASHV */
+@media (max-width: 768px) {
+  .demo-cashv-hero-grid {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .demo-cashv-badges-row,
+  .demo-cashv-hero-btns {
+    justify-content: center;
+  }
+  .demo-cashv-desc {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .demo-cashv-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .demo-cashv-cards-grid {
+    grid-template-columns: 1fr;
+  }
+  .demo-cashv-nav-links {
+    display: none;
+  }
+}
+
+
 
 
 

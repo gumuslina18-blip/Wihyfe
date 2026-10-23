@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useEffect, MouseEvent } from 'react';
 import { useLanguage } from '@/context/LanguageContext';
-import { DonateMarketView, MdtCadView } from '@/components/ShowcaseDemoViews';
+import { DonateMarketView, MdtCadView, CashVCommunityView } from '@/components/ShowcaseDemoViews';
 
 export type DeviceType = 'desktop' | 'laptop' | 'tablet' | 'mobile';
 
@@ -44,6 +44,22 @@ export const SHOWCASE_TEMPLATES: ShowcaseTemplate[] = [
     ),
     url: '/showcase/mdt-cad',
     desc: 'Canlı 911 ihbar akışı, GBT vatandaş sorgulama, devriye birim takibi ve vaka raporları.',
+  },
+  {
+    id: 'community-cashv',
+    name: 'CashV Community Portalı',
+    tag: 'Web - Community',
+    badge: 'Topluluk Portalı',
+    icon: (
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+        <circle cx="9" cy="7" r="4" />
+        <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+      </svg>
+    ),
+    url: 'http://localhost:3001',
+    desc: 'CashV FiveM roleplay topluluk vitrini, canlı sunucu istatistikleri, başvuru ve Discord bağlantısı.',
   },
 ];
 
@@ -124,6 +140,7 @@ export default function WebsiteLiveShowcase() {
   const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
   const [zoomScale, setZoomScale] = useState<number | 'auto'>('auto');
   const [isCopied, setIsCopied] = useState<boolean>(false);
+  const [useLocalhostIframe, setUseLocalhostIframe] = useState<boolean>(true);
 
   const [isLivePreviewActive] = useState<boolean>(true);
   const [isRevealed, setIsRevealed] = useState<boolean>(false);
@@ -161,7 +178,11 @@ export default function WebsiteLiveShowcase() {
   const handleSelectTemplate = (template: ShowcaseTemplate) => {
     setSelectedTemplate(template);
     setCurrentUrl(template.url);
-    setAddressBarInput('https://demo.wihyfe.com' + template.url);
+    if (template.url.startsWith('http://') || template.url.startsWith('https://')) {
+      setAddressBarInput(template.url);
+    } else {
+      setAddressBarInput('https://demo.wihyfe.com' + template.url);
+    }
     triggerReload();
   };
 
@@ -521,6 +542,22 @@ export default function WebsiteLiveShowcase() {
 
               {/* Device Resolution & Copy Pill */}
               <div className="device-chrome-badges">
+                {selectedTemplate.id === 'community-cashv' && (
+                  <button
+                    type="button"
+                    className="device-copy-pill"
+                    style={{
+                      background: useLocalhostIframe ? 'rgba(168, 85, 247, 0.35)' : 'rgba(59, 130, 246, 0.35)',
+                      color: '#ffffff',
+                      borderColor: 'rgba(168, 85, 247, 0.5)',
+                      fontWeight: 700,
+                    }}
+                    onClick={() => setUseLocalhostIframe(!useLocalhostIframe)}
+                    title="Yerel Port 3001 ile Entegre Vitrin Arasında Geçiş Yap"
+                  >
+                    {useLocalhostIframe ? '⚡ Yerel:3001' : '👁️ Vitrin'}
+                  </button>
+                )}
                 <span className="device-res-pill" title="Aktif Çözünürlük">
                   {device.resolution}
                 </span>
@@ -566,6 +603,10 @@ export default function WebsiteLiveShowcase() {
                 <div className="device-screen-scroll-container">
                   <MdtCadView />
                 </div>
+              ) : selectedTemplate.id === 'community-cashv' && (!useLocalhostIframe || (typeof window !== 'undefined' && window.location.protocol === 'https:') || currentUrl.includes('/showcase/community-cashv')) ? (
+                <div className="device-screen-scroll-container">
+                  <CashVCommunityView />
+                </div>
               ) : (
                 <iframe
                   ref={iframeRef}
@@ -574,6 +615,7 @@ export default function WebsiteLiveShowcase() {
                   className="device-iframe"
                   loading="lazy"
                   sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
+                  onError={() => setUseLocalhostIframe(false)}
                 />
               )}
             </div>

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useParams } from 'next/navigation';
-import { DonateMarketView, MdtCadView } from '@/components/ShowcaseDemoViews';
+import { DonateMarketView, MdtCadView, CashVCommunityView } from '@/components/ShowcaseDemoViews';
 
 export default function ShowcasePage() {
   const params = useParams();
@@ -10,6 +10,9 @@ export default function ShowcasePage() {
 
   if (template === 'mdt-cad') {
     return <MdtCadView />;
+  }
+  if (template === 'community-cashv' || template === 'cashv' || template === 'community') {
+    return <CashVCommunityView />;
   }
 
   // Default: donate-market

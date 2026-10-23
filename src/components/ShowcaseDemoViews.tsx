@@ -1027,3 +1027,518 @@ export function MdtCadView() {
     </div>
   );
 }
+
+/* =========================================================================
+   3. CASHV ROLEPLAY - WEBSITE COMMUNITY SHOWCASE VIEW
+   Integrated from cashvsite (localhost:3001)
+   ========================================================================= */
+export function CashVCommunityView() {
+  const [activeCategory, setActiveCategory] = useState<'ALL' | 'LEGAL' | 'ILLEGAL'>('ALL');
+  const [copiedF8, setCopiedF8] = useState(false);
+  const [showApplyModal, setShowApplyModal] = useState(false);
+
+  const handleCopyF8 = () => {
+    navigator.clipboard?.writeText('connect cfx.re/join/cashv');
+    setCopiedF8(true);
+    setTimeout(() => setCopiedF8(false), 2200);
+  };
+
+  const featureCards = [
+    {
+      id: 'vinewood-luxury',
+      category: 'LEGAL',
+      badge: 'LÜKS YAŞAM',
+      title: 'Vinewood Özel Malikaneleri',
+      desc: 'İnteraktif havuzlar, helipadlar, özel garajlar ve arkadaşlarınızla parti verebileceğiniz tam donanımlı mülkler.',
+      icon: (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+          <polyline points="9 22 9 12 15 12 15 22" />
+        </svg>
+      ),
+      color: 'text-purple-400',
+    },
+    {
+      id: 'import-cars',
+      category: 'ILLEGAL',
+      badge: 'ÖZEL ARAÇLAR',
+      title: 'İthal Araç Galerisi & Handling',
+      desc: 'Özel ses paketli, gerçekçi fiziklere ve dengelenmiş hız eğrilerine sahip 150+ ithal süperspor ve klasik araç.',
+      icon: (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9C2.1 11 2 11.3 2 11.6V16c0 .6.4 1 1 1h2" />
+          <circle cx="7" cy="17" r="2" />
+          <path d="M9 17h6" />
+          <circle cx="17" cy="17" r="2" />
+        </svg>
+      ),
+      color: 'text-fuchsia-400',
+    },
+    {
+      id: 'lspd-ems',
+      category: 'LEGAL',
+      badge: 'KAMU BİRİMLERİ',
+      title: 'Gelişmiş LSPD & EMS Teşkilatı',
+      desc: 'Gerçek zamanlı MDT/CAD entegrasyonu, radar kameraları, delil toplama ve helikopter arama ışıkları.',
+      icon: (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+        </svg>
+      ),
+      color: 'text-blue-400',
+    },
+    {
+      id: 'cartel-wars',
+      category: 'ILLEGAL',
+      badge: 'YERALTI DÜNYASI',
+      title: 'Kartel, Çete & Soygun Mekanikleri',
+      desc: 'Bölge savaşları, gizli laboratuvarlar, dinamik banka soygunları ve yeraltı kara para aklama ağları.',
+      icon: (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <circle cx="12" cy="12" r="10" />
+          <line x1="22" y1="12" x2="18" y2="12" />
+          <line x1="6" y1="12" x2="2" y2="12" />
+          <line x1="12" y1="6" x2="12" y2="2" />
+          <line x1="12" y1="22" x2="12" y2="18" />
+        </svg>
+      ),
+      color: 'text-red-400',
+    },
+    {
+      id: 'phone-hud',
+      category: 'LEGAL',
+      badge: 'YENİLİKÇİ SİSTEMLER',
+      title: 'Özel Telefon, Envanter & HUD',
+      desc: 'iOS tarzı çalışan akıllı telefon, Twitter & Vale uygulamaları, grid tabanlı ağırlık envanteri ve minimalist HUD.',
+      icon: (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <rect x="5" y="2" width="14" height="20" rx="2" ry="2" />
+          <line x1="12" y1="18" x2="12.01" y2="18" />
+        </svg>
+      ),
+      color: 'text-amber-400',
+    },
+    {
+      id: 'social-venues',
+      category: 'LEGAL',
+      badge: 'ZENGİN ROL',
+      title: 'Özel Sosyal Alanlar & Mekanlar',
+      desc: 'Bahama Mamas, Vanilla Unicorn, Tequi-la-la, bowling salonu ve sinema gibi işletilebilir aktif mekanlar.',
+      icon: (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+        </svg>
+      ),
+      color: 'text-emerald-400',
+    },
+  ];
+
+  const filteredCards = featureCards.filter((card) => {
+    if (activeCategory === 'ALL') return true;
+    return card.category === activeCategory;
+  });
+
+  return (
+    <div className="demo-cashv-container">
+      {/* 1. TOP NAVBAR */}
+      <header className="demo-cashv-navbar">
+        <div className="demo-cashv-nav-left">
+          <div className="demo-cashv-logo-wrap">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/cashv/logo.webp" alt="CashV Logo" className="demo-cashv-logo-img" onError={(e) => {
+              (e.target as HTMLElement).style.display = 'none';
+            }} />
+            <span className="demo-cashv-brand-text">CASH<span className="demo-cashv-accent">V</span></span>
+          </div>
+          <span className="demo-cashv-tagline">ROLEPLAY</span>
+        </div>
+
+        <nav className="demo-cashv-nav-links">
+          <a href="#hero" className="demo-cashv-nav-link active">Ana Sayfa</a>
+          <a href="#metrikler" className="demo-cashv-nav-link">Metrikler</a>
+          <a href="#ekosistem" className="demo-cashv-nav-link">Özellikler</a>
+          <a href="#topluluk" className="demo-cashv-nav-link">Topluluk</a>
+        </nav>
+
+        <div className="demo-cashv-nav-actions">
+          <button
+            type="button"
+            className="demo-cashv-btn-apply"
+            onClick={() => setShowApplyModal(true)}
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+            </svg>
+            <span>Whitelist Başvuru</span>
+          </button>
+          <a
+            href="https://discord.gg/cashv"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="demo-cashv-btn-discord"
+          >
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.929 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.894.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z" />
+            </svg>
+            <span>discord.gg/cashv</span>
+          </a>
+        </div>
+      </header>
+
+      {/* 2. HERO SECTION */}
+      <section id="hero" className="demo-cashv-hero">
+        <div className="demo-cashv-hero-glow" aria-hidden="true" />
+        <div className="demo-cashv-hero-grid">
+          {/* Left Column: Text & Badges */}
+          <div className="demo-cashv-hero-left">
+            <div className="demo-cashv-badges-row">
+              <span className="demo-cashv-pill-glow">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" />
+                </svg>
+                <span>DAHA FAZLASI SENİ BEKLİYOR...</span>
+              </span>
+
+              <div className="demo-cashv-pill-live">
+                <span className="demo-cashv-live-dot" />
+                <span className="text-emerald font-bold">AKTİF SUNUCU</span>
+                <span className="text-muted">•</span>
+                <span>0 / 64 Oyuncu</span>
+              </div>
+            </div>
+
+            <div className="demo-cashv-kendi-hikayen">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+              </svg>
+              <span>KENDİ HİKAYENİ YAZ!</span>
+            </div>
+
+            <h1 className="demo-cashv-main-title">
+              CASH<span className="demo-cashv-title-gradient">V</span> ROLEPLAY
+            </h1>
+
+            <div className="demo-cashv-subtitle">
+              Roleplay Sadece Bir Oyun Değil, Bir Hayat!
+            </div>
+
+            <p className="demo-cashv-desc">
+              Los Santos ve Vinewood&apos;un lüks sokaklarında geçen, benzersiz özel ithal araçlar,
+              dengeli ekonomi ve kesintisiz rol mekanikleriyle Türkiye&apos;nin en seçkin FiveM roleplay sunucusuna katıl.
+            </p>
+
+            {/* CTAs */}
+            <div className="demo-cashv-hero-btns">
+              <button
+                type="button"
+                className="demo-cashv-btn-primary"
+                onClick={() => setShowApplyModal(true)}
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                </svg>
+                <span>Whitelist Başvuru Yap</span>
+                <span>&rarr;</span>
+              </button>
+
+              <a
+                href="https://discord.gg/cashv"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="demo-cashv-btn-secondary"
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.929 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.894.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z" />
+                </svg>
+                <span>discord.gg/cashv</span>
+              </a>
+            </div>
+
+            {/* F8 Direct Connect Box */}
+            <div className="demo-cashv-f8-box">
+              <span className="demo-cashv-f8-label">Doğrudan Bağlantı:</span>
+              <code className="demo-cashv-f8-code" onClick={handleCopyF8}>
+                F8 &gt; connect cfx.re/join/cashv
+              </code>
+              <button type="button" className="demo-cashv-f8-copy-btn" onClick={handleCopyF8}>
+                {copiedF8 ? '✓ Kopyalandı' : 'Kopyala'}
+              </button>
+            </div>
+          </div>
+
+          {/* Right Column: 3D Crowned Logo with Floating Sheen */}
+          <div className="demo-cashv-hero-right">
+            <div className="demo-cashv-logo-3d-wrap">
+              <div className="demo-cashv-logo-ambient-glow" />
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/cashv/logo.webp"
+                alt="CashV Crowned 3D Emblem"
+                className="demo-cashv-logo-3d-img"
+                onError={(e) => {
+                  (e.target as HTMLElement).style.display = 'none';
+                }}
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 3. LIVE SERVER METRICS */}
+      <section id="metrikler" className="demo-cashv-metrics">
+        <div className="demo-cashv-metrics-header">
+          <div className="demo-cashv-metrics-title-row">
+            <span className="demo-cashv-ping-dot" />
+            <span className="demo-cashv-metrics-title">CASHV CANLI SUNUCU METRİKLERİ</span>
+          </div>
+          <span className="demo-cashv-metrics-sub">Anlık FiveM &amp; Discord Senkronizasyonu</span>
+        </div>
+
+        <div className="demo-cashv-stats-grid">
+          <div className="demo-cashv-stat-card">
+            <div className="demo-cashv-stat-top">
+              <span className="demo-cashv-stat-label">DISCORD ÜYELERİ</span>
+              <span className="demo-cashv-stat-icon">📡</span>
+            </div>
+            <div className="demo-cashv-stat-val">1048</div>
+            <div className="demo-cashv-stat-footer">
+              <span>Resmi Topluluk</span>
+              <span className="text-purple">discord.gg/cashv</span>
+            </div>
+          </div>
+
+          <div className="demo-cashv-stat-card">
+            <div className="demo-cashv-stat-top">
+              <span className="demo-cashv-stat-label">CANLI OYUNCU KAPASİTESİ</span>
+              <span className="demo-cashv-stat-icon">🔥</span>
+            </div>
+            <div className="demo-cashv-stat-val">64</div>
+            <div className="demo-cashv-stat-footer">
+              <span>Slot Kapasitesi</span>
+              <span className="text-purple">FiveM Sunucu</span>
+            </div>
+          </div>
+
+          <div className="demo-cashv-stat-card">
+            <div className="demo-cashv-stat-top">
+              <span className="demo-cashv-stat-label">ONAYLI WHITELIST OYUNCU</span>
+              <span className="demo-cashv-stat-icon">🛡️</span>
+            </div>
+            <div className="demo-cashv-stat-val">0</div>
+            <div className="demo-cashv-stat-footer">
+              <span>Yeni Sezon</span>
+              <span className="text-emerald">Başvurular Açık</span>
+            </div>
+          </div>
+
+          <div className="demo-cashv-stat-card">
+            <div className="demo-cashv-stat-top">
+              <span className="demo-cashv-stat-label">SUNUCU PERFORMANSI</span>
+              <span className="demo-cashv-stat-icon">⚡</span>
+            </div>
+            <div className="demo-cashv-stat-val">210 FPS</div>
+            <div className="demo-cashv-stat-footer">
+              <span>128 Tick Altyapı</span>
+              <span className="text-amber">0 Paket Kaybı</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 4. ECOSYSTEM & FEATURES */}
+      <section id="ekosistem" className="demo-cashv-features-section">
+        <div className="demo-cashv-features-header">
+          <div>
+            <span className="demo-cashv-features-tag">CASHV EKOSİSTEMİ</span>
+            <h2 className="demo-cashv-features-title">Sunucu Özellikleri &amp; Dünyası</h2>
+            <p className="demo-cashv-features-desc">
+              CashV Roleplay&apos;i Türkiye&apos;nin en seçkin sunucusu yapan eşsiz mekanikler ve zengin rol olanakları.
+            </p>
+          </div>
+
+          <div className="demo-cashv-tab-group">
+            {[
+              { id: 'ALL', label: 'Tüm Özellikler' },
+              { id: 'LEGAL', label: 'Lüks Yaşam & Kamu' },
+              { id: 'ILLEGAL', label: 'Yeraltı & Araçlar' },
+            ].map((tab) => (
+              <button
+                key={tab.id}
+                type="button"
+                className={`demo-cashv-tab-btn ${activeCategory === tab.id ? 'active' : ''}`}
+                onClick={() => setActiveCategory(tab.id as any)}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="demo-cashv-cards-grid">
+          {filteredCards.map((feat) => (
+            <div key={feat.id} className="demo-cashv-feature-card">
+              <div className="demo-cashv-card-top">
+                <div className="demo-cashv-card-icon-box">
+                  {feat.icon}
+                </div>
+                <span className={`demo-cashv-card-badge ${feat.color}`}>
+                  {feat.badge}
+                </span>
+              </div>
+              <h3 className="demo-cashv-card-title">{feat.title}</h3>
+              <p className="demo-cashv-card-desc">{feat.desc}</p>
+              <div className="demo-cashv-card-bottom">
+                <span className="demo-cashv-active-pill">✓ Aktif Mekanik</span>
+                <button
+                  type="button"
+                  className="demo-cashv-card-link"
+                  onClick={() => setShowApplyModal(true)}
+                >
+                  Rol Yap &rarr;
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Vinewood Big Banner */}
+        <div className="demo-cashv-vinewood-banner">
+          <div className="demo-cashv-vinewood-content">
+            <span className="demo-cashv-vinewood-tag">VINEWOOD LÜKS YAŞAMINA ADIM AT</span>
+            <h3 className="demo-cashv-vinewood-title">Karakterini Oluştur, Hikayeni Sen Yönet!</h3>
+            <p className="demo-cashv-vinewood-desc">
+              İster kanunları uygulayan bir LSPD şefi ol, ister sokakların hakimi bir kartel lideri
+              ya da Vinewood&apos;un ünlü bir iş insanı. Karar tamamen senin!
+            </p>
+            <div className="demo-cashv-vinewood-btns">
+              <button
+                type="button"
+                className="demo-cashv-btn-primary"
+                onClick={() => setShowApplyModal(true)}
+              >
+                Hemen Başvurunu Gönder
+              </button>
+              <a
+                href="https://discord.gg/cashv"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="demo-cashv-btn-secondary"
+              >
+                Topluluğu Gör
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 5. DISCORD COMMUNITY BANNER */}
+      <section id="topluluk" className="demo-cashv-discord-banner">
+        <div className="demo-cashv-discord-pill-live">
+          <span className="demo-cashv-live-dot" />
+          <span>1048+ Aktif CashV Oyuncusu</span>
+        </div>
+
+        <h2 className="demo-cashv-discord-heading">Aramıza Katılmaya Hazır mısın?</h2>
+        <p className="demo-cashv-discord-quote">
+          &ldquo;Kendi Hikayeni Yaz! Roleplay Sadece Bir Oyun Değil, Bir Hayat!&rdquo;
+        </p>
+        <p className="demo-cashv-discord-sub">
+          Türkiye&apos;nin en seçkin FiveM roleplay sunucusunda yerini al. Whitelist başvurunu tamamla, anında Discord topluluğumuza katıl.
+        </p>
+
+        <div className="demo-cashv-discord-center-action">
+          <a
+            href="https://discord.gg/cashv"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="demo-cashv-discord-giant-pill"
+          >
+            <span className="demo-cashv-wave">
+              <span className="w-1" />
+              <span className="w-2" />
+              <span className="w-3" />
+            </span>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.929 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.894.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z" />
+            </svg>
+            <span>DISCORD.GG/CASHV</span>
+            <span className="demo-cashv-wave">
+              <span className="w-3" />
+              <span className="w-2" />
+              <span className="w-1" />
+            </span>
+          </a>
+        </div>
+      </section>
+
+      {/* 6. FOOTER */}
+      <footer className="demo-cashv-footer">
+        <div className="demo-cashv-footer-content">
+          <div className="demo-cashv-footer-brand">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/cashv/logo.png" alt="CashV" className="demo-cashv-footer-logo" onError={(e) => {
+              (e.target as HTMLElement).style.display = 'none';
+            }} />
+            <span>CashV Roleplay &copy; 2026. Tüm hakları saklıdır. Wihyfe Community Altyapısı.</span>
+          </div>
+          <div className="demo-cashv-footer-note">
+            FiveM, Rockstar Games ve Take-Two Interactive ile resmi bir bağı bulunmamaktadır.
+          </div>
+        </div>
+      </footer>
+
+      {/* MODAL: Whitelist Başvuru */}
+      {showApplyModal && (
+        <div className="demo-cashv-modal-overlay" onClick={() => setShowApplyModal(false)}>
+          <div className="demo-cashv-modal" onClick={(e) => e.stopPropagation()}>
+            <div className="demo-cashv-modal-header">
+              <div className="flex items-center gap-2">
+                <span className="text-purple text-lg">🛡️</span>
+                <h3 className="font-bold text-white text-base">CashV Whitelist Başvuru Formu</h3>
+              </div>
+              <button
+                type="button"
+                className="demo-cashv-modal-close"
+                onClick={() => setShowApplyModal(false)}
+              >
+                ✕
+              </button>
+            </div>
+            <div className="demo-cashv-modal-body">
+              <p className="text-xs text-muted mb-4">
+                CashV Roleplay sunucusunda yeni sezon whitelist alımları başlamıştır. Aşağıdaki formu eksiksiz doldurarak başvurunuzu iletebilirsiniz.
+              </p>
+              <div className="demo-cashv-form-group">
+                <label>Discord Kullanıcı Adınız &amp; ID</label>
+                <input type="text" placeholder="kullaniciadi#0000" defaultValue="User#1337" />
+              </div>
+              <div className="demo-cashv-form-group">
+                <label>Karakter Adı &amp; Soyadı</label>
+                <input type="text" placeholder="Örn: Marcus Vance" defaultValue="Marcus Vance" />
+              </div>
+              <div className="demo-cashv-form-group">
+                <label>Rol Deneyiminiz &amp; Karakter Hikayeniz (Özet)</label>
+                <textarea rows={3} defaultValue="Vinewood merkezli lüks araç galerisi işletmecisi ve eski LSPD dedektifi olarak şehre adım atıyorum..." />
+              </div>
+              <div className="demo-cashv-form-group">
+                <label>FiveM Hex ID</label>
+                <input type="text" placeholder="steam:1100001xxxxxxxx" defaultValue="steam:11000018a7b9c2" />
+              </div>
+              <button
+                type="button"
+                className="demo-cashv-btn-primary w-full mt-3"
+                onClick={() => {
+                  alert('Başvurunuz başarıyla kaydedildi! Discord sunucumuz üzerinden mülakat kanalını takip ediniz.');
+                  setShowApplyModal(false);
+                }}
+              >
+                Başvuruyu Gönder &rarr;
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+

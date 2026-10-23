@@ -254,6 +254,7 @@ export default function WebsitesSection() {
                     onClick={() => {
                       let targetTemplate = 'donate-market';
                       if (site.id.includes('legal')) targetTemplate = 'mdt-cad';
+                      else if (site.id.includes('community')) targetTemplate = 'community-cashv';
                       else if (site.id.includes('illegal')) targetTemplate = 'darknet-illegal';
                       else if (site.id.includes('ozel')) targetTemplate = 'saas-portal';
 
