@@ -446,33 +446,7 @@ export default function Header() {
 
                 {/* Alt Hızlı Bar (Animasyonlu & Sembollü) */}
                 <div className="dropdown-footer-row">
-                  <a
-                    href="/panel"
-                    className="cat-footer-link"
-                    onClick={() => setIsCategoriesOpen(false)}
-                  >
-                    <span className="footer-link-symbol">
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <rect x="2" y="3" width="20" height="14" rx="2" />
-                        <line x1="8" y1="21" x2="16" y2="21" />
-                        <line x1="12" y1="17" x2="12" y2="21" />
-                      </svg>
-                    </span>
-                    <span>Müşteri Paneli</span>
-                    <span className="footer-quick-badge">Bot Config</span>
-                  </a>
-                  <a
-                    href="/admin"
-                    className="cat-footer-link"
-                    onClick={() => setIsCategoriesOpen(false)}
-                  >
-                    <span className="footer-link-symbol">
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                      </svg>
-                    </span>
-                    <span>Yetkili Paneli</span>
-                  </a>
+
                   <a
                     href="https://discord.gg/SbrKk6Q87H"
                     className="cat-footer-link discord-accent"
@@ -740,30 +714,7 @@ export default function Header() {
             </svg>
             <span>{t.nav.download} (İstemci İndir)</span>
           </Link>
-          <a
-            href="/panel"
-            className="nav-link cust-nav-link"
-            onClick={closeMenu}
-            style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}
-          >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <rect x="2" y="3" width="20" height="14" rx="2" />
-              <line x1="8" y1="21" x2="16" y2="21" />
-              <line x1="12" y1="17" x2="12" y2="21" />
-            </svg>
-            <span>Müşteri Paneli &amp; Bot Config</span>
-          </a>
-          <a
-            href="/admin"
-            className="nav-link admin-nav-link"
-            onClick={closeMenu}
-            style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}
-          >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-            </svg>
-            <span>Yetkili Paneli</span>
-          </a>
+
           <a
             href="https://discord.gg/SbrKk6Q87H"
             className="btn btn-primary"
