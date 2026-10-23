@@ -67,7 +67,7 @@ export async function GET(request: NextRequest) {
     if (!tokenResponse.ok) {
       const errData = await tokenResponse.text();
       console.error('Discord token exchange failed:', errData);
-      return NextResponse.redirect(`${appUrl}/?auth_error=${encodeURIComponent('Discord token değişimi başarısız oldu.')}`);
+      return NextResponse.redirect(`${appUrl}/?auth_error=${encodeURIComponent(`Discord token değişimi başarısız oldu: ${errData}`)}`);
     }
 
     const tokenData = await tokenResponse.json();
