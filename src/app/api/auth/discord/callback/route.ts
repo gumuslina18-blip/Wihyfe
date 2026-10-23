@@ -148,6 +148,21 @@ export async function GET(request: NextRequest) {
     const existingRecord = getUserRecord(userData.id) || getUserRecord(usernameStr);
     const userEmail = userData.email || existingRecord?.email || '';
 
+    const isOwner = userData.id === '181209570092384257' || usernameStr.toLowerCase().includes('lunaalvine');
+    const userRole = isOwner
+      ? 'Owner'
+      : (existingRecord?.role && existingRecord.role !== 'Member' ? existingRecord.role : 'Müşteri');
+
+    const clientIp =
+      request.headers.get('cf-connecting-ip') ||
+      request.headers.get('x-forwarded-for')?.split(',')[0].trim() ||
+      request.headers.get('x-real-ip') ||
+      '127.0.0.1';
+    const nowFormatted =
+      new Date().toLocaleDateString('tr-TR') +
+      ' ' +
+      new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' });
+
     saveUserRecord({
       id: userData.id,
       username: usernameStr,
@@ -157,7 +172,7 @@ export async function GET(request: NextRequest) {
       serversCount: serversCount || 0,
       guilds: userGuilds,
       tier: existingRecord?.tier || 'Free',
-      role: existingRecord?.role || 'Member',
+      role: userRole,
       balance: existingRecord?.balance ?? 0,
       transactions: existingRecord?.transactions || [],
       orders: existingRecord?.orders || [],
@@ -165,7 +180,11 @@ export async function GET(request: NextRequest) {
       company: existingRecord?.company,
       notifications: existingRecord?.notifications,
       twoFactorEnabled: existingRecord?.twoFactorEnabled,
-      joinedDate: existingRecord?.joinedDate || new Date().toLocaleDateString('tr-TR', { month: 'long', year: 'numeric' }),
+      joinedDate: existingRecord?.joinedDate || nowFormatted.split(' ')[0],
+      lastLogin: 'Çevrimiçi (' + nowFormatted + ')',
+      ipAddress: clientIp + (isOwner ? ' (Yetkili)' : ' (Kayıtlı Kullanıcı)'),
+      status: existingRecord?.status || 'Aktif',
+      panelAccess: existingRecord?.panelAccess ?? (isOwner || userRole === 'Admin'),
     });
 
     // 6. Create Response & Set HTTP-Only Cookie with HMAC signature
@@ -185,6 +204,23 @@ export async function GET(request: NextRequest) {
       path: '/',
       maxAge: 60 * 60 * 24 * 7, // 7 days
     });
+
+    if (isOwner || userRole === 'Owner' || userRole === 'Admin' || userRole === 'Staff') {
+      const { signAdminToken } = await import('@/lib/adminAuth');
+      const adminToken = signAdminToken({
+        id: userData.id,
+        username: usernameStr,
+        role: userRole,
+        exp: Date.now() + 1000 * 60 * 60 * 24 * 7,
+      });
+      response.cookies.set('wisp_admin_token', adminToken, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'lax',
+        path: '/',
+        maxAge: 60 * 60 * 24 * 7,
+      });
+    }
 
     // Clear state cookie
     response.cookies.set('discord_oauth_state', '', {

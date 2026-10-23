@@ -12,18 +12,18 @@ import { SITE_CONFIG, getAllBotProducts } from '@/config/site';
 // 100% Real users: Only actual site staff/owner (lunaalvine & Gumus). No fabricated demo users.
 export const INITIAL_USERS: AdminUser[] = [
   {
-    id: 'usr_lunaalvine',
+    id: '181209570092384257',
     username: 'lunaalvine',
     discriminator: '0001',
-    avatarUrl: '/team/lunaalvine.jpg',
-    email: 'lunaalvine@wihyfe.com',
+    avatarUrl: 'https://cdn.discordapp.com/avatars/181209570092384257/98431da8e14a33f014cc52110a0fff95.png?size=128',
+    email: 'gumuslina18@gmail.com',
     role: 'Owner',
-    subscription: 'Plus+',
+    subscription: 'Free',
     balance: 0,
     status: 'Aktif',
     joinedDate: '17.10.2026',
     lastLogin: 'Çevrimiçi',
-    ipAddress: '127.0.0.1 (Yetkili)',
+    ipAddress: '127.0.0.1 (Kayıtlı Kullanıcı)',
     panelAccess: true,
   },
   {

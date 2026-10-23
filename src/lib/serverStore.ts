@@ -44,7 +44,7 @@ export interface UserRecord {
   discriminator?: string;
   avatarUrl?: string;
   email?: string;
-  tier: 'Free' | 'Plus' | 'Plus+';
+  tier: 'Free' | 'Plus' | 'Plus+' | string;
   role?: string;
   balance: number;
   transactions: Array<{
@@ -87,6 +87,10 @@ export interface UserRecord {
   updatedAt?: string;
   password?: string;
   panelAccess?: boolean;
+  ipAddress?: string;
+  lastLogin?: string;
+  status?: 'Aktif' | 'Kısıtlı' | 'Yasaklı';
+  restrictionsNote?: string;
 }
 
 export interface EndOfDayReport {
@@ -333,6 +337,11 @@ export function saveUserRecord(userData: Partial<UserRecord> & { id: string; use
   const now = new Date();
   const dateStamp = now.toLocaleDateString('tr-TR', { day: '2-digit', month: '2-digit', year: 'numeric' }) + ' ' + now.toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' });
 
+  const isOwner = userData.id === '181209570092384257' || userData.username?.toLowerCase() === 'lunaalvine';
+  const roleVal = userData.role
+    ? (userData.role === 'Member' ? 'Müşteri' : userData.role)
+    : (existing?.role ? (existing.role === 'Member' ? 'Müşteri' : existing.role) : (isOwner ? 'Owner' : 'Müşteri'));
+
   const record: UserRecord = {
     id: userData.id,
     username: userData.username,
@@ -340,7 +349,7 @@ export function saveUserRecord(userData: Partial<UserRecord> & { id: string; use
     avatarUrl: userData.avatarUrl || existing?.avatarUrl || '',
     email: userData.email || existing?.email || '',
     tier: userData.tier || existing?.tier || 'Free',
-    role: userData.role || existing?.role || 'Member',
+    role: roleVal,
     balance: typeof userData.balance === 'number' ? userData.balance : (existing?.balance ?? 0),
     transactions: Array.isArray(userData.transactions)
       ? userData.transactions
@@ -356,6 +365,12 @@ export function saveUserRecord(userData: Partial<UserRecord> & { id: string; use
     joinedDate: userData.joinedDate || existing?.joinedDate || dateStamp,
     createdAt: existing?.createdAt || dateStamp,
     updatedAt: dateStamp,
+    ipAddress: userData.ipAddress !== undefined ? userData.ipAddress : (existing?.ipAddress || (isOwner ? '127.0.0.1 (Yetkili)' : '127.0.0.1 (Kayıtlı Kullanıcı)')),
+    lastLogin: userData.lastLogin !== undefined ? userData.lastLogin : (existing?.lastLogin || 'Çevrimiçi'),
+    status: (userData.status !== undefined ? userData.status : (existing?.status || 'Aktif')) as any,
+    restrictionsNote: userData.restrictionsNote !== undefined ? userData.restrictionsNote : existing?.restrictionsNote,
+    panelAccess: userData.panelAccess !== undefined ? userData.panelAccess : (existing?.panelAccess ?? (roleVal === 'Owner' || roleVal === 'Admin')),
+    password: userData.password !== undefined ? userData.password : existing?.password,
   };
 
   serverStore.users[record.id] = record;
@@ -524,25 +539,78 @@ export function modifyUserBalanceInStore({
 export function getAllUsersForAdmin() {
   reloadStore();
   const usersMap = serverStore.users || {};
-  const list = Object.values(usersMap).map((u) => ({
-    id: u.id,
-    username: u.username,
-    discriminator: u.discriminator?.replace(/^#/, '') || '0001',
-    avatarUrl: u.avatarUrl || '/wihyfe-icon.png',
-    email: u.email || '',
-    role: (u.role || (u.id === '181209570092384257' ? 'Owner' : 'Müşteri')) as any,
-    subscription: (u.tier === 'Plus+' ? 'Plus+' : u.tier === 'Plus' ? 'Plus' : 'Free') as any,
-    balance: Number(u.balance) || 0,
-    status: 'Aktif' as const,
-    joinedDate: u.joinedDate || '17.10.2026',
-    lastLogin: 'Çevrimiçi',
-    ipAddress: '127.0.0.1 (Kayıtlı Kullanıcı)',
-    panelAccess: u.role === 'Owner' || u.role === 'Admin' || u.id === '181209570092384257',
-  }));
+  const orders = serverStore.orders || [];
+  const userList: Record<string, any> = {};
 
-  // Ensure Gumus is also in the list for admin staff operations
-  if (!list.some((u) => u.username.toLowerCase() === 'gumus')) {
-    list.push({
+  // 1. Process all registered users from serverStore.users (all real Discord logins)
+  Object.values(usersMap).forEach((u) => {
+    const isOwner = u.id === '181209570092384257' || u.username?.toLowerCase() === 'lunaalvine';
+    const role = isOwner ? 'Owner' : u.role === 'Member' ? 'Müşteri' : u.role || 'Müşteri';
+    const cleanDisc = (u.discriminator || '0001').replace(/^#/, '');
+
+    userList[u.id] = {
+      id: u.id,
+      username: u.username,
+      discriminator: cleanDisc,
+      avatarUrl: u.avatarUrl || '/wihyfe-icon.png',
+      email: u.email || (isOwner ? 'gumuslina18@gmail.com' : ''),
+      role: role as any,
+      subscription: (u.tier || 'Free') as any,
+      balance: Number(u.balance) || 0,
+      status: (u.status || 'Aktif') as 'Aktif' | 'Kısıtlı' | 'Yasaklı',
+      joinedDate: u.joinedDate || '17.10.2026',
+      lastLogin: u.lastLogin || 'Çevrimiçi',
+      ipAddress: u.ipAddress || (isOwner ? '127.0.0.1 (Kayıtlı Kullanıcı)' : '127.0.0.1 (Kayıtlı Kullanıcı)'),
+      panelAccess: Boolean(u.panelAccess ?? (role === 'Owner' || role === 'Admin' || isOwner)),
+      restrictionsNote: u.restrictionsNote,
+      password: u.password,
+    };
+  });
+
+  // 2. Discover Discord accounts from real store orders
+  orders.forEach((ord) => {
+    const discordName = ord.customerDiscord?.trim();
+    if (!discordName) return;
+    const cleanName = discordName.split('#')[0];
+    const disc = discordName.includes('#') ? discordName.split('#')[1] : '0001';
+
+    const existingKey = Object.keys(userList).find(
+      (k) =>
+        userList[k].username?.toLowerCase() === cleanName.toLowerCase() ||
+        (ord.customerEmail && userList[k].email?.toLowerCase() === ord.customerEmail.toLowerCase())
+    );
+
+    if (!existingKey) {
+      const isOwner = cleanName.toLowerCase() === 'lunaalvine';
+      const id = (ord as any).customerDiscordId || `usr_${cleanName.toLowerCase()}`;
+      userList[id] = {
+        id,
+        username: cleanName,
+        discriminator: disc,
+        avatarUrl: '/wihyfe-icon.png',
+        email: ord.customerEmail || '',
+        role: (isOwner ? 'Owner' : 'Müşteri') as any,
+        subscription: ord.packageName ? `${ord.packageName}${ord.periodLabel ? ` - ${ord.periodLabel}` : ''}` : 'Free',
+        balance: 0,
+        status: 'Aktif' as const,
+        joinedDate: ord.createdAt?.split(' ')[0] || '18.10.2026',
+        lastLogin: 'Sipariş Kaydı',
+        ipAddress: '127.0.0.1 (Müşteri)',
+        panelAccess: isOwner,
+      };
+    } else {
+      if (ord.customerEmail && !userList[existingKey].email) {
+        userList[existingKey].email = ord.customerEmail;
+      }
+      if (ord.packageName && userList[existingKey].subscription === 'Free') {
+        userList[existingKey].subscription = `${ord.packageName}${ord.periodLabel ? ` - ${ord.periodLabel}` : ''}`;
+      }
+    }
+  });
+
+  // 3. Ensure Gumus is present as Admin staff
+  if (!Object.values(userList).some((u: any) => u.username?.toLowerCase() === 'gumus')) {
+    userList['usr_gumus'] = {
       id: 'usr_gumus',
       username: 'Gumus',
       discriminator: '1907',
@@ -556,10 +624,46 @@ export function getAllUsersForAdmin() {
       lastLogin: 'Çevrimiçi',
       ipAddress: '127.0.0.1 (Yetkili)',
       panelAccess: true,
-    });
+    };
   }
 
-  return list;
+  // 4. Ensure lunaalvine is present with real Discord avatar & Owner role
+  const hasLuna = Object.values(userList).some(
+    (u: any) => u.username?.toLowerCase() === 'lunaalvine' || u.id === '181209570092384257'
+  );
+  if (!hasLuna) {
+    userList['181209570092384257'] = {
+      id: '181209570092384257',
+      username: 'lunaalvine',
+      discriminator: '0001',
+      avatarUrl: 'https://cdn.discordapp.com/avatars/181209570092384257/98431da8e14a33f014cc52110a0fff95.png?size=128',
+      email: 'gumuslina18@gmail.com',
+      role: 'Owner' as any,
+      subscription: 'Free' as any,
+      balance: 0,
+      status: 'Aktif' as const,
+      joinedDate: '17.10.2026',
+      lastLogin: 'Çevrimiçi',
+      ipAddress: '127.0.0.1 (Kayıtlı Kullanıcı)',
+      panelAccess: true,
+    };
+  }
+
+  // Sort list: Owner first, then Admin, Staff, Master, VIP, Müşteri
+  const roleWeights: Record<string, number> = {
+    Owner: 1,
+    Admin: 2,
+    Staff: 3,
+    Master: 4,
+    VIP: 5,
+    Müşteri: 6,
+  };
+
+  return Object.values(userList).sort((a: any, b: any) => {
+    const wA = roleWeights[a.role] || 99;
+    const wB = roleWeights[b.role] || 99;
+    return wA - wB;
+  });
 }
 
 const DEFAULT_COUPONS: CouponRecord[] = [

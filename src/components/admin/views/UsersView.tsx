@@ -656,9 +656,12 @@ export default function UsersView() {
                     <td>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
                         <img
-                          src={u.avatarUrl}
+                          src={u.avatarUrl || 'https://cdn.discordapp.com/embed/avatars/0.png'}
                           alt={u.username}
                           style={{ width: '30px', height: '30px', borderRadius: '50%', objectFit: 'cover' }}
+                          onError={(e) => {
+                            (e.target as HTMLImageElement).src = 'https://cdn.discordapp.com/embed/avatars/0.png';
+                          }}
                         />
                         <div style={{ display: 'flex', flexDirection: 'column' }}>
                           <span style={{ color: '#fff', fontWeight: 600 }}>

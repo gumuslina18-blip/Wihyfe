@@ -439,7 +439,7 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     const interval = setInterval(() => {
       refreshUsers();
       refreshTickets();
-    }, 8000);
+    }, 4000);
     return () => clearInterval(interval);
   }, [refreshUsers, refreshTickets]);
 
@@ -951,8 +951,21 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       })
     );
 
-    // Sync to serverStore
+    // Sync to serverStore and admin users API
     if (userId) {
+      fetch('/api/admin/users', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          userId,
+          role,
+          subscription,
+          status,
+          panelAccess,
+          password,
+        }),
+      }).catch((err) => console.warn('Failed to sync to admin users:', err));
+
       fetch('/api/user/sync', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
