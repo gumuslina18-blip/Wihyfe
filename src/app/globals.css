@@ -1011,6 +1011,26 @@ h1, h2, h3, h4, h5, h6 {
   transform: translate(2px, -2px);
 }
 
+.void-cta-panel-btn {
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.void-cta-panel-btn svg {
+  stroke: #38bdf8;
+  transition: stroke 0.2s ease, transform 0.2s ease;
+}
+
+.void-cta-panel-btn:hover svg {
+  stroke: #ffffff;
+  transform: scale(1.1);
+}
+
 /* Mega Dropdown Panel */
 .nav-categories-dropdown {
   position: absolute;

@@ -524,7 +524,6 @@ export default function ProfileMenu({ hideTriggerWhenLoggedOut = false }: Profil
                     <line x1="12" y1="17" x2="12" y2="21" />
                   </svg>
                   <span>Müşteri Paneli</span>
-                  <span className="dropdown-panel-badge" style={{ background: 'rgba(8, 120, 255, 0.15)', color: '#38bdf8', border: '1px solid rgba(8, 120, 255, 0.3)' }}>Bot Config</span>
                 </Link>
 
                 <button
