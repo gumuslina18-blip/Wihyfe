@@ -31,15 +31,29 @@ export default function CustomAppsSection() {
   const [selectedPeriod, setSelectedPeriod] = useState<BillingPeriod>('monthly');
   const [currentPage, setCurrentPage] = useState(0);
   const [addedAppId, setAddedAppId] = useState<string | null>(null);
+  const [itemsPerPage, setItemsPerPage] = useState(2);
   const touchStartX = useRef<number | null>(null);
   const touchStartY = useRef<number | null>(null);
 
   const { addToCart, dynamicPeriods, getPackagePeriodInfo, getProductOverride } = useStore();
   const { language } = useLanguage();
 
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 768) {
+        setItemsPerPage(1);
+      } else {
+        setItemsPerPage(2);
+      }
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   const customApps = SITE_CONFIG.customApps || [];
   const totalApps = customApps.length;
-  const totalPages = Math.max(1, totalApps);
+  const totalPages = Math.max(1, Math.ceil(totalApps / itemsPerPage));
 
   const activePeriods = dynamicPeriods && dynamicPeriods.length > 0 ? dynamicPeriods : BILLING_PERIODS;
   const currentPeriodObj = activePeriods.find((p) => p.id === selectedPeriod) || activePeriods[0];
@@ -223,7 +237,7 @@ export default function CustomAppsSection() {
             <div
               className="card-slider-track"
               style={{
-                transform: `translateX(-${currentPage * 100}%)`,
+                transform: `translateX(calc(-${currentPage} * (100% + 1.5rem)))`,
               }}
             >
               {customApps.map((app) => {
@@ -243,66 +257,91 @@ export default function CustomAppsSection() {
                 const cleanPriceVal = String(rawPrice || '').replace(/\s*TL\s*/gi, '').trim();
 
                 return (
-                  <div key={app.id} className="card-slider-slide-single">
+                  <div key={app.id} className="card-slider-slide-2col">
                     <article
-                      className={`app-card-box ${app.popular ? 'app-card-popular' : ''}`}
+                      className={`bot-card ${app.popular ? 'bot-card-popular' : ''}`}
                       id={`app-${app.id}`}
                     >
+                      {/* Ambient Blue Flare on Featured Card */}
                       {app.popular && <div className="card-popular-glow" aria-hidden="true" />}
 
-                      {/* Top Badge */}
-                      <div className="app-card-top-row">
-                        <div className="app-badge-pill">
-                          <span>{displayBadge}</span>
-                        </div>
-                        {app.popular && (
-                          <span className="app-highlight-pill">
-                            🔥 {language === 'TR' ? 'ÖNERİLEN ÇÖZÜM' : 'RECOMMENDED SOLUTION'}
-                          </span>
+                      {/* Watermark Line-art Icon in Background */}
+                      <div className="card-watermark-icon" aria-hidden="true">
+                        {app.icon === 'code' ? (
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <polyline points="16 18 22 12 16 6" />
+                            <polyline points="8 6 2 12 8 18" />
+                          </svg>
+                        ) : (
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <polygon points="12 2 2 7 12 12 22 7 12 2" />
+                            <polyline points="2 17 12 22 22 17" />
+                            <polyline points="2 12 12 17 22 12" />
+                          </svg>
                         )}
                       </div>
 
-                      {/* Header Icon + Title */}
-                      <div className="app-card-header">
-                        <div className="app-icon-wrap" aria-hidden="true">
+                      {/* Top Badge */}
+                      {app.popular ? (
+                        <div className="card-top-badge">
+                          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" />
+                          </svg>
+                          <span>{displayBadge || (language === 'EN' ? 'RECOMMENDED SOLUTION' : 'ÖNERİLEN ÇÖZÜM')}</span>
+                        </div>
+                      ) : displayBadge ? (
+                        <div className="card-top-badge badge-regular">
+                          <span>{displayBadge}</span>
+                        </div>
+                      ) : (
+                        <div className="card-top-badge-placeholder" aria-hidden="true" />
+                      )}
+
+                      {/* Header Row: Square Icon Box + Title */}
+                      <div className="card-header-row">
+                        <div className="card-header-icon-box" aria-hidden="true">
                           {getAppIcon(app.icon)}
                         </div>
-                        <div>
-                          <h3 className="app-card-title">{displayName}</h3>
-                          <p className="app-card-desc">{displayDesc}</p>
-                        </div>
+                        <h3 className="card-header-title">{displayName}</h3>
                       </div>
 
+                      {/* Subtitle / Description */}
+                      <p className="card-header-desc">{displayDesc}</p>
+
                       {/* Price Block */}
-                      <div className="app-price-box">
-                        <div className="app-price-main">
-                          <span className="panel-currency">₺</span>
-                          <span className="panel-price-num">{cleanPriceVal}</span>
-                          <span className="panel-freq">
+                      <div className="card-price-block">
+                        <div className="card-price-main-line">
+                          <span className="card-price-currency">₺</span>
+                          <span className="card-price-val">{cleanPriceVal}</span>
+                          <span className="card-price-freq">
                             /{plan.periodLabel.replace(/TL\s*\/?\s*/gi, '').trim() || 'ay'}
                           </span>
                         </div>
 
-                        <div className="app-price-sub">
-                          {plan.originalPrice && (
-                            <span className="panel-price-old">{plan.originalPrice}</span>
-                          )}
-                          {plan.discountBadge && (
-                            <span className="panel-discount-tag">{plan.discountBadge}</span>
-                          )}
-                          {plan.monthlyEquivalent && selectedPeriod !== 'monthly' && (
-                            <span className="panel-monthly-equiv">
-                              ({plan.monthlyEquivalent})
-                            </span>
+                        <div className="card-price-subline">
+                          {plan.originalPrice ? (
+                            <>
+                              <span className="card-price-old">{plan.originalPrice}</span>
+                              {plan.discountBadge && (
+                                <span className="card-discount-pill">{plan.discountBadge}</span>
+                              )}
+                              {plan.monthlyEquivalent && selectedPeriod !== 'monthly' && (
+                                <span className="card-monthly-eq">({plan.monthlyEquivalent})</span>
+                              )}
+                            </>
+                          ) : (
+                            <span>{language === 'EN' ? 'Recurring subscription' : 'Aylık abonelik'}</span>
                           )}
                         </div>
                       </div>
 
                       {/* Action Buttons: Add to Cart + Discord Consult */}
-                      <div className="app-actions-group">
+                      <div className="card-action-wrap" style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                         <button
                           type="button"
-                          className={`btn btn-block ${app.popular ? 'btn-primary' : 'btn-secondary'} is-disabled`}
+                          className={`card-action-btn ${
+                            app.popular ? 'btn-popular-highlight' : 'btn-standard-dark'
+                          } ${!isAvailable ? 'is-disabled' : ''} ${addedAppId === app.id ? 'is-added' : ''}`}
                           onClick={(e) => handleAddToCart(e, app, plan)}
                           disabled={!isAvailable}
                           aria-label={`${displayName} ${isAvailable ? 'Satın Al' : statusBadge}`}
@@ -343,22 +382,34 @@ export default function CustomAppsSection() {
                         </a>
                       </div>
 
-                      {/* Features Checklist */}
-                      <div className="app-features-block">
-                        <span className="app-features-heading">
-                          {language === 'TR' ? 'Kapsam & Mimari Detaylar:' : 'Scope & Architecture Details:'}
+                      {/* Features Divider */}
+                      <div className="card-features-divider">
+                        <span className="card-divider-label">
+                          {language === 'TR' ? 'KAPSAM & MİMARİ DETAYLAR' : 'SCOPE & ARCHITECTURE DETAILS'}
                         </span>
-                        <ul className="app-features-list">
-                          {app.features.map((feat, idx) => (
-                            <li key={idx} className="app-feature-item">
-                              <svg className="app-check-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                                <polyline points="20 6 9 17 4 12" />
-                              </svg>
-                              <span>{feat}</span>
-                            </li>
-                          ))}
-                        </ul>
+                        <span className="card-divider-line" />
                       </div>
+
+                      {/* Features Checklist */}
+                      <ul className="card-features-list">
+                        {app.features.map((feat, idx) => (
+                          <li key={idx} className="card-feature-item">
+                            <svg
+                              className="card-feature-check"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2.5"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              aria-hidden="true"
+                            >
+                              <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                            <span>{feat}</span>
+                          </li>
+                        ))}
+                      </ul>
                     </article>
                   </div>
                 );

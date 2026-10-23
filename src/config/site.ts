@@ -255,9 +255,9 @@ export const SITE_CONFIG = {
 
   panels: [
     {
-      id: 'fivem-admin-panel',
+      id: 'panel-fivem-admin',
       name: 'FiveM Oyun İçi Admin Paneli',
-      badge: 'FiveM Pro',
+      badge: 'FIVEM PRO',
       description: 'FiveM sunucuları için oyun içi canlı oyuncu, ceza, envanter ve ekonomi yönetim arayüzü.',
       icon: 'gamepad',
       popular: true,
@@ -273,7 +273,6 @@ export const SITE_CONFIG = {
         monthly: {
           totalPrice: '1.450,00',
           periodLabel: 'TL / ay',
-          paytrUrl: 'https://www.paytr.com/link/A3L1Mxc',
         },
         quarterly: {
           totalPrice: '3.915,00',
@@ -299,9 +298,9 @@ export const SITE_CONFIG = {
       },
     },
     {
-      id: 'discord-dashboard',
+      id: 'panel-discord-web',
       name: 'Discord Web Yönetim Paneli',
-      badge: 'Web Dashboard',
+      badge: 'WEB DASHBOARD',
       description: 'Sunucunuzu web tarayıcısından 7/24 kontrol edin; yetkili takibi, canlı loglar ve ayarlar.',
       icon: 'terminal',
       buttonText: 'Sepete Ekle',
@@ -316,7 +315,6 @@ export const SITE_CONFIG = {
         monthly: {
           totalPrice: '950,00',
           periodLabel: 'TL / ay',
-          paytrUrl: 'https://www.paytr.com/link/UYZRQ17',
         },
         quarterly: {
           totalPrice: '2.565,00',

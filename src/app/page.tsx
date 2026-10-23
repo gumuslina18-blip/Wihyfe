@@ -2,6 +2,7 @@ import Hero from '@/components/Hero';
 import TargetAudiencesSection from '@/components/TargetAudiencesSection';
 import FeaturesShowcase from '@/components/FeaturesShowcase';
 import PackagesSection from '@/components/PackagesSection';
+import PanelsSection from '@/components/PanelsSection';
 import CustomAppsSection from '@/components/CustomAppsSection';
 import WebsitesSection from '@/components/WebsitesSection';
 import WebsiteLiveShowcase from '@/components/WebsiteLiveShowcase';
@@ -27,6 +28,7 @@ export default function HomePage() {
       <TargetAudiencesSection />
       <FeaturesShowcase />
       <PackagesSection />
+      <PanelsSection />
       <CustomAppsSection />
       <WebsitesSection />
       <WebsiteLiveShowcase />
