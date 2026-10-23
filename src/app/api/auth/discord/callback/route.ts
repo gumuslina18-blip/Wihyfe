@@ -15,14 +15,16 @@ export async function GET(request: NextRequest) {
   const error = searchParams.get('error');
   const state = searchParams.get('state');
 
-  const host = request.headers.get('x-forwarded-host') || request.headers.get('host');
-  const proto = request.headers.get('x-forwarded-proto') || (host?.includes('localhost') ? 'http' : 'https');
-  const currentOrigin = host ? `${proto}://${host}` : (process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000');
+  const host = request.headers.get('x-forwarded-host') || request.headers.get('host') || 'localhost:3001';
+  const proto = request.headers.get('x-forwarded-proto') || (host.includes('localhost') || host.includes('127.0.0.1') ? 'http' : 'https');
+  const currentOrigin = `${proto}://${host}`;
 
-  const appUrl = process.env.NEXT_PUBLIC_APP_URL || currentOrigin;
+  const appUrl = currentOrigin;
   const clientId = process.env.DISCORD_CLIENT_ID;
   const clientSecret = process.env.DISCORD_CLIENT_SECRET;
-  const redirectUri = process.env.DISCORD_REDIRECT_URI || `${currentOrigin}/api/auth/discord/callback`;
+  const redirectUri = (host.includes('localhost') || host.includes('127.0.0.1') || !process.env.DISCORD_REDIRECT_URI)
+    ? `${currentOrigin}/api/auth/discord/callback`
+    : process.env.DISCORD_REDIRECT_URI;
 
   if (error) {
     return NextResponse.redirect(`${appUrl}/?auth_error=${encodeURIComponent('Discord yetkilendirmesi iptal edildi veya reddedildi.')}`);
