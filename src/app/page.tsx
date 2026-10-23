@@ -3,7 +3,6 @@ import FeaturesShowcase from '@/components/FeaturesShowcase';
 import PackagesSection from '@/components/PackagesSection';
 import WebsitesSection from '@/components/WebsitesSection';
 import WebsiteLiveShowcase from '@/components/WebsiteLiveShowcase';
-import BotCards from '@/components/BotCards';
 import LiveAuditTicker from '@/components/LiveAuditTicker';
 import AdditionalServices from '@/components/AdditionalServices';
 import WhyUs from '@/components/WhyUs';
@@ -26,7 +25,6 @@ export default function HomePage() {
       <PackagesSection />
       <WebsitesSection />
       <WebsiteLiveShowcase />
-      <BotCards />
       <AdditionalServices />
       <WhyUs />
       <DdosDefenseRadar />
