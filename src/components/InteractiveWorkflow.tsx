@@ -77,13 +77,13 @@ export default function InteractiveWorkflow() {
     },
     {
       number: '06',
-      title: language === 'TR' ? 'Sistemler Güvende & Aktif' : 'Systems Secure & Live',
+      title: language === 'TR' ? 'Panel Kullanıma Hazır' : 'Panel Ready to Use',
       desc: language === 'TR'
-        ? 'Doğrulama tamamlandı! Guard kalkanı ve yönetim paneli devrede, operasyonunuz 7/24 güvende.'
-        : 'Verification complete! Guard shield and dashboard are live, your operation is 24/7 safe.',
+        ? 'Kurulum ve yetkilendirme tamamlandı! Yönetim paneli aktif, tüm operasyonunuz kontrolünüz altında.'
+        : 'Setup and authorization complete! Management dashboard is active, operations under your control.',
       category: language === 'TR' ? 'Operasyon Durumu' : 'Operation Status',
-      mockupTitle: language === 'TR' ? 'Doğrulandı: Sistemler Güvende.' : 'Verified: Systems Secure.',
-      mockupSub: language === 'TR' ? 'Tüm modüller aktif, 7/24 kesintisiz koruma devrede.' : 'All modules active, 24/7 protection engaged.',
+      mockupTitle: language === 'TR' ? 'Doğrulandı: Panel Kullanıma Hazır.' : 'Verified: Panel Ready to Use.',
+      mockupSub: language === 'TR' ? 'Tüm modüller aktif, yönetim paneli parmaklarınızın ucunda.' : 'All modules active, dashboard at your fingertips.',
       icon: 'file-text',
     },
   ];
@@ -554,14 +554,14 @@ export default function InteractiveWorkflow() {
                         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#22c55e" strokeWidth="2.5">
                           <polyline points="20 6 9 17 4 12" />
                         </svg>
-                        <span>{language === 'TR' ? 'Doğrulandı: Sunucu Güvende' : 'Verified: Server Secure'}</span>
+                        <span>{language === 'TR' ? 'Doğrulandı: Panel Kullanıma Hazır' : 'Verified: Panel Ready to Use'}</span>
                       </div>
-                      <span className="hiw-verdict-threats">{language === 'TR' ? '7/24 Koruma' : '24/7 Protected'}</span>
+                      <span className="hiw-verdict-threats">{language === 'TR' ? 'Canlı & Aktif' : 'Live & Active'}</span>
                     </div>
 
                     <div className="hiw-verdict-meta">
-                      <span>{language === 'TR' ? 'Guard Kalkanı: ' : 'Guard Shield: '}<strong>{language === 'TR' ? 'Aktif & İzleniyor' : 'Active & Monitored'}</strong></span>
-                      <span>{language === 'TR' ? 'Durum Kaydı: ' : 'Status Log: '}<strong>#BOT-SUNUCU-GUVENDE</strong></span>
+                      <span>{language === 'TR' ? 'Yönetim Paneli: ' : 'Dashboard: '}<strong>{language === 'TR' ? 'Aktif & Senkronize' : 'Active & Synced'}</strong></span>
+                      <span>{language === 'TR' ? 'Durum: ' : 'Status: '}<strong>#PANEL-AKTIF-ONLINE</strong></span>
                     </div>
                   </div>
                 </div>
