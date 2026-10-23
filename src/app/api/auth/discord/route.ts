@@ -8,7 +8,9 @@ export async function GET(request: Request) {
   const proto = request.headers.get('x-forwarded-proto') || (host.includes('localhost') || host.includes('127.0.0.1') ? 'http' : 'https');
   const currentOrigin = `${proto}://${host}`;
 
-  const clientId = process.env.DISCORD_CLIENT_ID || '1563000519377817610';
+  const clientId = (process.env.DISCORD_CLIENT_ID && process.env.DISCORD_CLIENT_ID !== '1557022423625371688')
+    ? process.env.DISCORD_CLIENT_ID
+    : '1563000519377817610';
 
   // Bulletproof redirectUri: always matches the active domain (e.g. https://wihyfe.com/api/auth/discord/callback)
   let redirectUri = `${currentOrigin}/api/auth/discord/callback`;

@@ -20,7 +20,9 @@ export async function GET(request: NextRequest) {
   const currentOrigin = `${proto}://${host}`;
 
   const appUrl = currentOrigin;
-  const clientId = process.env.DISCORD_CLIENT_ID || '1563000519377817610';
+  const clientId = (process.env.DISCORD_CLIENT_ID && process.env.DISCORD_CLIENT_ID !== '1557022423625371688')
+    ? process.env.DISCORD_CLIENT_ID
+    : '1563000519377817610';
   const clientSecret = process.env.DISCORD_CLIENT_SECRET || 'TqbMiV3wH9u9vW8IEAes3w9cVupr-nIc';
 
   let redirectUri = `${currentOrigin}/api/auth/discord/callback`;
