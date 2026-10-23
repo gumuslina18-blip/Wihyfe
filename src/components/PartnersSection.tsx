@@ -1,6 +1,5 @@
 'use client';
 
-import { useMemo } from 'react';
 import { SITE_CONFIG, PartnerServer } from '@/config/site';
 import { useLanguage } from '@/context/LanguageContext';
 
@@ -39,11 +38,6 @@ export default function PartnersSection() {
 
   const servers = SITE_CONFIG.partnerServers || [];
 
-  // Repeat servers across the track so -50% translation is completely seamless on any viewport
-  const repeatedServers = useMemo(() => {
-    return Array.from({ length: 16 }, () => servers).flat();
-  }, [servers]);
-
   return (
     <section className="section partners-section" id="partnerler">
       <div className="container">
@@ -61,14 +55,14 @@ export default function PartnersSection() {
             {t.partners.desc}
           </p>
         </div>
-      </div>
 
-      {/* Endless Left-Scrolling Marquee Track (Neonsuz, 2.image stili) */}
-      <div className="partners-marquee-container" aria-label="Partnerlerimiz">
-        <div className="partners-marquee-track">
-          {repeatedServers.map((server, idx) => (
-            <PartnerMarqueeItem key={`${server.id}-${idx}`} server={server} />
-          ))}
+        {/* Center Sliding Window (Sadece ortada kayar, kaybolur, sonra orta sağdan tekrar kayar) */}
+        <div className="partners-marquee-container" aria-label="Partnerlerimiz">
+          <div className="partners-center-track">
+            {servers.map((server) => (
+              <PartnerMarqueeItem key={server.id} server={server} />
+            ))}
+          </div>
         </div>
       </div>
     </section>

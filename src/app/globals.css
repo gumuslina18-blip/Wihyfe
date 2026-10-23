@@ -6793,37 +6793,54 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ==========================================================================
-   Partners Marquee (Neonsuz, Sola Kayan Sonsuz Şerit - Image 2 Tasarımı)
+   Partners Marquee (Neonsuz, Sadece Ortada Kayan & Kaybolan - Image 2 Tasarımı)
    ========================================================================== */
 .partners-marquee-container {
   position: relative;
   width: 100%;
+  max-width: 480px;
+  margin: 1.5rem auto 0;
   overflow: hidden;
   display: flex;
-  padding: 2.25rem 0 1.5rem;
-  mask-image: linear-gradient(to right, transparent 0%, #000 12%, #000 88%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 12%, #000 88%, transparent 100%);
-}
-
-.partners-marquee-track {
-  display: flex;
-  width: max-content;
-  gap: 3.5rem;
+  justify-content: center;
   align-items: center;
-  user-select: none;
-  animation: partnersMarqueeLeft 32s linear infinite;
+  padding: 1.25rem 0 1.5rem;
+  mask-image: linear-gradient(to right, transparent 0%, #000 16%, #000 84%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 16%, #000 84%, transparent 100%);
 }
 
-.partners-marquee-track:hover {
+.partners-center-track {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2.75rem;
+  user-select: none;
+  animation: partnerCenterSlide 8s linear infinite;
+  will-change: transform, opacity;
+}
+
+.partners-center-track:hover {
   animation-play-state: paused;
 }
 
-@keyframes partnersMarqueeLeft {
+@keyframes partnerCenterSlide {
   0% {
-    transform: translate3d(0, 0, 0);
+    transform: translate3d(380px, 0, 0);
+    opacity: 0;
+  }
+  6% {
+    opacity: 1;
+  }
+  78% {
+    opacity: 1;
+  }
+  85% {
+    transform: translate3d(-380px, 0, 0);
+    opacity: 0;
   }
   100% {
-    transform: translate3d(-50%, 0, 0);
+    transform: translate3d(-380px, 0, 0);
+    opacity: 0;
   }
 }
 
