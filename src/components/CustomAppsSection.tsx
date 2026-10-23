@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { SITE_CONFIG, BotProduct, BILLING_PERIODS, BillingPeriod, PricingPlan } from '@/config/site';
 import { useStore } from '@/context/StoreContext';
 import { useLanguage } from '@/context/LanguageContext';
@@ -29,24 +29,54 @@ function getAppIcon(iconType: BotProduct['icon']) {
 
 export default function CustomAppsSection() {
   const [selectedPeriod, setSelectedPeriod] = useState<BillingPeriod>('monthly');
+  const [currentPage, setCurrentPage] = useState(0);
   const [addedAppId, setAddedAppId] = useState<string | null>(null);
+  const touchStartX = useRef<number | null>(null);
+  const touchStartY = useRef<number | null>(null);
 
   const { addToCart, dynamicPeriods, getPackagePeriodInfo, getProductOverride } = useStore();
   const { language } = useLanguage();
 
   const customApps = SITE_CONFIG.customApps || [];
+  const totalApps = customApps.length;
+  const totalPages = Math.max(1, totalApps);
+
   const activePeriods = dynamicPeriods && dynamicPeriods.length > 0 ? dynamicPeriods : BILLING_PERIODS;
   const currentPeriodObj = activePeriods.find((p) => p.id === selectedPeriod) || activePeriods[0];
+
+  useEffect(() => {
+    if (currentPage >= totalPages) {
+      setCurrentPage(Math.max(0, totalPages - 1));
+    }
+  }, [totalPages, currentPage]);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+    touchStartY.current = e.touches[0].clientY;
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null) return;
+    const deltaX = touchStartX.current - e.changedTouches[0].clientX;
+    const deltaY = (touchStartY.current || 0) - e.changedTouches[0].clientY;
+
+    if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 40) {
+      if (deltaX > 0) {
+        setCurrentPage((p) => Math.min(totalPages - 1, p + 1));
+      } else {
+        setCurrentPage((p) => Math.max(0, p - 1));
+      }
+    }
+    touchStartX.current = null;
+    touchStartY.current = null;
+  };
 
   const handleAddToCart = (e: React.MouseEvent<HTMLButtonElement>, app: BotProduct, plan: PricingPlan) => {
     const periodInfo = getPackagePeriodInfo(app.id, selectedPeriod);
     const isAvailable = periodInfo.isAvailable && currentPeriodObj.isAvailable;
     if (!isAvailable) return;
 
-    // Trigger glowing flying cart animation
     animateFlyToCart(e.currentTarget);
-
-    // Show checkmark success state
     setAddedAppId(app.id);
     setTimeout(() => {
       setAddedAppId((curr) => (curr === app.id ? null : curr));
@@ -121,140 +151,244 @@ export default function CustomAppsSection() {
           </div>
         </div>
 
-        {/* 2 Wide Interactive Cards Grid */}
-        <div className="custom-apps-cards-grid">
-          {customApps.map((app) => {
-            const override = getProductOverride(app.id);
-            if (override?.status === 'Gizli') return null;
+        {/* Slider Controls Bar */}
+        <div className="card-slider-header-bar">
+          <div className="card-slider-telemetry">
+            <span className="card-slider-pulse-dot" style={{ backgroundColor: '#a855f7', boxShadow: '0 0 10px #a855f7' }} />
+            <span>
+              {language === 'EN'
+                ? `Page ${currentPage + 1} / ${totalPages} • ${totalApps} Solutions`
+                : `Sayfa ${currentPage + 1} / ${totalPages} • ${totalApps} Özel Çözüm`}
+            </span>
+          </div>
 
-            const displayName = override?.name || app.name;
-            const displayBadge = override?.badge !== undefined ? override.badge : app.badge;
-            const displayDesc = override?.description || app.description;
-            const isOutOfStock = override?.status === 'Tükendi';
+          <div className="card-slider-nav">
+            <button
+              type="button"
+              className="card-slider-btn"
+              onClick={() => setCurrentPage((p) => Math.max(0, p - 1))}
+              disabled={currentPage === 0}
+              aria-label="Önceki Sayfa"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="15 18 9 12 15 6" />
+              </svg>
+            </button>
+            <div className="card-slider-dots-row" role="tablist" aria-label="Sayfa Göstergesi">
+              {Array.from({ length: totalPages }).map((_, i) => (
+                <button
+                  key={i}
+                  type="button"
+                  onClick={() => setCurrentPage(i)}
+                  className={`card-slider-dot ${i === currentPage ? 'is-active' : ''}`}
+                  aria-label={`Sayfa ${i + 1}`}
+                />
+              ))}
+            </div>
+            <button
+              type="button"
+              className="card-slider-btn"
+              onClick={() => setCurrentPage((p) => Math.min(totalPages - 1, p + 1))}
+              disabled={currentPage === totalPages - 1}
+              aria-label="Sonraki Sayfa"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="9 18 15 12 9 6" />
+              </svg>
+            </button>
+          </div>
+        </div>
 
-            const periodInfo = getPackagePeriodInfo(app.id, selectedPeriod);
-            const plan = app.pricing[selectedPeriod];
-            const rawPrice = periodInfo.customPrice || plan.totalPrice;
-            const isAvailable = periodInfo.isAvailable && !isOutOfStock;
-            const statusBadge = isOutOfStock ? 'Tükendi' : periodInfo.statusBadge;
-            const cleanPriceVal = String(rawPrice || '').replace(/\s*TL\s*/gi, '').trim();
+        {/* Sliding Carousel Viewport */}
+        <div
+          className="card-slider-outer"
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+        >
+          {totalPages > 1 && (
+            <button
+              type="button"
+              className="card-slider-edge-btn edge-prev"
+              onClick={() => setCurrentPage((p) => Math.max(0, p - 1))}
+              disabled={currentPage === 0}
+              aria-label="Önceki Sayfa"
+            >
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="15 18 9 12 15 6" />
+              </svg>
+            </button>
+          )}
 
-            return (
-              <article
-                key={app.id}
-                className={`app-card-box ${app.popular ? 'app-card-popular' : ''}`}
-                id={`app-${app.id}`}
-              >
-                {app.popular && <div className="card-popular-glow" aria-hidden="true" />}
+          <div className="card-slider-viewport">
+            <div
+              className="card-slider-track"
+              style={{
+                transform: `translateX(-${currentPage * 100}%)`,
+              }}
+            >
+              {customApps.map((app) => {
+                const override = getProductOverride(app.id);
+                if (override?.status === 'Gizli') return null;
 
-                {/* Top Badge */}
-                <div className="app-card-top-row">
-                  <div className="app-badge-pill">
-                    <span>{displayBadge}</span>
-                  </div>
-                  {app.popular && (
-                    <span className="app-highlight-pill">
-                      🔥 {language === 'TR' ? 'ÖNERİLEN ÇÖZÜM' : 'RECOMMENDED SOLUTION'}
-                    </span>
-                  )}
-                </div>
+                const displayName = override?.name || app.name;
+                const displayBadge = override?.badge !== undefined ? override.badge : app.badge;
+                const displayDesc = override?.description || app.description;
+                const isOutOfStock = override?.status === 'Tükendi';
 
-                {/* Header Icon + Title */}
-                <div className="app-card-header">
-                  <div className="app-icon-wrap" aria-hidden="true">
-                    {getAppIcon(app.icon)}
-                  </div>
-                  <div>
-                    <h3 className="app-card-title">{displayName}</h3>
-                    <p className="app-card-desc">{displayDesc}</p>
-                  </div>
-                </div>
+                const periodInfo = getPackagePeriodInfo(app.id, selectedPeriod);
+                const plan = app.pricing[selectedPeriod];
+                const rawPrice = periodInfo.customPrice || plan.totalPrice;
+                const isAvailable = periodInfo.isAvailable && !isOutOfStock;
+                const statusBadge = isOutOfStock ? 'Tükendi' : (periodInfo.statusBadge || 'Yakında');
+                const cleanPriceVal = String(rawPrice || '').replace(/\s*TL\s*/gi, '').trim();
 
-                {/* Price Block */}
-                <div className="app-price-box">
-                  <div className="app-price-main">
-                    <span className="app-currency">₺</span>
-                    <span className="app-price-num">{cleanPriceVal}</span>
-                    <span className="app-freq">
-                      /{plan.periodLabel.replace(/TL\s*\/?\s*/gi, '').trim() || 'ay'}
-                    </span>
-                  </div>
+                return (
+                  <div key={app.id} className="card-slider-slide-single">
+                    <article
+                      className={`app-card-box ${app.popular ? 'app-card-popular' : ''}`}
+                      id={`app-${app.id}`}
+                    >
+                      {app.popular && <div className="card-popular-glow" aria-hidden="true" />}
 
-                  <div className="app-price-sub">
-                    {plan.originalPrice && (
-                      <span className="app-price-old">{plan.originalPrice}</span>
-                    )}
-                    {plan.discountBadge && (
-                      <span className="app-discount-tag">{plan.discountBadge}</span>
-                    )}
-                    {plan.monthlyEquivalent && selectedPeriod !== 'monthly' && (
-                      <span className="app-monthly-equiv">
-                        ({plan.monthlyEquivalent})
-                      </span>
-                    )}
-                  </div>
-                </div>
-
-                {/* Action Buttons: Add to Cart + Discord Consult */}
-                <div className="app-actions-group">
-                  <button
-                    type="button"
-                    className={`btn btn-block ${app.popular ? 'btn-primary' : 'btn-secondary'} ${
-                      addedAppId === app.id ? 'btn-added-success' : ''
-                    }`}
-                    onClick={(e) => handleAddToCart(e, app, plan)}
-                    disabled={!isAvailable}
-                    aria-label={`${displayName} ${isAvailable ? 'Satın Al' : statusBadge}`}
-                  >
-                    {addedAppId === app.id ? (
-                      <span className="btn-added-label">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                          <polyline points="20 6 9 17 4 12" />
-                        </svg>
-                        <span>{language === 'EN' ? 'Added!' : 'Sepete Eklendi!'}</span>
-                      </span>
-                    ) : (
-                      <>
-                        <span>{isAvailable ? (language === 'EN' ? 'Order Solution' : 'Hemen Başlat & Satın Al') : statusBadge}</span>
-                        {isAvailable && (
-                          <svg className="icon-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                            <line x1="7" y1="17" x2="17" y2="7" />
-                            <polyline points="7 7 17 7 17 17" />
-                          </svg>
+                      {/* Top Badge */}
+                      <div className="app-card-top-row">
+                        <div className="app-badge-pill">
+                          <span>{displayBadge}</span>
+                        </div>
+                        {app.popular && (
+                          <span className="app-highlight-pill">
+                            🔥 {language === 'TR' ? 'ÖNERİLEN ÇÖZÜM' : 'RECOMMENDED SOLUTION'}
+                          </span>
                         )}
-                      </>
-                    )}
-                  </button>
+                      </div>
 
-                  <a
-                    href={SITE_CONFIG.brand.discordUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="app-consult-btn"
-                  >
-                    <span>{language === 'TR' ? '💬 Projeyi Görüş & Özel Teklif İste' : '💬 Discuss Project on Discord'}</span>
-                  </a>
-                </div>
+                      {/* Header Icon + Title */}
+                      <div className="app-card-header">
+                        <div className="app-icon-wrap" aria-hidden="true">
+                          {getAppIcon(app.icon)}
+                        </div>
+                        <div>
+                          <h3 className="app-card-title">{displayName}</h3>
+                          <p className="app-card-desc">{displayDesc}</p>
+                        </div>
+                      </div>
 
-                {/* Features Checklist */}
-                <div className="app-features-block">
-                  <span className="app-features-heading">
-                    {language === 'TR' ? 'Kapsam & Mimari Detaylar:' : 'Scope & Architecture Details:'}
-                  </span>
-                  <ul className="app-features-list">
-                    {app.features.map((feat, idx) => (
-                      <li key={idx} className="app-feature-item">
-                        <svg className="app-check-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                          <polyline points="20 6 9 17 4 12" />
-                        </svg>
-                        <span>{feat}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </article>
-            );
-          })}
+                      {/* Price Block */}
+                      <div className="app-price-box">
+                        <div className="app-price-main">
+                          <span className="panel-currency">₺</span>
+                          <span className="panel-price-num">{cleanPriceVal}</span>
+                          <span className="panel-freq">
+                            /{plan.periodLabel.replace(/TL\s*\/?\s*/gi, '').trim() || 'ay'}
+                          </span>
+                        </div>
+
+                        <div className="app-price-sub">
+                          {plan.originalPrice && (
+                            <span className="panel-price-old">{plan.originalPrice}</span>
+                          )}
+                          {plan.discountBadge && (
+                            <span className="panel-discount-tag">{plan.discountBadge}</span>
+                          )}
+                          {plan.monthlyEquivalent && selectedPeriod !== 'monthly' && (
+                            <span className="panel-monthly-equiv">
+                              ({plan.monthlyEquivalent})
+                            </span>
+                          )}
+                        </div>
+                      </div>
+
+                      {/* Action Buttons: Add to Cart + Discord Consult */}
+                      <div className="app-actions-group">
+                        <button
+                          type="button"
+                          className={`btn btn-block ${app.popular ? 'btn-primary' : 'btn-secondary'} is-disabled`}
+                          onClick={(e) => handleAddToCart(e, app, plan)}
+                          disabled={!isAvailable}
+                          aria-label={`${displayName} ${isAvailable ? 'Satın Al' : statusBadge}`}
+                        >
+                          {!isAvailable ? (
+                            <>
+                              <span>{statusBadge || 'Yakında'}</span>
+                              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <circle cx="12" cy="12" r="10" />
+                                <polyline points="12 6 12 12 16 14" />
+                              </svg>
+                            </>
+                          ) : addedAppId === app.id ? (
+                            <span className="btn-added-label">
+                              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                                <polyline points="20 6 9 17 4 12" />
+                              </svg>
+                              <span>{language === 'EN' ? 'Added!' : 'Sepete Eklendi!'}</span>
+                            </span>
+                          ) : (
+                            <>
+                              <span>{language === 'EN' ? 'Order Solution' : 'Hemen Başlat & Satın Al'}</span>
+                              <svg className="icon-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                                <line x1="7" y1="17" x2="17" y2="7" />
+                                <polyline points="7 7 17 7 17 17" />
+                              </svg>
+                            </>
+                          )}
+                        </button>
+
+                        <a
+                          href={SITE_CONFIG.brand.discordUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="app-consult-btn"
+                        >
+                          <span>{language === 'TR' ? '💬 Projeyi Görüş & Özel Teklif İste' : '💬 Discuss Project on Discord'}</span>
+                        </a>
+                      </div>
+
+                      {/* Features Checklist */}
+                      <div className="app-features-block">
+                        <span className="app-features-heading">
+                          {language === 'TR' ? 'Kapsam & Mimari Detaylar:' : 'Scope & Architecture Details:'}
+                        </span>
+                        <ul className="app-features-list">
+                          {app.features.map((feat, idx) => (
+                            <li key={idx} className="app-feature-item">
+                              <svg className="app-check-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                                <polyline points="20 6 9 17 4 12" />
+                              </svg>
+                              <span>{feat}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </article>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {totalPages > 1 && (
+            <button
+              type="button"
+              className="card-slider-edge-btn edge-next"
+              onClick={() => setCurrentPage((p) => Math.min(totalPages - 1, p + 1))}
+              disabled={currentPage === totalPages - 1}
+              aria-label="Sonraki Sayfa"
+            >
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="9 18 15 12 9 6" />
+              </svg>
+            </button>
+          )}
+        </div>
+
+        <div className="card-slider-hint">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="15 18 9 12 15 6" />
+          </svg>
+          <span>{language === 'EN' ? 'Swipe left or right to browse solutions' : 'Çözümleri görmek için sağa / sola kaydırın'}</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="9 18 15 12 9 6" />
+          </svg>
         </div>
       </div>
     </section>

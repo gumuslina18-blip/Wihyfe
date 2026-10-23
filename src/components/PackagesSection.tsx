@@ -63,7 +63,6 @@ function getBotIcon(iconType: BotProduct['icon']) {
 export default function PackagesSection() {
   const [selectedPeriod, setSelectedPeriod] = useState<BillingPeriod>('monthly');
   const [currentPage, setCurrentPage] = useState(0);
-  const [itemsPerPage, setItemsPerPage] = useState(3);
   const [addedBotId, setAddedBotId] = useState<string | null>(null);
   const touchStartX = useRef<number | null>(null);
   const touchStartY = useRef<number | null>(null);
@@ -72,23 +71,7 @@ export default function PackagesSection() {
   const { t, language } = useLanguage();
 
   const totalBots = SITE_CONFIG.bots.length;
-
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth < 640) {
-        setItemsPerPage(1);
-      } else if (window.innerWidth < 1024) {
-        setItemsPerPage(2);
-      } else {
-        setItemsPerPage(3);
-      }
-    };
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  const totalPages = Math.max(1, Math.ceil(totalBots / itemsPerPage));
+  const totalPages = Math.max(1, totalBots);
 
   useEffect(() => {
     if (currentPage >= totalPages) {
@@ -275,7 +258,7 @@ export default function PackagesSection() {
             <div
               className="card-slider-track"
               style={{
-                transform: `translateX(calc(-${currentPage} * (100% + 1.5rem)))`,
+                transform: `translateX(-${currentPage * 100}%)`,
               }}
               id="packages-container"
             >
@@ -296,7 +279,7 @@ export default function PackagesSection() {
                 const cleanPriceVal = String(rawPrice || '').replace(/\s*TL\s*/gi, '').trim();
 
                 return (
-                  <div key={bot.id} className="card-slider-slide">
+                  <div key={bot.id} className="card-slider-slide-single">
                     <article
                       className={`bot-card ${bot.popular ? 'bot-card-popular' : ''}`}
                       id={`pkg-${bot.id}`}

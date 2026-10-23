@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { SITE_CONFIG, BotProduct, BILLING_PERIODS, BillingPeriod, PricingPlan } from '@/config/site';
 import { useStore } from '@/context/StoreContext';
 import { useLanguage } from '@/context/LanguageContext';
@@ -31,24 +31,54 @@ function getPanelIcon(iconType: BotProduct['icon']) {
 
 export default function PanelsSection() {
   const [selectedPeriod, setSelectedPeriod] = useState<BillingPeriod>('monthly');
+  const [currentPage, setCurrentPage] = useState(0);
   const [addedPanelId, setAddedPanelId] = useState<string | null>(null);
+  const touchStartX = useRef<number | null>(null);
+  const touchStartY = useRef<number | null>(null);
 
   const { addToCart, dynamicPeriods, getPackagePeriodInfo, getProductOverride } = useStore();
   const { language } = useLanguage();
 
   const panels = SITE_CONFIG.panels || [];
+  const totalPanels = panels.length;
+  const totalPages = Math.max(1, totalPanels);
+
   const activePeriods = dynamicPeriods && dynamicPeriods.length > 0 ? dynamicPeriods : BILLING_PERIODS;
   const currentPeriodObj = activePeriods.find((p) => p.id === selectedPeriod) || activePeriods[0];
+
+  useEffect(() => {
+    if (currentPage >= totalPages) {
+      setCurrentPage(Math.max(0, totalPages - 1));
+    }
+  }, [totalPages, currentPage]);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+    touchStartY.current = e.touches[0].clientY;
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null) return;
+    const deltaX = touchStartX.current - e.changedTouches[0].clientX;
+    const deltaY = (touchStartY.current || 0) - e.changedTouches[0].clientY;
+
+    if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 40) {
+      if (deltaX > 0) {
+        setCurrentPage((p) => Math.min(totalPages - 1, p + 1));
+      } else {
+        setCurrentPage((p) => Math.max(0, p - 1));
+      }
+    }
+    touchStartX.current = null;
+    touchStartY.current = null;
+  };
 
   const handleAddToCart = (e: React.MouseEvent<HTMLButtonElement>, panel: BotProduct, plan: PricingPlan) => {
     const periodInfo = getPackagePeriodInfo(panel.id, selectedPeriod);
     const isAvailable = periodInfo.isAvailable && currentPeriodObj.isAvailable;
     if (!isAvailable) return;
 
-    // Trigger glowing flying cart animation
     animateFlyToCart(e.currentTarget);
-
-    // Show checkmark success state
     setAddedPanelId(panel.id);
     setTimeout(() => {
       setAddedPanelId((curr) => (curr === panel.id ? null : curr));
@@ -123,131 +153,235 @@ export default function PanelsSection() {
           </div>
         </div>
 
-        {/* 2 Wide Interactive Cards Grid */}
-        <div className="panels-cards-grid">
-          {panels.map((panel) => {
-            const override = getProductOverride(panel.id);
-            if (override?.status === 'Gizli') return null;
+        {/* Slider Controls Bar */}
+        <div className="card-slider-header-bar">
+          <div className="card-slider-telemetry">
+            <span className="card-slider-pulse-dot" style={{ backgroundColor: '#0878ff', boxShadow: '0 0 10px #0878ff' }} />
+            <span>
+              {language === 'EN'
+                ? `Page ${currentPage + 1} / ${totalPages} • ${totalPanels} Active Panels`
+                : `Sayfa ${currentPage + 1} / ${totalPages} • ${totalPanels} Aktif Panel`}
+            </span>
+          </div>
 
-            const displayName = override?.name || panel.name;
-            const displayBadge = override?.badge !== undefined ? override.badge : panel.badge;
-            const displayDesc = override?.description || panel.description;
-            const isOutOfStock = override?.status === 'Tükendi';
+          <div className="card-slider-nav">
+            <button
+              type="button"
+              className="card-slider-btn"
+              onClick={() => setCurrentPage((p) => Math.max(0, p - 1))}
+              disabled={currentPage === 0}
+              aria-label="Önceki Sayfa"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="15 18 9 12 15 6" />
+              </svg>
+            </button>
+            <div className="card-slider-dots-row" role="tablist" aria-label="Sayfa Göstergesi">
+              {Array.from({ length: totalPages }).map((_, i) => (
+                <button
+                  key={i}
+                  type="button"
+                  onClick={() => setCurrentPage(i)}
+                  className={`card-slider-dot ${i === currentPage ? 'is-active' : ''}`}
+                  aria-label={`Sayfa ${i + 1}`}
+                />
+              ))}
+            </div>
+            <button
+              type="button"
+              className="card-slider-btn"
+              onClick={() => setCurrentPage((p) => Math.min(totalPages - 1, p + 1))}
+              disabled={currentPage === totalPages - 1}
+              aria-label="Sonraki Sayfa"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="9 18 15 12 9 6" />
+              </svg>
+            </button>
+          </div>
+        </div>
 
-            const periodInfo = getPackagePeriodInfo(panel.id, selectedPeriod);
-            const plan = panel.pricing[selectedPeriod];
-            const rawPrice = periodInfo.customPrice || plan.totalPrice;
-            const isAvailable = periodInfo.isAvailable && !isOutOfStock;
-            const statusBadge = isOutOfStock ? 'Tükendi' : periodInfo.statusBadge;
-            const cleanPriceVal = String(rawPrice || '').replace(/\s*TL\s*/gi, '').trim();
+        {/* Sliding Carousel Viewport */}
+        <div
+          className="card-slider-outer"
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+        >
+          {totalPages > 1 && (
+            <button
+              type="button"
+              className="card-slider-edge-btn edge-prev"
+              onClick={() => setCurrentPage((p) => Math.max(0, p - 1))}
+              disabled={currentPage === 0}
+              aria-label="Önceki Sayfa"
+            >
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="15 18 9 12 15 6" />
+              </svg>
+            </button>
+          )}
 
-            return (
-              <article
-                key={panel.id}
-                className={`panel-card-box ${panel.popular ? 'panel-card-popular' : ''}`}
-                id={`panel-${panel.id}`}
-              >
-                {panel.popular && <div className="card-popular-glow" aria-hidden="true" />}
+          <div className="card-slider-viewport">
+            <div
+              className="card-slider-track"
+              style={{
+                transform: `translateX(-${currentPage * 100}%)`,
+              }}
+            >
+              {panels.map((panel) => {
+                const override = getProductOverride(panel.id);
+                if (override?.status === 'Gizli') return null;
 
-                {/* Top Badge */}
-                <div className="panel-card-top-row">
-                  <div className="panel-badge-pill">
-                    <span>{displayBadge}</span>
-                  </div>
-                  {panel.popular && (
-                    <span className="panel-highlight-pill">
-                      ⭐ {language === 'TR' ? 'ÖNE ÇIKAN PANEL' : 'FEATURED PANEL'}
-                    </span>
-                  )}
-                </div>
+                const displayName = override?.name || panel.name;
+                const displayBadge = override?.badge !== undefined ? override.badge : panel.badge;
+                const displayDesc = override?.description || panel.description;
+                const isOutOfStock = override?.status === 'Tükendi';
 
-                {/* Header Icon + Title */}
-                <div className="panel-card-header">
-                  <div className="panel-icon-wrap" aria-hidden="true">
-                    {getPanelIcon(panel.icon)}
-                  </div>
-                  <div>
-                    <h3 className="panel-card-title">{displayName}</h3>
-                    <p className="panel-card-desc">{displayDesc}</p>
-                  </div>
-                </div>
+                const periodInfo = getPackagePeriodInfo(panel.id, selectedPeriod);
+                const plan = panel.pricing[selectedPeriod];
+                const rawPrice = periodInfo.customPrice || plan.totalPrice;
+                const isAvailable = periodInfo.isAvailable && !isOutOfStock;
+                const statusBadge = isOutOfStock ? 'Tükendi' : (periodInfo.statusBadge || 'Yakında');
+                const cleanPriceVal = String(rawPrice || '').replace(/\s*TL\s*/gi, '').trim();
 
-                {/* Price Block */}
-                <div className="panel-price-box">
-                  <div className="panel-price-main">
-                    <span className="panel-currency">₺</span>
-                    <span className="panel-price-num">{cleanPriceVal}</span>
-                    <span className="panel-freq">
-                      /{plan.periodLabel.replace(/TL\s*\/?\s*/gi, '').trim() || 'ay'}
-                    </span>
-                  </div>
+                return (
+                  <div key={panel.id} className="card-slider-slide-single">
+                    <article
+                      className={`panel-card-box ${panel.popular ? 'panel-card-popular' : ''}`}
+                      id={`panel-${panel.id}`}
+                    >
+                      {panel.popular && <div className="card-popular-glow" aria-hidden="true" />}
 
-                  <div className="panel-price-sub">
-                    {plan.originalPrice && (
-                      <span className="panel-price-old">{plan.originalPrice}</span>
-                    )}
-                    {plan.discountBadge && (
-                      <span className="panel-discount-tag">{plan.discountBadge}</span>
-                    )}
-                    {plan.monthlyEquivalent && selectedPeriod !== 'monthly' && (
-                      <span className="panel-monthly-equiv">
-                        ({plan.monthlyEquivalent})
-                      </span>
-                    )}
-                  </div>
-                </div>
-
-                {/* CTA Action Button */}
-                <div className="panel-action-wrap">
-                  <button
-                    type="button"
-                    className={`btn btn-block ${panel.popular ? 'btn-primary' : 'btn-secondary'} ${
-                      addedPanelId === panel.id ? 'btn-added-success' : ''
-                    }`}
-                    onClick={(e) => handleAddToCart(e, panel, plan)}
-                    disabled={!isAvailable}
-                    aria-label={`${displayName} ${isAvailable ? 'Satın Al' : statusBadge}`}
-                  >
-                    {addedPanelId === panel.id ? (
-                      <span className="btn-added-label">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                          <polyline points="20 6 9 17 4 12" />
-                        </svg>
-                        <span>{language === 'EN' ? 'Added!' : 'Sepete Eklendi!'}</span>
-                      </span>
-                    ) : (
-                      <>
-                        <span>{isAvailable ? (language === 'EN' ? 'Select Panel' : 'Paneli Satın Al') : statusBadge}</span>
-                        {isAvailable && (
-                          <svg className="icon-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                            <line x1="7" y1="17" x2="17" y2="7" />
-                            <polyline points="7 7 17 7 17 17" />
-                          </svg>
+                      {/* Top Badge */}
+                      <div className="panel-card-top-row">
+                        <div className="panel-badge-pill">
+                          <span>{displayBadge}</span>
+                        </div>
+                        {panel.popular && (
+                          <span className="panel-highlight-pill">
+                            ⭐ {language === 'TR' ? 'ÖNE ÇIKAN PANEL' : 'FEATURED PANEL'}
+                          </span>
                         )}
-                      </>
-                    )}
-                  </button>
-                </div>
+                      </div>
 
-                {/* Features Checklist */}
-                <div className="panel-features-block">
-                  <span className="panel-features-heading">
-                    {language === 'TR' ? 'Panel Özellikleri & Modülleri:' : 'Panel Features & Modules:'}
-                  </span>
-                  <ul className="panel-features-list">
-                    {panel.features.map((feat, idx) => (
-                      <li key={idx} className="panel-feature-item">
-                        <svg className="panel-check-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                          <polyline points="20 6 9 17 4 12" />
-                        </svg>
-                        <span>{feat}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </article>
-            );
-          })}
+                      {/* Header Icon + Title */}
+                      <div className="panel-card-header">
+                        <div className="panel-icon-wrap" aria-hidden="true">
+                          {getPanelIcon(panel.icon)}
+                        </div>
+                        <div>
+                          <h3 className="panel-card-title">{displayName}</h3>
+                          <p className="panel-card-desc">{displayDesc}</p>
+                        </div>
+                      </div>
+
+                      {/* Price Block */}
+                      <div className="panel-price-box">
+                        <div className="panel-price-main">
+                          <span className="panel-currency">₺</span>
+                          <span className="panel-price-num">{cleanPriceVal}</span>
+                          <span className="panel-freq">
+                            /{plan.periodLabel.replace(/TL\s*\/?\s*/gi, '').trim() || 'ay'}
+                          </span>
+                        </div>
+
+                        <div className="panel-price-sub">
+                          {plan.originalPrice && (
+                            <span className="panel-price-old">{plan.originalPrice}</span>
+                          )}
+                          {plan.discountBadge && (
+                            <span className="panel-discount-tag">{plan.discountBadge}</span>
+                          )}
+                          {plan.monthlyEquivalent && selectedPeriod !== 'monthly' && (
+                            <span className="panel-monthly-equiv">
+                              ({plan.monthlyEquivalent})
+                            </span>
+                          )}
+                        </div>
+                      </div>
+
+                      {/* CTA Action Button */}
+                      <div className="panel-action-wrap">
+                        <button
+                          type="button"
+                          className={`btn btn-block ${panel.popular ? 'btn-primary' : 'btn-secondary'} is-disabled`}
+                          onClick={(e) => handleAddToCart(e, panel, plan)}
+                          disabled={!isAvailable}
+                          aria-label={`${displayName} ${isAvailable ? 'Satın Al' : statusBadge}`}
+                        >
+                          {!isAvailable ? (
+                            <>
+                              <span>{statusBadge || 'Yakında'}</span>
+                              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <circle cx="12" cy="12" r="10" />
+                                <polyline points="12 6 12 12 16 14" />
+                              </svg>
+                            </>
+                          ) : addedPanelId === panel.id ? (
+                            <span className="btn-added-label">
+                              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                                <polyline points="20 6 9 17 4 12" />
+                              </svg>
+                              <span>{language === 'EN' ? 'Added!' : 'Sepete Eklendi!'}</span>
+                            </span>
+                          ) : (
+                            <>
+                              <span>{language === 'EN' ? 'Select Panel' : 'Paneli Satın Al'}</span>
+                              <svg className="icon-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                                <line x1="7" y1="17" x2="17" y2="7" />
+                                <polyline points="7 7 17 7 17 17" />
+                              </svg>
+                            </>
+                          )}
+                        </button>
+                      </div>
+
+                      {/* Features Checklist */}
+                      <div className="panel-features-block">
+                        <span className="panel-features-heading">
+                          {language === 'TR' ? 'Panel Özellikleri & Modülleri:' : 'Panel Features & Modules:'}
+                        </span>
+                        <ul className="panel-features-list">
+                          {panel.features.map((feat, idx) => (
+                            <li key={idx} className="panel-feature-item">
+                              <svg className="panel-check-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                                <polyline points="20 6 9 17 4 12" />
+                              </svg>
+                              <span>{feat}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </article>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {totalPages > 1 && (
+            <button
+              type="button"
+              className="card-slider-edge-btn edge-next"
+              onClick={() => setCurrentPage((p) => Math.min(totalPages - 1, p + 1))}
+              disabled={currentPage === totalPages - 1}
+              aria-label="Sonraki Sayfa"
+            >
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="9 18 15 12 9 6" />
+              </svg>
+            </button>
+          )}
+        </div>
+
+        <div className="card-slider-hint">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="15 18 9 12 15 6" />
+          </svg>
+          <span>{language === 'EN' ? 'Swipe left or right to browse panels' : 'Panelleri görmek için sağa / sola kaydırın'}</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="9 18 15 12 9 6" />
+          </svg>
         </div>
       </div>
     </section>

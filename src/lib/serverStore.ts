@@ -148,7 +148,8 @@ export function initializePackageConfig(): Record<string, Record<string, Package
   getAllBotProducts().forEach((bot) => {
     config[bot.id] = {
       monthly: {
-        isAvailable: true,
+        isAvailable: false,
+        statusBadge: 'Yakında',
         paytrUrl: bot.pricing.monthly.paytrUrl || '',
         customPrice: bot.pricing.monthly.totalPrice,
       },
@@ -176,7 +177,8 @@ export function initializePackageConfig(): Record<string, Record<string, Package
   SITE_CONFIG.websites.forEach((site) => {
     config[site.id] = {
       monthly: {
-        isAvailable: !site.isCustomQuote,
+        isAvailable: false,
+        statusBadge: 'Yakında',
         paytrUrl: site.pricing.monthly.paytrUrl || '',
         customPrice: site.pricing.monthly.totalPrice,
       },
