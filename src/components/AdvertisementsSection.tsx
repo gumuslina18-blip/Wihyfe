@@ -219,6 +219,7 @@ export default function AdvertisementsSection() {
               className="card-slider-track"
               style={{
                 transform: `translateX(calc(-${currentPage} * (100% + 1.5rem)))`,
+                justifyContent: totalAds <= itemsPerPage ? 'center' : 'flex-start',
               }}
               id="advertisements-container"
             >

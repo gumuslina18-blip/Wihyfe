@@ -8,7 +8,7 @@ import { useLanguage } from '@/context/LanguageContext';
 export default function WebsitesSection() {
   const [selectedPeriod, setSelectedPeriod] = useState<BillingPeriod>('monthly');
   const [currentPage, setCurrentPage] = useState(0);
-  const [itemsPerPage, setItemsPerPage] = useState(2);
+  const [itemsPerPage, setItemsPerPage] = useState(3);
   const touchStartX = useRef<number | null>(null);
   const touchStartY = useRef<number | null>(null);
 
@@ -20,10 +20,12 @@ export default function WebsitesSection() {
 
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth < 768) {
+      if (window.innerWidth < 640) {
         setItemsPerPage(1);
-      } else {
+      } else if (window.innerWidth < 1024) {
         setItemsPerPage(2);
+      } else {
+        setItemsPerPage(3);
       }
     };
     handleResize();
@@ -178,6 +180,7 @@ export default function WebsitesSection() {
               className="card-slider-track"
               style={{
                 transform: `translateX(calc(-${currentPage} * (100% + 1.5rem)))`,
+                justifyContent: totalWebsites <= itemsPerPage ? 'center' : 'flex-start',
               }}
               id="websites-slider-track"
             >
@@ -197,7 +200,7 @@ export default function WebsitesSection() {
                 const statusBadge = periodInfo.statusBadge || 'Yakında';
 
                 return (
-                  <div key={site.id} className="card-slider-slide-2col">
+                  <div key={site.id} className="card-slider-slide">
                     <article
                       className={`bot-card ${isFeatured ? 'bot-card-popular' : ''}`}
                       id={`site-${site.id}`}

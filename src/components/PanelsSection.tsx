@@ -33,7 +33,7 @@ export default function PanelsSection() {
   const [selectedPeriod, setSelectedPeriod] = useState<BillingPeriod>('monthly');
   const [currentPage, setCurrentPage] = useState(0);
   const [addedPanelId, setAddedPanelId] = useState<string | null>(null);
-  const [itemsPerPage, setItemsPerPage] = useState(2);
+  const [itemsPerPage, setItemsPerPage] = useState(3);
   const touchStartX = useRef<number | null>(null);
   const touchStartY = useRef<number | null>(null);
 
@@ -42,10 +42,12 @@ export default function PanelsSection() {
 
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth < 768) {
+      if (window.innerWidth < 640) {
         setItemsPerPage(1);
-      } else {
+      } else if (window.innerWidth < 1024) {
         setItemsPerPage(2);
+      } else {
+        setItemsPerPage(3);
       }
     };
     handleResize();
@@ -240,6 +242,7 @@ export default function PanelsSection() {
               className="card-slider-track"
               style={{
                 transform: `translateX(calc(-${currentPage} * (100% + 1.5rem)))`,
+                justifyContent: totalPanels <= itemsPerPage ? 'center' : 'flex-start',
               }}
             >
               {panels.map((panel) => {
@@ -259,7 +262,7 @@ export default function PanelsSection() {
                 const cleanPriceVal = String(rawPrice || '').replace(/\s*TL\s*/gi, '').trim();
 
                 return (
-                  <div key={panel.id} className="card-slider-slide-2col">
+                  <div key={panel.id} className="card-slider-slide">
                     <article
                       className={`bot-card ${panel.popular ? 'bot-card-popular' : ''}`}
                       id={`panel-${panel.id}`}
