@@ -22,21 +22,21 @@ export default function InteractiveWorkflow() {
   const stepsData = [
     {
       number: '01',
-      title: language === 'TR' ? 'Wihyfe İstemcisi' : 'Wihyfe Client',
+      title: language === 'TR' ? 'Wihyfe Yazılım & İstemci' : 'Wihyfe Software & Client',
       desc: language === 'TR' 
-        ? 'Wihyfe istemcisini indirin veya web paneli üzerinden bot yönetim oturumunuzu başlatın.' 
-        : 'Download the lightweight Wihyfe client or launch via web dashboard.',
-      category: language === 'TR' ? 'Wihyfe İstemcisi' : 'Wihyfe Client',
+        ? 'Wihyfe istemcisini edinin veya web konsolu üzerinden sistem oturumunuzu başlatın.' 
+        : 'Download the Wihyfe client or launch session via web console.',
+      category: language === 'TR' ? 'Yazılım İstemcisi' : 'Software Client',
       mockupTitle: 'Wihyfe',
-      mockupSub: language === 'TR' ? 'Wihyfe istemcisini indir.' : 'Download Wihyfe client.',
+      mockupSub: language === 'TR' ? 'Wihyfe istemcisini indir & başlat.' : 'Download & launch Wihyfe client.',
       icon: 'download',
     },
     {
       number: '02',
       title: language === 'TR' ? 'Oturuma Bağlan' : 'Connect Session',
       desc: language === 'TR'
-        ? 'İstemciyi açarak güvenli Wihyfe Discord bot yönetim oturumuna bağlanın.'
-        : 'Launch client and connect to secure Wihyfe Discord bot session.',
+        ? 'İstemciyi veya web konsolunu açarak güvenli Wihyfe yönetim oturumuna bağlanın.'
+        : 'Launch client or web console and connect to secure Wihyfe session.',
       category: language === 'TR' ? 'Yetkili Oturumu' : 'Privileged Session',
       mockupTitle: language === 'TR' ? 'Yönetici olarak çalıştır.' : 'Run as administrator.',
       mockupSub: language === 'TR' ? 'İstemciyi aç ve Wihyfe oturumuna bağlan.' : 'Launch client and connect to Wihyfe session.',
@@ -46,8 +46,8 @@ export default function InteractiveWorkflow() {
       number: '03',
       title: language === 'TR' ? 'PIN ile Başlat' : 'Start with PIN',
       desc: language === 'TR'
-        ? '6 haneli Wihyfe PIN kodunuzu girerek sunucu botunuzu anında kullanmaya başlayın.'
-        : 'Enter your 6-digit Wihyfe PIN to begin using your server bot.',
+        ? '6 haneli Wihyfe PIN kodunuzu girerek lisanslı yazılımınızı ve panelinizi anında kullanmaya başlayın.'
+        : 'Enter your 6-digit Wihyfe PIN to activate your software and management dashboard.',
       category: language === 'TR' ? 'Wihyfe PIN\'i' : 'Wihyfe PIN',
       mockupTitle: language === 'TR' ? 'Oturumu bağla.' : 'Connect session.',
       mockupSub: language === 'TR' ? 'Wihyfe PIN\'i ile kullanmaya başla.' : 'Start using with Wihyfe PIN.',
@@ -55,35 +55,35 @@ export default function InteractiveWorkflow() {
     },
     {
       number: '04',
-      title: language === 'TR' ? 'Sunucu & Komut Denetimi' : 'Server & Command Audit',
+      title: language === 'TR' ? 'Sistem & Veri Denetimi' : 'System & Data Audit',
       desc: language === 'TR'
-        ? 'Sunucu dizeleri, işlemler, komut akışları ve hata ayıklamalarını tek ekranda izleyin.'
-        : 'Monitor server strings, processes, command flow, and debug logs in one place.',
+        ? 'FiveM SQL dizeleri, işlemler, komut akışları ve canlı logları tek ekranda izleyin.'
+        : 'Monitor FiveM SQL strings, operations, command flow, and live telemetry in one place.',
       category: language === 'TR' ? 'Denetim Kapsamı' : 'Audit Scope',
       mockupTitle: language === 'TR' ? 'İnceleme alanları' : 'Inspection Areas',
-      mockupSub: language === 'TR' ? 'Sunucu dizeleri, işlemler, komutlar ve hata ayıklamaları.' : 'Server strings, operations, commands, and debugging.',
+      mockupSub: language === 'TR' ? 'FiveM, web ve Discord işlemleri, komutlar ve hata ayıklamaları.' : 'FiveM, web, and Discord operations, commands, and debugging.',
       icon: 'search',
     },
     {
       number: '05',
-      title: language === 'TR' ? 'Sunucu İncelemesi' : 'Server Inspection',
+      title: language === 'TR' ? 'Otonom Güvenlik Taraması' : 'Autonomous Security Scan',
       desc: language === 'TR'
-        ? 'Gelişmiş bot motoru sunucuyu inceler; rol izinleri, komutlar ve olası tehditleri tespit eder.'
-        : 'Advanced bot engine inspects server roles, commands, and threat vectors.',
-      category: language === 'TR' ? 'Sunucu Taraması' : 'Server Scan',
-      mockupTitle: language === 'TR' ? 'Sunucu inceleniyor.' : 'Server inspecting.',
-      mockupSub: language === 'TR' ? 'Sunucu analizi' : 'Server analysis',
+        ? 'Gelişmiş güvenlik motoru sistemleri inceler; yetkiler, API köprüleri ve tehditleri filtreler.'
+        : 'Advanced security engine inspects server roles, API bridges, and threat vectors.',
+      category: language === 'TR' ? 'Sistem Taraması' : 'System Scan',
+      mockupTitle: language === 'TR' ? 'Sistem inceleniyor.' : 'System inspecting.',
+      mockupSub: language === 'TR' ? 'Derin altyapı analizi' : 'Deep infrastructure analysis',
       icon: 'hourglass',
     },
     {
       number: '06',
-      title: language === 'TR' ? 'Sunucu Güvende' : 'Server Secure',
+      title: language === 'TR' ? 'Sistemler Güvende & Aktif' : 'Systems Secure & Live',
       desc: language === 'TR'
-        ? 'Doğrulama tamamlandı! Bot guard kalkanı devrede, sunucunuz 7/24 kesintisiz güvende.'
-        : 'Verification complete! Bot guard shield is active, your server is 24/7 safe.',
-      category: language === 'TR' ? 'Güvenlik Durumu' : 'Security Status',
-      mockupTitle: language === 'TR' ? 'Doğrulandı: Sunucu Güvende.' : 'Verified: Server Secure.',
-      mockupSub: language === 'TR' ? 'Tüm bot modülleri aktif, 7/24 koruma devrede.' : 'All bot modules active, 24/7 protection engaged.',
+        ? 'Doğrulama tamamlandı! Guard kalkanı ve yönetim paneli devrede, operasyonunuz 7/24 güvende.'
+        : 'Verification complete! Guard shield and dashboard are live, your operation is 24/7 safe.',
+      category: language === 'TR' ? 'Operasyon Durumu' : 'Operation Status',
+      mockupTitle: language === 'TR' ? 'Doğrulandı: Sistemler Güvende.' : 'Verified: Systems Secure.',
+      mockupSub: language === 'TR' ? 'Tüm modüller aktif, 7/24 kesintisiz koruma devrede.' : 'All modules active, 24/7 protection engaged.',
       icon: 'file-text',
     },
   ];

@@ -67,19 +67,19 @@ const ARCHITECTURE_LAYERS: ArchitectureLayer[] = [
   {
     id: 'layer-2',
     level: '02',
-    title: 'Bot Otomasyon & İşlem Motoru',
-    subtitle: '7/24 Kesintisiz komut dağıtımı ve destek orkestrasyonu',
+    title: 'FiveM Oyun İçi Panel & Bot İşlem Motoru',
+    subtitle: '7/24 Kesintisiz oyun içi oyuncu denetimi, Discord botları ve özel API köprüsü',
     themeColor: '#c084fc',
     accentBorder: 'rgba(192, 132, 252, 0.45)',
     accentBg: 'rgba(192, 132, 252, 0.08)',
-    badge: 'İŞLEM KATMANI // DISCORD ENGINE',
+    badge: 'İŞLEM KATMANI // FIVEM & DISCORD ENGINE',
     features: [
-      'Butonlu ve menülü çok kategorili ticket (destek) yönetimi',
+      'FiveM oyun içi canlı oyuncu denetimi, ceza, ban ve envanter yönetim arayüzü',
+      'Butonlu ve menülü çok kategorili ticket (destek) & mesai-vardiya yönetimi',
       'Otomatik HTML formatında bilet kayıt ve transkript arşivi',
-      'Sıfır gecikmeli dinamik ses odası ve kayıt sistemi',
-      'Oyun içi rütbeler ile Discord rollerinin 7/24 senkronizasyonu',
+      'Oyun içi rütbeler ile Discord rollerinin 7/24 anlık senkronizasyonu',
     ],
-    techStack: ['Discord.js v14', 'Node.js Cluster', 'Voice Engine', 'Transcripts'],
+    techStack: ['FiveM Lua', 'Discord.js v14', 'Node.js Cluster', 'REST API', 'Transcripts'],
     iconSvg: (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <polygon points="12 2 2 7 12 12 22 7 12 2" />
@@ -120,7 +120,7 @@ export default function BotArchitectureExploded() {
   const selectedLayer = ARCHITECTURE_LAYERS.find((l) => l.id === selectedLayerId) || ARCHITECTURE_LAYERS[0];
 
   return (
-    <section className="section exploded-arch-section" id="bot-mimarisi">
+    <section className="section exploded-arch-section" id="yazilim-mimarisi">
       <div className="container">
         {/* Section Header */}
         <div className="section-header text-center">
@@ -129,10 +129,10 @@ export default function BotArchitectureExploded() {
             ÇOK KATMANLI YAZILIM MOTORU
           </div>
           <h2 className="section-title">
-            Wihyfe Bot Mimarisi <span className="text-accent">(4 Katmanlı Mühendislik)</span>
+            Wihyfe Yazılım &amp; Sistem Mimarisi <span className="text-accent">(4 Katmanlı Mühendislik)</span>
           </h2>
           <p className="section-desc">
-            Sıradan bir bot değil, her katmanı bağımsız mikroservislerle güçlendirilmiş kurumsal bir yazılım ekosistemi. İncelemek istediğiniz katmana tıklayın.
+            Yalnızca bot değil; FiveM oyun içi panellerinden Discord botlarına, web sitelerinden özel Windows masaüstü uygulamalarına kadar her katmanı mikroservislerle güçlendirilmiş kurumsal yazılım ekosistemi. İncelemek istediğiniz katmana tıklayın.
           </p>
         </div>
 

@@ -282,223 +282,139 @@
   "packageConfig": {
     "discord-full-pack": {
       "monthly": {
-        "isAvailable": false,
+        "isAvailable": true,
         "paytrUrl": "https://www.paytr.com/link/7MFXrXH",
-        "statusBadge": "Yakında"
+        "statusBadge": ""
       },
       "quarterly": {
-        "isAvailable": false,
-        "statusBadge": "Yakında",
-        "paytrUrl": "https://www.paytr.com/link/TEST3AYLIK",
-        "customPrice": "2.200"
+        "isAvailable": true,
+        "statusBadge": "%10 İndirim",
+        "paytrUrl": ""
       },
       "semi-annual": {
-        "isAvailable": false,
-        "statusBadge": "Yakında",
+        "isAvailable": true,
+        "statusBadge": "%20 İndirim",
         "paytrUrl": ""
       },
       "annual": {
-        "isAvailable": false,
-        "statusBadge": "Yakında",
+        "isAvailable": true,
+        "statusBadge": "%35 İndirim",
         "paytrUrl": ""
       }
     },
-    "discord-pack": {
+    "fivem-admin-panel": {
       "monthly": {
-        "isAvailable": false,
-        "statusBadge": "Yakında",
+        "isAvailable": true,
         "paytrUrl": "https://www.paytr.com/link/A3L1Mxc",
-        "customPrice": "900"
+        "statusBadge": ""
       },
       "quarterly": {
-        "isAvailable": false,
-        "statusBadge": "Yakında",
-        "paytrUrl": "",
-        "customPrice": "2.430"
+        "isAvailable": true,
+        "statusBadge": "%10 İndirim",
+        "paytrUrl": ""
       },
       "semi-annual": {
-        "isAvailable": false,
-        "statusBadge": "Yakında",
-        "paytrUrl": "",
-        "customPrice": "4.320"
+        "isAvailable": true,
+        "statusBadge": "%20 İndirim",
+        "paytrUrl": ""
       },
       "annual": {
-        "isAvailable": false,
-        "statusBadge": "Yakında",
-        "paytrUrl": "",
-        "customPrice": "7.020"
+        "isAvailable": true,
+        "statusBadge": "%35 İndirim",
+        "paytrUrl": ""
       }
     },
-    "legal-pack": {
+    "discord-dashboard": {
       "monthly": {
-        "isAvailable": false,
+        "isAvailable": true,
         "paytrUrl": "https://www.paytr.com/link/UYZRQ17",
-        "statusBadge": "Yakında"
+        "statusBadge": ""
       },
       "quarterly": {
-        "isAvailable": false,
-        "statusBadge": "Yakında",
+        "isAvailable": true,
+        "statusBadge": "%10 İndirim",
         "paytrUrl": ""
       },
       "semi-annual": {
-        "isAvailable": false,
-        "statusBadge": "Yakında",
+        "isAvailable": true,
+        "statusBadge": "%20 İndirim",
         "paytrUrl": ""
       },
       "annual": {
-        "isAvailable": false,
-        "statusBadge": "Yakında",
+        "isAvailable": true,
+        "statusBadge": "%35 İndirim",
         "paytrUrl": ""
       }
     },
-    "garrys-mod-full": {
+    "fivem-full": {
       "monthly": {
-        "isAvailable": false,
-        "statusBadge": "Yakında",
-        "paytrUrl": "https://www.paytr.com/link/fzN5wEF"
+        "isAvailable": true,
+        "paytrUrl": "https://www.paytr.com/link/zTJyByr",
+        "statusBadge": ""
       },
       "quarterly": {
-        "isAvailable": false,
-        "statusBadge": "Yakında",
+        "isAvailable": true,
+        "statusBadge": "%10 İndirim",
         "paytrUrl": ""
       },
       "semi-annual": {
-        "isAvailable": false,
-        "statusBadge": "Yakında",
+        "isAvailable": true,
+        "statusBadge": "%20 İndirim",
         "paytrUrl": ""
       },
       "annual": {
-        "isAvailable": false,
-        "statusBadge": "Yakında",
+        "isAvailable": true,
+        "statusBadge": "%35 İndirim",
         "paytrUrl": ""
       }
     },
-    "garrys-mod": {
+    "custom-app": {
       "monthly": {
-        "isAvailable": false,
-        "statusBadge": "Yakında",
-        "paytrUrl": "https://www.paytr.com/link/zTJyByr"
+        "isAvailable": true,
+        "paytrUrl": "https://www.paytr.com/link/fzN5wEF",
+        "statusBadge": ""
       },
       "quarterly": {
-        "isAvailable": false,
-        "statusBadge": "Yakında",
+        "isAvailable": true,
+        "statusBadge": "%10 İndirim",
         "paytrUrl": ""
       },
       "semi-annual": {
-        "isAvailable": false,
-        "statusBadge": "Yakında",
+        "isAvailable": true,
+        "statusBadge": "%20 İndirim",
         "paytrUrl": ""
       },
       "annual": {
-        "isAvailable": false,
-        "statusBadge": "Yakında",
+        "isAvailable": true,
+        "statusBadge": "%35 İndirim",
         "paytrUrl": ""
       }
     },
-    "ekip-pack": {
+    "all-software-solutions": {
       "monthly": {
-        "isAvailable": false,
+        "isAvailable": true,
         "paytrUrl": "https://www.paytr.com/link/RLJTW7n",
-        "statusBadge": "Yakında"
+        "statusBadge": ""
       },
       "quarterly": {
-        "isAvailable": false,
-        "statusBadge": "Yakında",
+        "isAvailable": true,
+        "statusBadge": "%10 İndirim",
         "paytrUrl": ""
       },
       "semi-annual": {
-        "isAvailable": false,
-        "statusBadge": "Yakında",
+        "isAvailable": true,
+        "statusBadge": "%20 İndirim",
         "paytrUrl": ""
       },
       "annual": {
-        "isAvailable": false,
-        "statusBadge": "Yakında",
+        "isAvailable": true,
+        "statusBadge": "%35 İndirim",
         "paytrUrl": ""
       }
     }
   },
   "pins": [],
-  "productOverrides": {
-    "prod_discord-pack": {
-      "id": "prod_discord-pack",
-      "originalId": "discord-pack",
-      "name": "Discord Pack",
-      "category": "Bot",
-      "price": 900,
-      "period": "Aylik",
-      "periods": {
-        "monthly": {
-          "price": 900,
-          "periodLabel": "Aylik",
-          "isAvailable": false,
-          "paytrUrl": "https://www.paytr.com/link/A3L1Mxc",
-          "statusBadge": "Yakında"
-        },
-        "quarterly": {
-          "price": 2430,
-          "periodLabel": "3 Aylik",
-          "isAvailable": false,
-          "statusBadge": "Yakında",
-          "discountBadge": "%10 Indirim"
-        },
-        "semi-annual": {
-          "price": 4320,
-          "periodLabel": "6 Aylik",
-          "isAvailable": false,
-          "statusBadge": "Yakında",
-          "discountBadge": "%20 Indirim"
-        },
-        "annual": {
-          "price": 7020,
-          "periodLabel": "Yillik",
-          "isAvailable": false,
-          "statusBadge": "Yakında",
-          "discountBadge": "%35 Indirim"
-        }
-      },
-      "updatedAt": "17.10.2026"
-    },
-    "discord-pack": {
-      "id": "prod_discord-pack",
-      "originalId": "discord-pack",
-      "name": "Discord Pack",
-      "category": "Bot",
-      "price": 900,
-      "period": "Aylik",
-      "periods": {
-        "monthly": {
-          "price": 900,
-          "periodLabel": "Aylik",
-          "isAvailable": false,
-          "paytrUrl": "https://www.paytr.com/link/A3L1Mxc",
-          "statusBadge": "Yakında"
-        },
-        "quarterly": {
-          "price": 2430,
-          "periodLabel": "3 Aylik",
-          "isAvailable": false,
-          "statusBadge": "Yakında",
-          "discountBadge": "%10 Indirim"
-        },
-        "semi-annual": {
-          "price": 4320,
-          "periodLabel": "6 Aylik",
-          "isAvailable": false,
-          "statusBadge": "Yakında",
-          "discountBadge": "%20 Indirim"
-        },
-        "annual": {
-          "price": 7020,
-          "periodLabel": "Yillik",
-          "isAvailable": false,
-          "statusBadge": "Yakında",
-          "discountBadge": "%35 Indirim"
-        }
-      },
-      "updatedAt": "17.10.2026"
-    }
-  },
+  "productOverrides": {},
   "depositRequests": [
     {
       "id": "DEP-778370",

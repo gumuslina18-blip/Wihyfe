@@ -10,10 +10,10 @@ export default function Process() {
   const steps = [
     {
       num: '01',
-      title: language === 'EN' ? 'Share Your Needs' : 'İhtiyacını paylaş',
+      title: language === 'EN' ? 'Share Your Project' : 'İhtiyacını paylaş',
       desc: language === 'EN'
-        ? 'Tell us your community goals, server setup, and exact bot requirements.'
-        : 'Sunucunu ve botundan beklentilerini anlat.',
+        ? 'Tell us your FiveM, Discord, web, or custom software requirements.'
+        : 'FiveM, Discord, web sitesi veya özel yazılım taleplerini bize aktar.',
       phaseBadge: language === 'EN' ? 'Phase 01 • Consultation' : 'Aşama 01 • Danışma & Talep',
       accentColor: '#0878FF',
       icon: (
@@ -26,10 +26,10 @@ export default function Process() {
     },
     {
       num: '02',
-      title: language === 'EN' ? 'Clarify The Solution' : 'Çözümü netleştirelim',
+      title: language === 'EN' ? 'Tailored Architecture' : 'Çözümü netleştirelim',
       desc: language === 'EN'
-        ? 'We tailor the custom bot architecture, features, and setup scope together.'
-        : 'Özellikleri ve kurulum kapsamını birlikte belirleyelim.',
+        ? 'We customize the panel, bot, or web application architecture together.'
+        : 'Size özel panel, bot veya yazılım mimarisini ve özelliklerini belirleyelim.',
       phaseBadge: language === 'EN' ? 'Phase 02 • Architecture' : 'Aşama 02 • Mimari & Kodlama',
       accentColor: '#38bdf8',
       icon: (
@@ -49,10 +49,10 @@ export default function Process() {
     },
     {
       num: '03',
-      title: language === 'EN' ? 'Deploy & Use Live' : 'Sunucunda kullan',
+      title: language === 'EN' ? 'Deploy & Launch Live' : 'Anında yayına al',
       desc: language === 'EN'
-        ? 'Deploy the bot to your Discord server and finalize your 24/7 configuration.'
-        : 'Botunu sunucuna ekle ve yapılandırmanı tamamla.',
+        ? 'Automatic setup, web console access, and 24/7 technical engineering support.'
+        : 'Otomatik kurulum, web paneli erişimi ve 7/24 destekle hemen kullanmaya başla.',
       phaseBadge: language === 'EN' ? 'Phase 03 • Deployment' : 'Aşama 03 • Canlıya Alma',
       accentColor: '#10b981',
       icon: (

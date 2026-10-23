@@ -1,4 +1,5 @@
 import Hero from '@/components/Hero';
+import TargetAudiencesSection from '@/components/TargetAudiencesSection';
 import FeaturesShowcase from '@/components/FeaturesShowcase';
 import PackagesSection from '@/components/PackagesSection';
 import WebsitesSection from '@/components/WebsitesSection';
@@ -22,6 +23,7 @@ export default function HomePage() {
   return (
     <>
       <Hero />
+      <TargetAudiencesSection />
       <FeaturesShowcase />
       <PackagesSection />
       <WebsitesSection />

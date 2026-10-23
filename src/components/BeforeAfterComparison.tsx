@@ -70,27 +70,27 @@ export default function BeforeAfterComparison() {
                 <span className="ba-state-tag text-rose">YÜKSEK RİSK</span>
               </div>
 
-              <h3 className="ba-panel-title text-rose">Savunmasız & Karışık Sunucu</h3>
+              <h3 className="ba-panel-title text-rose">Dağınık &amp; Güvensiz Altyapı</h3>
               <p className="ba-panel-desc">
-                Sürekli çöken standart botlar, patlatılan kanallar, saatlerce cevapsız kalan destek talepleri ve elle yapılan manuel hesap karmaşası.
+                Sürekli çöken dağınık botlar, FiveM oyun içi admin ve envanter yönetim eksikliği, manuel satış karmaşası ve korumasız yazılımlar.
               </p>
 
               {/* Metrics Grid */}
               <div className="ba-stats-grid">
                 <div className="ba-stat-item">
-                  <span className="stat-label">Uptime & Kesintisizlik</span>
+                  <span className="stat-label">Sistem Uptime</span>
                   <strong className="stat-num text-rose">%48.2 (Sık Çöküyor)</strong>
                 </div>
                 <div className="ba-stat-item">
-                  <span className="stat-label">Destek Talebi Yanıtı</span>
-                  <strong className="stat-num text-amber">8.5 Saat (Gecikmeli)</strong>
+                  <span className="stat-label">FiveM &amp; Bot Yönetimi</span>
+                  <strong className="stat-num text-amber">Manuel / Hantal</strong>
                 </div>
                 <div className="ba-stat-item">
                   <span className="stat-label">Saldırı Koruması</span>
                   <strong className="stat-num text-rose">YOK (Savunmasız)</strong>
                 </div>
                 <div className="ba-stat-item">
-                  <span className="stat-label">Rol & Kanal Yedekleme</span>
+                  <span className="stat-label">Rol &amp; SQL Yedekleme</span>
                   <strong className="stat-num text-rose">Sıfır Güvence</strong>
                 </div>
               </div>
@@ -99,19 +99,19 @@ export default function BeforeAfterComparison() {
               <div className="ba-problems-list">
                 <div className="ba-problem-row">
                   <span className="ba-cross-icon">✕</span>
-                  <span>Bir yetkili hesabı çalındığında tüm sunucu kanalları silinebilir</span>
+                  <span>Bir yetkili hesabı çalındığında tüm sunucu kanalları ve rolleri silinebilir</span>
                 </div>
                 <div className="ba-problem-row">
                   <span className="ba-cross-icon">✕</span>
-                  <span>Manuel IBAN kontrolü sebebiyle saatlerce mağdur olan oyuncular</span>
+                  <span>FiveM sunucusunda hile ve yetkisiz müdahalelere oyun içi anında müdahale edilemez</span>
                 </div>
                 <div className="ba-problem-row">
                   <span className="ba-cross-icon">✕</span>
-                  <span>Yetkililer çevrimdışıyken sahipsiz kalan ve biriken destek odaları</span>
+                  <span>Manuel IBAN kontrolü sebebiyle saatlerce mağdur olan oyuncular ve müşteriler</span>
                 </div>
                 <div className="ba-problem-row">
                   <span className="ba-cross-icon">✕</span>
-                  <span>Oyun içi yetkiler ile Discord rolleri arasında sürekli senkron kopması</span>
+                  <span>Oyun içi yetkiler ile Discord rolleri arasında sürekli kopan senkronizasyon</span>
                 </div>
               </div>
             </div>
@@ -130,27 +130,27 @@ export default function BeforeAfterComparison() {
                 <span className="ba-state-tag text-emerald">7/24 AKTİF KORUMA</span>
               </div>
 
-              <h3 className="ba-panel-title text-emerald">Kurumsal & Kusursuz Sunucu</h3>
+              <h3 className="ba-panel-title text-emerald">Entegre &amp; Güçlü Yazılım Ekosistemi</h3>
               <p className="ba-panel-desc">
-                7/24 kesintisiz otonom Guard kalkanı, 0.01sn anti-raid savunması, otomatik butonlu ticket akışı ve PayTR 0-sn SQL market teslimatı.
+                FiveM oyun içi canlı admin paneli, kesintisiz Discord bot altyapısı, web kontrol konsolu ve PayTR 0-saniye otomatik market teslimatı.
               </p>
 
               {/* Metrics Grid */}
               <div className="ba-stats-grid">
                 <div className="ba-stat-item">
-                  <span className="stat-label">Uptime & Kesintisizlik</span>
+                  <span className="stat-label">Sistem Uptime</span>
                   <strong className="stat-num text-emerald">%99.99 (Kesintisiz)</strong>
                 </div>
                 <div className="ba-stat-item">
-                  <span className="stat-label">Destek Talebi Yanıtı</span>
-                  <strong className="stat-num text-cyan">0.02 Saniye (Otomasyon)</strong>
+                  <span className="stat-label">FiveM &amp; Bot Yönetimi</span>
+                  <strong className="stat-num text-cyan">0.02s Anlık Senkron</strong>
                 </div>
                 <div className="ba-stat-item">
                   <span className="stat-label">Saldırı Koruması</span>
-                  <strong className="stat-num text-emerald">Aktif Hexagon Shield</strong>
+                  <strong className="stat-num text-emerald">3.2 Tbps Hexagon Shield</strong>
                 </div>
                 <div className="ba-stat-item">
-                  <span className="stat-label">Rol & Kanal Yedekleme</span>
+                  <span className="stat-label">Rol &amp; SQL Yedekleme</span>
                   <strong className="stat-num text-cyan">Anlık R2 Şifreleme</strong>
                 </div>
               </div>
@@ -159,19 +159,19 @@ export default function BeforeAfterComparison() {
               <div className="ba-solutions-list">
                 <div className="ba-solution-row">
                   <span className="ba-check-icon">✓</span>
-                  <span>Yetkisiz webhook veya kanal silme girişimlerinde anlık otomatik kilit</span>
+                  <span>FiveM Oyun İçi Canlı Admin Paneli ile tek tıkla oyuncu, ban, kick ve ekonomi denetimi</span>
                 </div>
                 <div className="ba-solution-row">
                   <span className="ba-check-icon">✓</span>
-                  <span>PayTR 3D Secure ile 0 saniyede oyun içi SQL envanterine VIP/Araç teslimi</span>
+                  <span>PayTR 3D Secure ile 0 saniyede oyun içi SQL veritabanına VIP/Donate teslimi</span>
                 </div>
                 <div className="ba-solution-row">
                   <span className="ba-check-icon">✓</span>
-                  <span>Butonlu ticket sistemi ile biletler otomatik arşivlenir ve HTML transkript kaydedilir</span>
+                  <span>Yetkisiz webhook veya kanal silme girişimlerinde 0.01 saniyede otomatik kilit</span>
                 </div>
                 <div className="ba-solution-row">
                   <span className="ba-check-icon">✓</span>
-                  <span>Web Yönetim Paneli ile tek tıkla canlı ayar ve yetki yapılandırması</span>
+                  <span>Web Yönetim Paneli ile tarayıcı üzerinden canlı loglar ve yetki yapılandırması</span>
                 </div>
               </div>
             </div>

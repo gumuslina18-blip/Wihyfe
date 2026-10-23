@@ -64,7 +64,7 @@ export interface BotProduct {
   name: string;
   badge?: string;
   description: string;
-  icon: 'discord' | 'shield' | 'scale' | 'gamepad' | 'terminal' | 'users';
+  icon: 'discord' | 'shield' | 'scale' | 'gamepad' | 'terminal' | 'users' | 'code';
   features: string[];
   buttonText: string;
   popular?: boolean;
@@ -140,6 +140,7 @@ export const SITE_CONFIG = {
 
   navLinks: [
     { label: 'Ana Sayfa', href: '#hero' },
+    { label: 'Nelere Hitap Ediyoruz?', href: '#hitap-ettiklerimiz' },
     { label: 'Yazılım Çözümleri', href: '#paketler' },
     { label: 'Websiteler', href: '#websiteler' },
     { label: 'Ek Hizmetler', href: '#ek-hizmetler' },

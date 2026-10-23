@@ -274,13 +274,13 @@ export default function DashboardPreview() {
               {/* Top Bar inside canvas */}
               <div className="dashboard-content-header">
                 <div>
-                  <span className="dashboard-scope-tag">SUNUCU KONTROL MERKEZİ</span>
-                  <h3 className="dashboard-page-heading">Bot Genel Bakış</h3>
-                  <span className="dashboard-page-sub">Wihyfe Bot v4.2 • Frankfurt Node (14ms Ping)</span>
+                  <span className="dashboard-scope-tag">YAZILIM &amp; SİSTEM KONTROL MERKEZİ</span>
+                  <h3 className="dashboard-page-heading">Merkezi Yönetim Konsolu</h3>
+                  <span className="dashboard-page-sub">FiveM, Discord &amp; Web Entegrasyonu • Frankfurt Node (14ms Ping)</span>
                 </div>
 
                 <Link href="/panel" className="btn btn-primary dashboard-action-btn">
-                  <span>+ Botu Sunucuya Ekle</span>
+                  <span>Yönetim Paneline Giriş Yap</span>
                 </Link>
               </div>
 
