@@ -401,7 +401,7 @@ export default function FaqAccordion() {
                               {
                                 title: 'Özel Çözüm',
                                 badge: 'Esnek',
-                                bestFor: 'Garry’s Mod & FiveM',
+                                bestFor: 'FiveM & Özel Projeler',
                                 desc: 'Mesai, başvuru, hızlı giriş ve özel sunucu entegrasyonu.',
                                 price: 'Özel Fiyat',
                               },
