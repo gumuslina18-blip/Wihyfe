@@ -104,9 +104,10 @@ export default function EndOfDayModal() {
         // Refresh live data which will now be reset to 0!
         await fetchEndOfDayData();
         setTimeout(() => {
+          setShowCelebration(false);
           setIsConfirmingClose(false);
           setActiveTab('slip');
-        }, 1200);
+        }, 1800);
       }
     } finally {
       setIsClosing(false);
@@ -130,11 +131,35 @@ export default function EndOfDayModal() {
       >
         {/* Celebration Particle Effect */}
         {showCelebration && (
-          <div className="eod-celebration-overlay">
-            <div className="eod-celebration-badge">
+          <div className="eod-celebration-overlay" onClick={() => setShowCelebration(false)}>
+            <div className="eod-celebration-badge" onClick={(e) => e.stopPropagation()}>
               <span style={{ fontSize: '2rem' }}>🎉</span>
               <h3>Gün Sonu Başarıyla Alındı!</h3>
               <p>Z-Raporu arşivlendi ve yeni gün sayaçları sıfırlandı.</p>
+              <button
+                type="button"
+                className="admin-action-btn primary"
+                onClick={() => {
+                  setShowCelebration(false);
+                  setIsConfirmingClose(false);
+                  setActiveTab('slip');
+                }}
+                style={{
+                  marginTop: '1.25rem',
+                  padding: '0.55rem 1.25rem',
+                  fontSize: '0.86rem',
+                  width: '100%',
+                  justifyContent: 'center',
+                  background: '#10b981',
+                  borderColor: '#10b981',
+                  color: '#ffffff',
+                  fontWeight: 700,
+                  borderRadius: '8px',
+                  cursor: 'pointer',
+                }}
+              >
+                Raporu Görüntüle &amp; Yazdır →
+              </button>
             </div>
           </div>
         )}
