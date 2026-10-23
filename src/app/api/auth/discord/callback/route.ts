@@ -15,10 +15,14 @@ export async function GET(request: NextRequest) {
   const error = searchParams.get('error');
   const state = searchParams.get('state');
 
-  const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
+  const host = request.headers.get('x-forwarded-host') || request.headers.get('host');
+  const proto = request.headers.get('x-forwarded-proto') || (host?.includes('localhost') ? 'http' : 'https');
+  const currentOrigin = host ? `${proto}://${host}` : (process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000');
+
+  const appUrl = process.env.NEXT_PUBLIC_APP_URL || currentOrigin;
   const clientId = process.env.DISCORD_CLIENT_ID;
   const clientSecret = process.env.DISCORD_CLIENT_SECRET;
-  const redirectUri = process.env.DISCORD_REDIRECT_URI || `${appUrl}/api/auth/discord/callback`;
+  const redirectUri = process.env.DISCORD_REDIRECT_URI || `${currentOrigin}/api/auth/discord/callback`;
 
   if (error) {
     return NextResponse.redirect(`${appUrl}/?auth_error=${encodeURIComponent('Discord yetkilendirmesi iptal edildi veya reddedildi.')}`);

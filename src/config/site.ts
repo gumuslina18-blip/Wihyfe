@@ -134,7 +134,7 @@ export const SITE_CONFIG = {
     title: 'Wihyfe | Yazılım Çözümleri',
     tagline: 'Discord toplulukları için işlevsel bot çözümleri.',
     description: 'Discord sunucunuz için moderasyon, ticket ve özel bot çözümleri. Yönetimi kolaylaştırın, topluluğunuza özel deneyimler sunun.',
-    discordUrl: 'https://discord.gg/wihyfe',
+    discordUrl: 'https://discord.gg/SbrKk6Q87H',
     instagramUrl: 'https://www.instagram.com/wihyfe?utm_source=ig_web_button_share_sheet&srtk=ZDNlZDc0MzIxNw==',
   },
 
@@ -508,7 +508,7 @@ export const SITE_CONFIG = {
       setupFee: 'Kurulum & Geliştirme: Projeye Göre',
       buttonText: 'Teklif Al (Ticket)',
       isCustomQuote: true,
-      customQuoteUrl: 'https://discord.gg/wihyfe',
+      customQuoteUrl: 'https://discord.gg/SbrKk6Q87H',
       features: [
         'Tamamen Özelleştirilebilir Tasarım (UI/UX)',
         'Discord Bot & Veritabanı Entegrasyonu',
@@ -857,7 +857,7 @@ export const SITE_CONFIG = {
       avatarUrl: '/red-roleplay.png',
       description: 'Wihyfe Discord bot altyapısı ve kesintisiz güvenlik sistemleriyle güçlendirilen resmi FiveM partnerimiz.',
       infrastructure: 'Wihyfe Discord Full Pack',
-      discordUrl: 'https://discord.gg/wihyfe',
+      discordUrl: 'https://discord.gg/SbrKk6Q87H',
     },
     {
       id: 'server-cashv-roleplay',
@@ -873,7 +873,7 @@ export const SITE_CONFIG = {
       avatarUrl: '/cashv-logo.webp',
       description: 'Wihyfe Discord bot altyapısı ve kesintisiz güvenlik sistemleriyle güçlendirilen resmi FiveM partnerimiz.',
       infrastructure: 'Wihyfe Discord Full Pack',
-      discordUrl: 'https://discord.gg/wihyfe',
+      discordUrl: 'https://discord.gg/SbrKk6Q87H',
     },
   ] as PartnerServer[],
 };

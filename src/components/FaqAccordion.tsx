@@ -365,7 +365,7 @@ export default function FaqAccordion() {
                           </div>
                           <div className="faq-visual-footer">
                             <a
-                              href="https://discord.gg/wihyfe"
+                              href="https://discord.gg/SbrKk6Q87H"
                               target="_blank"
                               rel="noopener noreferrer"
                               className="faq-cta-btn"
@@ -532,7 +532,7 @@ export default function FaqAccordion() {
                         </div>
 
                         <a
-                          href="https://discord.gg/wihyfe"
+                          href="https://discord.gg/SbrKk6Q87H"
                           target="_blank"
                           rel="noopener noreferrer"
                           className="faq-ask-discord-link"

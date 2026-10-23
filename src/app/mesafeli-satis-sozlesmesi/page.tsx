@@ -61,7 +61,7 @@ export default function DistanceSalesContractPage() {
           <ul className="legal-bullet-list">
             <li><strong>Ticari Ünvan:</strong> Wihyfe Bilişim ve Yazılım Hizmetleri</li>
             <li><strong>Web Sitesi:</strong> <a href="https://wihyfe.com" target="_blank" rel="noopener noreferrer">https://wihyfe.com</a></li>
-            <li><strong>İletişim &amp; Destek:</strong> support@wihyfe.com / https://discord.gg/wihyfe</li>
+            <li><strong>İletişim &amp; Destek:</strong> support@wihyfe.com / https://discord.gg/SbrKk6Q87H</li>
             <li><strong>Hizmet Alanı:</strong> Discord Bot Altyapıları, Bulut Otomasyonu, Web Yazılımları</li>
           </ul>
           <p className="legal-sub-heading" style={{ marginTop: '1rem' }}>ALICI BİLGİLERİ:</p>

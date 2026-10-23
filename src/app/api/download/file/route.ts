@@ -84,7 +84,7 @@ echo Lutfen sunucu sahibinin public/downloads/Wihyfe_Client.exe dosyasini
 echo derleyip sunucuya yuklemesini bekleyiniz veya Discord uzerinden 
 echo talep olusturunuz.
 echo.
-echo https://discord.gg/wihyfe
+echo https://discord.gg/SbrKk6Q87H
 echo ========================================================
 pause
 `;

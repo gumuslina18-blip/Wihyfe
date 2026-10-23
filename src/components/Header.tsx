@@ -463,7 +463,7 @@ export default function Header() {
                     <span>Yetkili Paneli</span>
                   </a>
                   <a
-                    href="https://discord.gg/wihyfe"
+                    href="https://discord.gg/SbrKk6Q87H"
                     className="cat-footer-link discord-accent"
                     target="_blank"
                     rel="noopener noreferrer"
@@ -754,7 +754,7 @@ export default function Header() {
             <span>Yetkili Paneli</span>
           </a>
           <a
-            href="https://discord.gg/wihyfe"
+            href="https://discord.gg/SbrKk6Q87H"
             className="btn btn-primary"
             target="_blank"
             rel="noopener noreferrer"
