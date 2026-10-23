@@ -17,7 +17,7 @@ function getAdIcon(id: string) {
     return (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <circle cx="12" cy="12" r="10" />
-        <path d="m10 15 5-3-5-3v6z" />
+        <polygon points="10 8 16 12 10 16 10 8" fill="currentColor" />
       </svg>
     );
   }
@@ -30,11 +30,41 @@ function getAdIcon(id: string) {
   }
   return (
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <polyline points="20 12 20 22 4 22 4 12" />
-      <rect width="20" height="5" x="2" y="7" />
-      <line x1="12" x2="12" y1="22" y2="7" />
-      <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z" />
-      <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z" />
+      <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
+      <polyline points="17 6 23 6 23 12" />
+    </svg>
+  );
+}
+
+function getAdWatermark(id: string) {
+  if (id.includes('haftalik')) {
+    return (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <path d="m3 11 18-5v12L3 14v-3z" />
+        <path d="M11.6 16.8a3 3 0 1 1-5.8-1.6" />
+        <line x1="12" y1="9" x2="12" y2="15" />
+      </svg>
+    );
+  }
+  if (id.includes('aylik')) {
+    return (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <circle cx="12" cy="12" r="10" />
+        <polygon points="10 8 16 12 10 16 10 8" />
+      </svg>
+    );
+  }
+  if (id.includes('sponsor')) {
+    return (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+      </svg>
+    );
+  }
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+      <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
+      <polyline points="17 6 23 6 23 12" />
     </svg>
   );
 }
@@ -139,10 +169,16 @@ export default function AdvertisementsSection() {
                 <polyline points="15 18 9 12 15 6" />
               </svg>
             </button>
-            <div className="card-slider-counter">
-              <span>{currentPage + 1}</span>
-              <span className="divider">/</span>
-              <span>{totalPages}</span>
+            <div className="card-slider-dots-row" role="tablist" aria-label="Sayfa Göstergesi">
+              {Array.from({ length: totalPages }).map((_, i) => (
+                <button
+                  key={i}
+                  type="button"
+                  onClick={() => setCurrentPage(i)}
+                  className={`card-slider-dot ${i === currentPage ? 'is-active' : ''}`}
+                  aria-label={`Sayfa ${i + 1}`}
+                />
+              ))}
             </div>
             <button
               type="button"
@@ -158,23 +194,25 @@ export default function AdvertisementsSection() {
           </div>
         </div>
 
-        {/* Slider Carousel Window */}
+        {/* Sliding Carousel Viewport */}
         <div
-          className="card-slider-container"
+          className="card-slider-outer"
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
         >
-          <button
-            type="button"
-            className="card-slider-edge-btn edge-prev"
-            onClick={() => setCurrentPage((p) => Math.max(0, p - 1))}
-            disabled={currentPage === 0}
-            aria-label="Önceki Sayfa"
-          >
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <polyline points="15 18 9 12 15 6" />
-            </svg>
-          </button>
+          {totalPages > 1 && (
+            <button
+              type="button"
+              className="card-slider-edge-btn edge-prev"
+              onClick={() => setCurrentPage((p) => Math.max(0, p - 1))}
+              disabled={currentPage === 0}
+              aria-label="Önceki Sayfa"
+            >
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="15 18 9 12 15 6" />
+              </svg>
+            </button>
+          )}
 
           <div className="card-slider-viewport">
             <div
@@ -186,7 +224,8 @@ export default function AdvertisementsSection() {
             >
               {ads.map((ad: AdditionalService) => {
                 const cleanPriceVal = ad.price.replace(/\s*TL\s*/gi, '').trim();
-                const cleanFreq = ad.periodLabel.replace(/TL\s*\/?\s*/gi, '').trim() || 'hafta';
+                const rawFreq = ad.periodLabel.replace(/TL\s*\/?\s*/gi, '').trim();
+                const cleanFreq = rawFreq.replace(/^1\s*/i, '').toLowerCase() || 'hafta';
 
                 return (
                   <div key={ad.id} className="card-slider-slide">
@@ -194,8 +233,15 @@ export default function AdvertisementsSection() {
                       className={`bot-card ${ad.popular ? 'bot-card-popular' : ''}`}
                       id={`ad-${ad.id}`}
                     >
+                      {/* Ambient Blue / Purple Flare on Popular Card */}
                       {ad.popular && <div className="card-popular-glow" aria-hidden="true" />}
 
+                      {/* Watermark Line-art Icon in Background */}
+                      <div className="card-watermark-icon" aria-hidden="true" style={{ color: '#ec4899', opacity: 0.055 }}>
+                        {getAdWatermark(ad.id)}
+                      </div>
+
+                      {/* Top Badge */}
                       {ad.popular ? (
                         <div className="card-top-badge">
                           <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
@@ -203,21 +249,36 @@ export default function AdvertisementsSection() {
                           </svg>
                           <span>{ad.badge || (language === 'EN' ? 'FEATURED AD' : 'ÖNE ÇIKAN İLAN')}</span>
                         </div>
+                      ) : ad.badge ? (
+                        <div className="card-top-badge badge-regular">
+                          <span>{ad.badge}</span>
+                        </div>
                       ) : (
                         <div className="card-top-badge badge-regular">
-                          <span>{ad.badge || (language === 'EN' ? 'COMMUNITY AD' : 'TOPLULUK İLANI')}</span>
+                          <span>{language === 'EN' ? 'COMMUNITY AD' : 'TOPLULUK İLANI'}</span>
                         </div>
                       )}
 
+                      {/* Header Row: Square Icon Box + Title */}
                       <div className="card-header-row">
-                        <div className="card-header-icon-box" aria-hidden="true" style={{ background: 'rgba(236, 72, 153, 0.15)', borderColor: 'rgba(236, 72, 153, 0.3)', color: '#ec4899' }}>
+                        <div
+                          className="card-header-icon-box"
+                          aria-hidden="true"
+                          style={{
+                            background: 'rgba(236, 72, 153, 0.12)',
+                            borderColor: 'rgba(236, 72, 153, 0.3)',
+                            color: '#ec4899',
+                          }}
+                        >
                           {getAdIcon(ad.id)}
                         </div>
                         <h3 className="card-header-title">{ad.name}</h3>
                       </div>
 
+                      {/* Subtitle / Description */}
                       <p className="card-header-desc">{ad.subtitle}</p>
 
+                      {/* Price Block */}
                       <div className="card-price-block">
                         <div className="card-price-main-line">
                           <span className="card-price-currency">₺</span>
@@ -226,50 +287,56 @@ export default function AdvertisementsSection() {
                         </div>
 
                         <div className="card-price-subline">
-                          <span>{language === 'EN' ? 'Community promotion' : 'Topluluk tanıtım ilanı'}</span>
+                          <span>{language === 'EN' ? 'Community promotion listing' : 'Topluluk tanıtım ilanı'}</span>
                         </div>
                       </div>
 
-                      <div className="card-cta-row">
+                      {/* Action Button: Styled Yakında */}
+                      <div className="card-action-wrap">
                         <button
                           type="button"
-                          className="btn btn-secondary btn-full-width"
                           disabled
-                          style={{
-                            opacity: 0.65,
-                            cursor: 'not-allowed',
-                            borderColor: 'rgba(236, 72, 153, 0.3)',
-                            background: 'rgba(255, 255, 255, 0.03)',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            gap: '0.5rem',
-                          }}
+                          className={`card-action-btn ${
+                            ad.popular ? 'btn-popular-highlight' : 'btn-standard-dark'
+                          } is-disabled`}
+                          aria-label={`${ad.name} ${language === 'EN' ? 'Coming Soon' : 'Yakında'}`}
                         >
                           <span>{ad.buttonText || (language === 'EN' ? 'Coming Soon' : 'Yakında')}</span>
-                          <span style={{ fontSize: '0.75rem', opacity: 0.8 }}>🕒</span>
+                          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <circle cx="12" cy="12" r="10" />
+                            <polyline points="12 6 12 12 16 14" />
+                          </svg>
                         </button>
                       </div>
 
-                      <div className="card-feature-divider" />
-
-                      <div className="card-feature-section">
-                        <div className="card-feature-label">
+                      {/* Divider */}
+                      <div className="card-features-divider">
+                        <span className="card-divider-label">
                           {language === 'EN' ? 'INCLUDED IN LISTING' : 'İLANA DAHİL HİZMETLER'}
-                        </div>
-                        <ul className="card-feature-list">
-                          {ad.features.map((feature, fIdx) => (
-                            <li key={fIdx} className="card-feature-item">
-                              <span className="card-feature-check" style={{ color: '#ec4899' }}>
-                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                                  <polyline points="20 6 9 17 4 12" />
-                                </svg>
-                              </span>
-                              <span className="card-feature-text">{feature}</span>
-                            </li>
-                          ))}
-                        </ul>
+                        </span>
+                        <span className="card-divider-line" />
                       </div>
+
+                      {/* Features List with Styled Checks */}
+                      <ul className="card-features-list">
+                        {ad.features.map((feature: string, fIdx: number) => (
+                          <li key={fIdx} className="card-feature-item">
+                            <svg
+                              className="card-feature-check"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="#ec4899"
+                              strokeWidth="2.5"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              aria-hidden="true"
+                            >
+                              <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                            <span>{feature}</span>
+                          </li>
+                        ))}
+                      </ul>
                     </article>
                   </div>
                 );
@@ -277,33 +344,30 @@ export default function AdvertisementsSection() {
             </div>
           </div>
 
-          <button
-            type="button"
-            className="card-slider-edge-btn edge-next"
-            onClick={() => setCurrentPage((p) => Math.min(totalPages - 1, p + 1))}
-            disabled={currentPage === totalPages - 1}
-            aria-label="Sonraki Sayfa"
-          >
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <polyline points="9 18 15 12 9 6" />
-            </svg>
-          </button>
+          {totalPages > 1 && (
+            <button
+              type="button"
+              className="card-slider-edge-btn edge-next"
+              onClick={() => setCurrentPage((p) => Math.min(totalPages - 1, p + 1))}
+              disabled={currentPage === totalPages - 1}
+              aria-label="Sonraki Sayfa"
+            >
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="9 18 15 12 9 6" />
+              </svg>
+            </button>
+          )}
         </div>
 
-        {/* Carousel Dots */}
-        {totalPages > 1 && (
-          <div className="card-slider-dots">
-            {Array.from({ length: totalPages }).map((_, dotIdx) => (
-              <button
-                key={dotIdx}
-                type="button"
-                className={`card-slider-dot ${currentPage === dotIdx ? 'active' : ''}`}
-                onClick={() => setCurrentPage(dotIdx)}
-                aria-label={`Sayfa ${dotIdx + 1}`}
-              />
-            ))}
-          </div>
-        )}
+        <div className="card-slider-hint">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="15 18 9 12 15 6" />
+          </svg>
+          <span>{language === 'EN' ? 'Swipe left or right to browse listings' : 'İlanları görmek için sağa / sola kaydırın'}</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="9 18 15 12 9 6" />
+          </svg>
+        </div>
       </div>
     </section>
   );
