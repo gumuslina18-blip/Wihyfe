@@ -6792,476 +6792,126 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: 0 0 8px #0878FF;
 }
 
-/* Marquee Tracks Container */
-.partners-marquee-container,
-.partners-minimal-container {
+/* ==========================================================================
+   Partners Marquee (Neonsuz, Sola Kayan Sonsuz Şerit - Image 2 Tasarımı)
+   ========================================================================== */
+.partners-marquee-container {
   position: relative;
   width: 100%;
   overflow: hidden;
   display: flex;
-  padding: 2.25rem 0 1.25rem;
-  mask-image: linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%);
-}
-
-/* Single Partner Spotlight Container */
-.partners-single-container {
-  mask-image: none !important;
-  -webkit-mask-image: none !important;
-  justify-content: center !important;
-  align-items: center !important;
   padding: 2.25rem 0 1.5rem;
+  mask-image: linear-gradient(to right, transparent 0%, #000 12%, #000 88%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 12%, #000 88%, transparent 100%);
 }
 
-.partners-single-center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 3.5rem;
-  flex-wrap: wrap;
-}
-
-.partners-single-center .partner-minimal-item {
-  width: 135px;
-  gap: 1rem;
-}
-
-/* Floating Animations for both partner cards */
-.partner-animated-card-0 {
-  animation: partnerFloatA 4.5s ease-in-out infinite;
-}
-
-.partner-animated-card-1 {
-  animation: partnerFloatB 4.8s ease-in-out infinite 0.7s;
-}
-
-.partner-animated-card-0:hover,
-.partner-animated-card-1:hover {
-  animation-play-state: paused;
-}
-
-@keyframes partnerFloatA {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-8px);
-  }
-}
-
-@keyframes partnerFloatB {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-8px);
-  }
-}
-
-.partners-single-center .partner-minimal-logo {
-  width: 96px;
-  height: 96px;
-  border-radius: 26px;
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.35s ease;
-}
-
-/* Red Roleplay Spotlight */
-.partners-single-center .partner-logo-rose {
-  background: radial-gradient(circle at 50% 30%, rgba(244, 63, 94, 0.18), rgba(12, 17, 30, 0.96) 80%);
-  border-color: rgba(244, 63, 94, 0.45);
-  box-shadow: 0 12px 30px -4px rgba(0, 0, 0, 0.8), 0 0 24px rgba(244, 63, 94, 0.25);
-  animation: rubyAuraPulse 3.6s ease-in-out infinite;
-}
-
-.partners-single-center .partner-minimal-item:hover .partner-logo-rose {
-  transform: scale(1.08) translateY(-4px);
-  border-color: rgba(244, 63, 94, 0.85);
-  box-shadow: 0 20px 40px -4px rgba(0, 0, 0, 0.9), 0 0 36px rgba(244, 63, 94, 0.6);
-}
-
-/* CashV Roleplay Spotlight */
-.partners-single-center .partner-logo-purple {
-  background: radial-gradient(circle at 50% 30%, rgba(168, 85, 247, 0.22), rgba(12, 17, 30, 0.96) 80%);
-  border-color: rgba(168, 85, 247, 0.45);
-  box-shadow: 0 12px 30px -4px rgba(0, 0, 0, 0.8), 0 0 26px rgba(168, 85, 247, 0.28);
-  animation: purpleAuraPulse 3.6s ease-in-out infinite 0.6s;
-}
-
-.partners-single-center .partner-minimal-item:hover .partner-logo-purple {
-  transform: scale(1.08) translateY(-4px);
-  border-color: rgba(192, 132, 252, 0.9);
-  box-shadow: 0 20px 40px -4px rgba(0, 0, 0, 0.9), 0 0 38px rgba(168, 85, 247, 0.65);
-}
-
-@keyframes rubyAuraPulse {
-  0%, 100% {
-    box-shadow: 0 12px 30px -4px rgba(0, 0, 0, 0.8), 0 0 24px rgba(244, 63, 94, 0.25);
-    border-color: rgba(244, 63, 94, 0.45);
-  }
-  50% {
-    box-shadow: 0 14px 34px -4px rgba(0, 0, 0, 0.85), 0 0 36px rgba(244, 63, 94, 0.55);
-    border-color: rgba(251, 113, 133, 0.8);
-  }
-}
-
-@keyframes purpleAuraPulse {
-  0%, 100% {
-    box-shadow: 0 12px 30px -4px rgba(0, 0, 0, 0.8), 0 0 26px rgba(168, 85, 247, 0.28);
-    border-color: rgba(168, 85, 247, 0.45);
-  }
-  50% {
-    box-shadow: 0 14px 34px -4px rgba(0, 0, 0, 0.85), 0 0 38px rgba(168, 85, 247, 0.6);
-    border-color: rgba(192, 132, 252, 0.85);
-  }
-}
-
-.partners-single-center .partner-minimal-name {
-  font-size: 0.96rem;
-  font-weight: 600;
-  color: #f1f5f9;
-  text-align: center;
-  white-space: nowrap;
-}
-
-.partner-avatar-img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  padding: 4px;
-  filter: drop-shadow(0 0 8px rgba(244, 63, 94, 0.4));
-  transition: transform 0.3s ease, filter 0.3s ease;
-}
-
-.partner-logo-purple .partner-avatar-img {
-  filter: drop-shadow(0 0 10px rgba(168, 85, 247, 0.5));
-}
-
-.partner-minimal-item:hover .partner-logo-rose .partner-avatar-img {
-  transform: scale(1.06);
-  filter: drop-shadow(0 0 18px rgba(244, 63, 94, 0.8));
-}
-
-.partner-minimal-item:hover .partner-logo-purple .partner-avatar-img {
-  transform: scale(1.06);
-  filter: drop-shadow(0 0 18px rgba(168, 85, 247, 0.85));
-}
-
-/* Red Roleplay Crystal Light Sweep & Sparkle Animation */
-.red-crystal-sheen-box {
-  position: relative;
-  overflow: hidden;
-}
-
-.red-crystal-sweep-ray {
-  position: absolute;
-  top: -60%;
-  left: -80%;
-  width: 50%;
-  height: 220%;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(255, 255, 255, 0.15) 35%,
-    rgba(255, 255, 255, 0.7) 50%,
-    rgba(255, 255, 255, 0.15) 65%,
-    transparent 100%
-  );
-  transform: rotate(28deg);
-  pointer-events: none;
-  animation: rubyLightSweep 4s ease-in-out infinite;
-  mix-blend-mode: overlay;
-}
-
-@keyframes rubyLightSweep {
-  0% { left: -90%; opacity: 0; }
-  15% { opacity: 0.9; }
-  45% { left: 140%; opacity: 0; }
-  100% { left: 140%; opacity: 0; }
-}
-
-/* Purple Crystal Light Sweep */
-.purple-crystal-sheen-box {
-  position: relative;
-  overflow: hidden;
-}
-
-.purple-crystal-sweep-ray {
-  position: absolute;
-  top: -60%;
-  left: -80%;
-  width: 50%;
-  height: 220%;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(255, 255, 255, 0.15) 35%,
-    rgba(255, 255, 255, 0.8) 50%,
-    rgba(255, 255, 255, 0.15) 65%,
-    transparent 100%
-  );
-  transform: rotate(28deg);
-  pointer-events: none;
-  animation: purpleLightSweep 4.2s ease-in-out infinite 0.8s;
-  mix-blend-mode: overlay;
-}
-
-@keyframes purpleLightSweep {
-  0% { left: -90%; opacity: 0; }
-  15% { opacity: 0.95; }
-  45% { left: 140%; opacity: 0; }
-  100% { left: 140%; opacity: 0; }
-}
-
-/* Crystal Facet Twinkling Sparkles */
-.crystal-sparkle {
-  position: absolute;
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: #ffffff;
-  pointer-events: none;
-}
-
-.sparkle-1 {
-  top: 18%;
-  left: 28%;
-  box-shadow: 0 0 8px 2px #ffffff, 0 0 16px 4px rgba(244, 63, 94, 0.8);
-  animation: facetSparkle 3s ease-in-out infinite 0.4s;
-}
-
-.sparkle-2 {
-  top: 42%;
-  right: 24%;
-  box-shadow: 0 0 8px 2px #ffffff, 0 0 16px 4px rgba(244, 63, 94, 0.8);
-  animation: facetSparkle 3.4s ease-in-out infinite 1.6s;
-}
-
-.sparkle-3 {
-  bottom: 22%;
-  left: 45%;
-  box-shadow: 0 0 8px 2px #ffffff, 0 0 16px 4px rgba(244, 63, 94, 0.8);
-  animation: facetSparkle 2.8s ease-in-out infinite 2.2s;
-}
-
-.purple-sparkle-1 {
-  top: 14%;
-  left: 20%;
-  box-shadow: 0 0 8px 2px #ffffff, 0 0 16px 4px rgba(168, 85, 247, 0.9);
-  animation: facetSparkle 3s ease-in-out infinite 0.2s;
-}
-
-.purple-sparkle-2 {
-  top: 36%;
-  right: 18%;
-  box-shadow: 0 0 8px 2px #ffffff, 0 0 16px 4px rgba(168, 85, 247, 0.9);
-  animation: facetSparkle 3.4s ease-in-out infinite 1.4s;
-}
-
-.purple-sparkle-3 {
-  bottom: 16%;
-  left: 46%;
-  box-shadow: 0 0 8px 2px #ffffff, 0 0 16px 4px rgba(168, 85, 247, 0.9);
-  animation: facetSparkle 2.8s ease-in-out infinite 2s;
-}
-
-@keyframes facetSparkle {
-  0%, 100% { opacity: 0; transform: scale(0); }
-  50% { opacity: 1; transform: scale(1.4); }
-}
-
-.partner-verified-ruby-badge {
-  position: absolute;
-  bottom: -4px;
-  right: -4px;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: #f43f5e;
-  border: 2px solid #0a0f1d;
-  color: #ffffff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 0 10px rgba(244, 63, 94, 0.7);
-  z-index: 10;
-  animation: badgeGlowPulseRuby 2.5s ease-in-out infinite;
-}
-
-.partner-verified-purple-badge {
-  position: absolute;
-  bottom: -4px;
-  right: -4px;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: #a855f7;
-  border: 2px solid #0a0f1d;
-  color: #ffffff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 0 10px rgba(168, 85, 247, 0.85);
-  z-index: 10;
-  animation: badgeGlowPulsePurple 2.5s ease-in-out infinite;
-}
-
-@keyframes badgeGlowPulseRuby {
-  0%, 100% { transform: scale(1); box-shadow: 0 0 8px rgba(244, 63, 94, 0.7); }
-  50% { transform: scale(1.12); box-shadow: 0 0 16px rgba(251, 113, 133, 1); }
-}
-
-@keyframes badgeGlowPulsePurple {
-  0%, 100% { transform: scale(1); box-shadow: 0 0 8px rgba(168, 85, 247, 0.7); }
-  50% { transform: scale(1.12); box-shadow: 0 0 16px rgba(192, 132, 252, 1); }
-}
-
-.partner-name-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.25rem;
-}
-
-.partner-official-pill {
-  font-size: 0.68rem;
-  font-weight: 700;
-  padding: 0.1rem 0.55rem;
-  border-radius: 9999px;
-  letter-spacing: 0.02em;
-  white-space: nowrap;
-}
-
-.partner-pill-rose {
-  color: #fb7185;
-  background: rgba(244, 63, 94, 0.12);
-  border: 1px solid rgba(244, 63, 94, 0.3);
-}
-
-.partner-pill-purple {
-  color: #c084fc;
-  background: rgba(168, 85, 247, 0.14);
-  border: 1px solid rgba(168, 85, 247, 0.35);
-}
-
-.partners-minimal-track {
+.partners-marquee-track {
   display: flex;
   width: max-content;
-  gap: 3.25rem;
+  gap: 3.5rem;
+  align-items: center;
   user-select: none;
-  animation: partnersScrollLeft 42s linear infinite;
-  align-items: flex-start;
+  animation: partnersMarqueeLeft 32s linear infinite;
 }
 
-.partners-minimal-track:hover {
+.partners-marquee-track:hover {
   animation-play-state: paused;
 }
 
-.partner-minimal-item {
+@keyframes partnersMarqueeLeft {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.partner-marquee-item {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 0.85rem;
   text-decoration: none;
-  cursor: pointer;
-  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
-  width: 110px;
   flex-shrink: 0;
+  width: 96px;
+  cursor: pointer;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.partner-minimal-item:hover {
-  transform: translateY(-6px);
+.partner-marquee-item:hover {
+  transform: translateY(-4px);
 }
 
-.partner-minimal-logo {
+/* Rounded Dark Squircle Icon Container - Neonsuz, Tamamen Düz & Temiz */
+.partner-marquee-icon {
   width: 82px;
   height: 82px;
-  border-radius: 24px;
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.05) 0%, rgba(12, 17, 30, 0.95) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 10px 25px -4px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  border-radius: 22px;
+  background: #090d16;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: none !important;
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
   overflow: hidden;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  transition: border-color 0.25s ease, background 0.25s ease;
 }
 
-.partner-minimal-logo::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 24px;
-  box-shadow: inset 0 0 18px rgba(255, 255, 255, 0.03);
-  pointer-events: none;
-}
-
-.partner-minimal-item:hover .partner-minimal-logo {
-  transform: scale(1.06);
+.partner-marquee-item:hover .partner-marquee-icon {
   border-color: rgba(255, 255, 255, 0.25);
+  background: #0e1422;
 }
 
-/* Color specific ambient glows on hover matching Image 2 */
-.partner-minimal-item:hover .partner-logo-blue {
-  border-color: rgba(59, 130, 246, 0.7);
-  box-shadow: 0 16px 36px -4px rgba(0, 0, 0, 0.8), 0 0 28px rgba(59, 130, 246, 0.45);
-}
-.partner-minimal-item:hover .partner-logo-cyan {
-  border-color: rgba(6, 182, 212, 0.7);
-  box-shadow: 0 16px 36px -4px rgba(0, 0, 0, 0.8), 0 0 28px rgba(6, 182, 212, 0.45);
-}
-.partner-minimal-item:hover .partner-logo-purple {
-  border-color: rgba(168, 85, 247, 0.7);
-  box-shadow: 0 16px 36px -4px rgba(0, 0, 0, 0.8), 0 0 28px rgba(168, 85, 247, 0.45);
-}
-.partner-minimal-item:hover .partner-logo-rose {
-  border-color: rgba(244, 63, 94, 0.7);
-  box-shadow: 0 16px 36px -4px rgba(0, 0, 0, 0.8), 0 0 28px rgba(244, 63, 94, 0.45);
-}
-.partner-minimal-item:hover .partner-logo-emerald {
-  border-color: rgba(16, 185, 129, 0.7);
-  box-shadow: 0 16px 36px -4px rgba(0, 0, 0, 0.8), 0 0 28px rgba(16, 185, 129, 0.45);
-}
-.partner-minimal-item:hover .partner-logo-amber {
-  border-color: rgba(245, 158, 11, 0.7);
-  box-shadow: 0 16px 36px -4px rgba(0, 0, 0, 0.8), 0 0 28px rgba(245, 158, 11, 0.45);
+.partner-marquee-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+  display: block;
+  filter: none !important;
+  transition: transform 0.25s ease;
 }
 
-/* Monogram inner styling */
-.partner-monogram-inner {
+.partner-marquee-img-contain {
+  object-fit: contain;
+  padding: 8px;
+}
+
+.partner-marquee-item:hover .partner-marquee-img {
+  transform: scale(1.05);
+}
+
+.partner-marquee-monogram {
   width: 100%;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1.25rem;
-  font-weight: 800;
-  letter-spacing: -0.03em;
+  font-weight: 700;
+  color: #94a3b8;
+  letter-spacing: -0.02em;
 }
-.partner-mono-blue { color: #60a5fa; background: linear-gradient(135deg, rgba(8, 120, 255, 0.2), transparent); }
-.partner-mono-cyan { color: #38bdf8; background: linear-gradient(135deg, rgba(6, 182, 212, 0.2), transparent); }
-.partner-mono-purple { color: #c084fc; background: linear-gradient(135deg, rgba(168, 85, 247, 0.2), transparent); }
-.partner-mono-rose { color: #fb7185; background: linear-gradient(135deg, rgba(244, 63, 94, 0.2), transparent); }
-.partner-mono-emerald { color: #34d399; background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), transparent); }
-.partner-mono-amber { color: #fbbf24; background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), transparent); }
 
-/* Server Name */
-.partner-minimal-name {
-  font-size: 0.84rem;
+/* Server Name Text Under Icon */
+.partner-marquee-name {
+  font-size: 0.86rem;
   font-weight: 500;
   color: #94a3b8;
   text-align: center;
   white-space: nowrap;
   letter-spacing: -0.01em;
   transition: color 0.2s ease;
-  max-width: 125px;
+  max-width: 120px;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.partner-minimal-item:hover .partner-minimal-name {
-  color: #FFFFFF;
+.partner-marquee-item:hover .partner-marquee-name {
+  color: #ffffff;
 }
 
 /* Bottom Explore Link (matching Image 2) */
