@@ -23,7 +23,9 @@ export async function GET(request: NextRequest) {
   const clientId = (process.env.DISCORD_CLIENT_ID && process.env.DISCORD_CLIENT_ID !== '1557022423625371688')
     ? process.env.DISCORD_CLIENT_ID
     : '1563000519377817610';
-  const clientSecret = process.env.DISCORD_CLIENT_SECRET || 'TqbMiV3wH9u9vW8IEAes3w9cVupr-nIc';
+  const clientSecret = (process.env.DISCORD_CLIENT_SECRET && process.env.DISCORD_CLIENT_SECRET !== 'TqbMiV3wH9u9vW8IEAes3w9cVupr-nIc')
+    ? process.env.DISCORD_CLIENT_SECRET
+    : 'b4449bec4ec294a3490f400ec2e7dd998617d800f1d0f44315fc0f7a75f9ca42';
 
   let redirectUri = `${currentOrigin}/api/auth/discord/callback`;
   if (process.env.DISCORD_REDIRECT_URI && process.env.DISCORD_REDIRECT_URI.includes(host)) {
