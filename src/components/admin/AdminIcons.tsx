@@ -1,5 +1,6 @@
 import React from 'react';
 import { RoleType, SubscriptionTier, DeliveryStatus } from '@/types/admin';
+import { getPlanTagInfo } from '@/config/planTags';
 
 interface IconProps {
   size?: number;
@@ -336,30 +337,64 @@ export function RoleSymbol({ role, size = 14 }: { role: RoleType; size?: number 
 }
 
 export function TierSymbol({ tier, size = 13 }: { tier: SubscriptionTier; size?: number }) {
-  switch (tier) {
-    case 'Plus+':
-      return (
-        <span style={{ display: 'inline-flex', alignItems: 'center', gap: '3px', color: '#38bdf8', fontWeight: 700 }}>
-          <IconZap size={size} color="#38bdf8" />
-          <span>Plus+</span>
-        </span>
-      );
-    case 'Plus':
-      return (
-        <span style={{ display: 'inline-flex', alignItems: 'center', gap: '3px', color: '#60a5fa', fontWeight: 600 }}>
-          <IconStar size={size} color="#60a5fa" />
-          <span>Plus</span>
-        </span>
-      );
-    case 'Free':
-    default:
-      return (
-        <span style={{ display: 'inline-flex', alignItems: 'center', gap: '3px', color: '#94a3b8' }}>
-          <IconUser size={size} color="#94a3b8" />
-          <span>Free</span>
-        </span>
-      );
+  if (tier === 'Plus+') {
+    return (
+      <span style={{ display: 'inline-flex', alignItems: 'center', gap: '3px', color: '#38bdf8', fontWeight: 700 }}>
+        <IconZap size={size} color="#38bdf8" />
+        <span>Plus+</span>
+      </span>
+    );
   }
+  if (tier === 'Plus') {
+    return (
+      <span style={{ display: 'inline-flex', alignItems: 'center', gap: '3px', color: '#60a5fa', fontWeight: 600 }}>
+        <IconStar size={size} color="#60a5fa" />
+        <span>Plus</span>
+      </span>
+    );
+  }
+  if (tier === 'Free' || !tier || tier === 'free') {
+    return (
+      <span style={{ display: 'inline-flex', alignItems: 'center', gap: '3px', color: '#94a3b8' }}>
+        <IconUser size={size} color="#94a3b8" />
+        <span>Free Plan</span>
+      </span>
+    );
+  }
+
+  const info = getPlanTagInfo(tier);
+  return (
+    <span
+      style={{
+        display: 'inline-flex',
+        alignItems: 'center',
+        gap: '4px',
+        padding: '0.18rem 0.5rem',
+        borderRadius: '6px',
+        background: info.badgeColor,
+        border: `1px solid ${info.borderColor}`,
+        color: info.textColor,
+        fontSize: '0.73rem',
+        fontWeight: 700,
+        whiteSpace: 'nowrap',
+      }}
+      title={info.tag}
+    >
+      <IconTag size={size} color={info.textColor} />
+      <span>{info.productName}</span>
+      <span
+        style={{
+          background: 'rgba(0, 0, 0, 0.4)',
+          padding: '0.1rem 0.35rem',
+          borderRadius: '4px',
+          fontSize: '0.67rem',
+          letterSpacing: '0.02em',
+        }}
+      >
+        {info.periodLabel}
+      </span>
+    </span>
+  );
 }
 
 export function DeliveryStatusBadge({ status }: { status: DeliveryStatus }) {

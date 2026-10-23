@@ -12,7 +12,9 @@ import {
   IconTrash,
   IconKey,
   IconLock,
+  IconTag,
 } from '../AdminIcons';
+import { PRODUCT_PLAN_TAGS } from '@/config/planTags';
 
 export default function UsersView() {
   const {
@@ -81,12 +83,25 @@ export default function UsersView() {
   const filteredUsers = useMemo(() => {
     return users.filter((u) => {
       const matchRole = roleFilter === 'all' || u.role.toLowerCase() === roleFilter.toLowerCase();
-      const matchSub = subFilter === 'all' || u.subscription.toLowerCase() === subFilter.toLowerCase();
+      
+      let matchSub = true;
+      if (subFilter !== 'all') {
+        const uSub = (u.subscription || '').toLowerCase();
+        const sf = subFilter.toLowerCase();
+        if (sf === 'free') {
+          matchSub = uSub === 'free' || uSub.includes('free') || uSub.includes('standart');
+        } else {
+          matchSub = uSub.includes(sf) || sf.includes(uSub);
+        }
+      }
+
       const matchSearch =
         u.username.toLowerCase().includes(searchQuery.toLowerCase()) ||
         u.discriminator.includes(searchQuery) ||
         u.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        u.ipAddress.includes(searchQuery);
+        u.ipAddress.includes(searchQuery) ||
+        (u.subscription || '').toLowerCase().includes(searchQuery.toLowerCase());
+
       return matchRole && matchSub && matchSearch;
     });
   }, [users, roleFilter, subFilter, searchQuery]);
@@ -507,10 +522,76 @@ export default function UsersView() {
             </div>
           </div>
 
-          {/* 3 Subscription Tier Filter Tabs */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.74rem' }}>
-            <span style={{ color: 'var(--admin-text-dim)', fontWeight: 600 }}>Abonelik Filtresi:</span>
-            <div className="admin-timeframe-pills">
+          {/* Satın Alınan İlan / Plan Tagı Filtresi */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', fontSize: '0.74rem', flexWrap: 'wrap', padding: '0.35rem 0' }}>
+            <span style={{ color: 'var(--admin-text-dim)', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: '0.35rem', whiteSpace: 'nowrap' }}>
+              <IconTag size={13} color="var(--admin-accent-purple)" />
+              <span>Satın Alınan İlan / Plan Filtresi:</span>
+            </span>
+
+            <div style={{ minWidth: '300px', flex: '1 1 300px' }}>
+              <select
+                value={subFilter}
+                onChange={(e) => setSubFilter(e.target.value)}
+                className="admin-form-select"
+                style={{ padding: '0.45rem 0.85rem', fontSize: '0.78rem', background: 'rgba(15, 23, 42, 0.75)', borderColor: 'rgba(139, 92, 246, 0.3)' }}
+              >
+                <option value="all">🔍 Tüm Satın Alınan İlanlar &amp; Paketler ({users.length} Kullanıcı)</option>
+                <option value="free">⚪ Standart / Free (Satın Alım Yok)</option>
+                
+                <optgroup label="🤖 Discord Bot Paketleri">
+                  <option value="Discord Full Pack">Discord Full Pack (Tüm Süreler)</option>
+                  <option value="Discord Full Pack - 1 Aylık">Discord Full Pack - 1 Aylık</option>
+                  <option value="Discord Full Pack - 3 Aylık">Discord Full Pack - 3 Aylık</option>
+                  <option value="Discord Full Pack - 6 Aylık">Discord Full Pack - 6 Aylık</option>
+                  <option value="Discord Full Pack - 1 Yıllık">Discord Full Pack - 1 Yıllık</option>
+                  <option value="Moderasyon Botu">Moderasyon Botu</option>
+                  <option value="Guard Botu">Guard Botu</option>
+                  <option value="Ticket Botu">Ticket Botu</option>
+                  <option value="Ekip Sistemi Botu">Ekip Sistemi Botu</option>
+                </optgroup>
+
+                <optgroup label="🎮 FiveM Paket &amp; Panelleri">
+                  <option value="Fivem Full Pack">Fivem Full Pack (Tüm Süreler)</option>
+                  <option value="Fivem Full Pack - 1 Aylık">Fivem Full Pack - 1 Aylık</option>
+                  <option value="Fivem Full Pack - 3 Aylık">Fivem Full Pack - 3 Aylık</option>
+                  <option value="Fivem Full Pack - 6 Aylık">Fivem Full Pack - 6 Aylık</option>
+                  <option value="Fivem Full Pack - 1 Yıllık">Fivem Full Pack - 1 Yıllık</option>
+                  <option value="FiveM Oyun İçi Admin Paneli">FiveM Oyun İçi Admin Paneli (Tüm Süreler)</option>
+                  <option value="FiveM Oyun İçi Admin Paneli - 1 Aylık">FiveM Oyun İçi Admin Paneli - 1 Aylık</option>
+                  <option value="FiveM Oyun İçi Admin Paneli - 3 Aylık">FiveM Oyun İçi Admin Paneli - 3 Aylık</option>
+                  <option value="FiveM Oyun İçi Admin Paneli - 6 Aylık">FiveM Oyun İçi Admin Paneli - 6 Aylık</option>
+                  <option value="FiveM Oyun İçi Admin Paneli - 1 Yıllık">FiveM Oyun İçi Admin Paneli - 1 Yıllık</option>
+                </optgroup>
+
+                <optgroup label="💻 Yönetim Web Panelleri">
+                  <option value="Discord Web Yönetim Paneli">Discord Web Yönetim Paneli (Tüm Süreler)</option>
+                  <option value="Discord Web Yönetim Paneli - 1 Aylık">Discord Web Yönetim Paneli - 1 Aylık</option>
+                  <option value="Discord Web Yönetim Paneli - 3 Aylık">Discord Web Yönetim Paneli - 3 Aylık</option>
+                  <option value="Discord Web Yönetim Paneli - 6 Aylık">Discord Web Yönetim Paneli - 6 Aylık</option>
+                  <option value="Discord Web Yönetim Paneli - 1 Yıllık">Discord Web Yönetim Paneli - 1 Yıllık</option>
+                </optgroup>
+
+                <optgroup label="⚡ Kişiye Özel Yazılım &amp; Uygulama">
+                  <option value="Kişiye Özel Uygulama">Kişiye Özel Uygulama (Tüm Süreler)</option>
+                  <option value="Kişiye Özel Uygulama - 1 Aylık">Kişiye Özel Uygulama - 1 Aylık</option>
+                  <option value="Kişiye Özel Uygulama - 3 Aylık">Kişiye Özel Uygulama - 3 Aylık</option>
+                  <option value="Kişiye Özel Uygulama - 6 Aylık">Kişiye Özel Uygulama - 6 Aylık</option>
+                  <option value="Kişiye Özel Uygulama - 1 Yıllık">Kişiye Özel Uygulama - 1 Yıllık</option>
+                  <option value="Tüm Yazılım Çözümleri">Tüm Yazılım Çözümleri</option>
+                </optgroup>
+
+                <optgroup label="🌐 Web Siteleri">
+                  <option value="Website - Donate">Website - Donate (Tüm Süreler)</option>
+                  <option value="Website - Community">Website - Community (Tüm Süreler)</option>
+                  <option value="Website - XM Studio">Website - XM Studio (Tüm Süreler)</option>
+                  <option value="Website - Legal">Website - Legal (Tüm Süreler)</option>
+                </optgroup>
+              </select>
+            </div>
+
+            {/* Hızlı Filtre Etiketleri */}
+            <div className="admin-timeframe-pills" style={{ flexWrap: 'wrap' }}>
               <button
                 type="button"
                 className={`admin-tf-btn ${subFilter === 'all' ? 'active' : ''}`}
@@ -520,24 +601,31 @@ export default function UsersView() {
               </button>
               <button
                 type="button"
+                className={`admin-tf-btn ${subFilter === 'Discord Full Pack - 1 Aylık' ? 'active' : ''}`}
+                onClick={() => setSubFilter(subFilter === 'Discord Full Pack - 1 Aylık' ? 'all' : 'Discord Full Pack - 1 Aylık')}
+              >
+                Discord 1A
+              </button>
+              <button
+                type="button"
+                className={`admin-tf-btn ${subFilter === 'Fivem Full Pack - 1 Aylık' ? 'active' : ''}`}
+                onClick={() => setSubFilter(subFilter === 'Fivem Full Pack - 1 Aylık' ? 'all' : 'Fivem Full Pack - 1 Aylık')}
+              >
+                FiveM 1A
+              </button>
+              <button
+                type="button"
+                className={`admin-tf-btn ${subFilter === 'FiveM Oyun İçi Admin Paneli - 1 Aylık' ? 'active' : ''}`}
+                onClick={() => setSubFilter(subFilter === 'FiveM Oyun İçi Admin Paneli - 1 Aylık' ? 'all' : 'FiveM Oyun İçi Admin Paneli - 1 Aylık')}
+              >
+                Admin Paneli
+              </button>
+              <button
+                type="button"
                 className={`admin-tf-btn ${subFilter === 'free' ? 'active' : ''}`}
-                onClick={() => setSubFilter('free')}
+                onClick={() => setSubFilter(subFilter === 'free' ? 'all' : 'free')}
               >
                 Free
-              </button>
-              <button
-                type="button"
-                className={`admin-tf-btn ${subFilter === 'plus' ? 'active' : ''}`}
-                onClick={() => setSubFilter('plus')}
-              >
-                Plus
-              </button>
-              <button
-                type="button"
-                className={`admin-tf-btn ${subFilter === 'plus+' ? 'active' : ''}`}
-                onClick={() => setSubFilter('plus+')}
-              >
-                Plus+
               </button>
             </div>
           </div>
@@ -550,7 +638,7 @@ export default function UsersView() {
               <tr>
                 <th>Kullanıcı / Discord</th>
                 <th>Sistem Rolü (6 Rol)</th>
-                <th>Abonelik Planı (3 Plan)</th>
+                <th>Kişiye Özel İlan / Plan Tagı</th>
                 <th>Cüzdan Bakiyesi</th>
                 <th>Hesap Durumu</th>
                 <th>Panel Girişi</th>

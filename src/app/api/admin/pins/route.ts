@@ -54,7 +54,7 @@ export async function POST(req: Request) {
     const newPinObj: AdminPin = {
       id: `pin_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`,
       pin: cleanPin,
-      targetApp: ['Free', 'Plus', 'Plus+'].includes(targetApp) ? targetApp : 'Plus+',
+      targetApp: targetApp && typeof targetApp === 'string' ? targetApp.trim() : 'Discord Full Pack - 1 Aylık',
       maxUses: Number(maxUses) || 1,
       currentUses: 0,
       status: 'Aktif',

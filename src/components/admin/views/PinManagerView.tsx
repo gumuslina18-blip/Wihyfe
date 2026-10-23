@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useAdmin } from '@/context/AdminContext';
-import { IconKey, IconCheck, IconX, IconCopy, IconTrash, IconPlus } from '../AdminIcons';
+import { IconKey, IconCheck, IconX, IconCopy, IconTrash, IconPlus, TierSymbol } from '../AdminIcons';
 
 export default function PinManagerView() {
   const { pins, deletePin, setIsPinModalOpen, validatePinSimulator, showToast } = useAdmin();
@@ -166,9 +166,7 @@ export default function PinManagerView() {
                     </div>
                   </td>
                   <td>
-                    <span style={{ color: '#fff', fontWeight: 500, fontSize: '0.8rem' }}>
-                      {p.targetApp}
-                    </span>
+                    <TierSymbol tier={p.targetApp} size={12} />
                   </td>
                   <td>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>

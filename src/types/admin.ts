@@ -1,6 +1,6 @@
 export type RoleType = 'Owner' | 'Admin' | 'Staff' | 'Master' | 'VIP' | 'Müşteri';
 
-export type SubscriptionTier = 'Free' | 'Plus' | 'Plus+';
+export type SubscriptionTier = 'Free' | 'Plus' | 'Plus+' | (string & {});
 
 export type DeliveryStatus = 'Beklemede' | 'İşlemde' | 'Tamamlandı' | 'İptal Edildi';
 

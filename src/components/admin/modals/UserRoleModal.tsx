@@ -4,7 +4,8 @@ import React, { useState, useEffect } from 'react';
 import { useAdmin } from '@/context/AdminContext';
 import { RoleType, SubscriptionTier } from '@/types/admin';
 
-import { IconShield, IconX, IconCheck } from '../AdminIcons';
+import { IconShield, IconX, IconCheck, IconTag } from '../AdminIcons';
+import { PRODUCT_PLAN_TAGS } from '@/config/planTags';
 
 export default function UserRoleModal() {
   const { isRoleModalOpen, setIsRoleModalOpen, editingUser, updateUserRoleAndSubscription } = useAdmin();
@@ -117,18 +118,82 @@ export default function UserRoleModal() {
               </select>
             </div>
 
-            {/* 3 Subscription Tiers Selector */}
+            {/* Kişiye Özel Satın Alınan İlan / Plan Tagı Selector */}
             <div className="admin-form-group">
-              <label className="admin-form-label">Abonelik Seviyesi (3 Plan)</label>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.35rem' }}>
+                <label className="admin-form-label" style={{ margin: 0, display: 'inline-flex', alignItems: 'center', gap: '0.35rem' }}>
+                  <IconTag size={13} color="var(--admin-accent-purple)" />
+                  <span>Kişiye Özel İlan / Satın Alınan Plan Tagı</span>
+                </label>
+                <span style={{ fontSize: '0.68rem', color: '#c084fc', fontWeight: 600 }}>Tüm İlanlar &amp; Süreler</span>
+              </div>
               <select
                 value={subscription}
                 onChange={(e) => setSubscription(e.target.value as SubscriptionTier)}
                 className="admin-form-select"
               >
-                <option value="Free">Free (Ücretsiz Temel İstemci &amp; Standart Özellikler)</option>
-                <option value="Plus">Plus (Gelişmiş Tarama, Hızlı Kurulum &amp; Öncelikli Destek)</option>
-                <option value="Plus+">Plus+ (Sınırsız Özellikler, Kernel Seviyesi Güvenlik &amp; Özel Bot)</option>
+                <option value="Free">⚪ Free / Standart (Satın Alım Yok)</option>
+                <option value="Plus">⭐ Plus (Genel Standart Paket)</option>
+                <option value="Plus+">⚡ Plus+ (Genel VIP Paket)</option>
+
+                <optgroup label="🤖 Discord Bot Paketleri">
+                  <option value="Discord Full Pack - 1 Aylık">Discord Full Pack - 1 Aylık</option>
+                  <option value="Discord Full Pack - 3 Aylık">Discord Full Pack - 3 Aylık</option>
+                  <option value="Discord Full Pack - 6 Aylık">Discord Full Pack - 6 Aylık</option>
+                  <option value="Discord Full Pack - 1 Yıllık">Discord Full Pack - 1 Yıllık</option>
+                  <option value="Moderasyon Botu - 1 Aylık">Moderasyon Botu - 1 Aylık</option>
+                  <option value="Guard Botu - 1 Aylık">Guard Botu - 1 Aylık</option>
+                  <option value="Ticket Botu - 1 Aylık">Ticket Botu - 1 Aylık</option>
+                  <option value="Ekip Sistemi Botu - 1 Aylık">Ekip Sistemi Botu - 1 Aylık</option>
+                </optgroup>
+
+                <optgroup label="🎮 FiveM Paket &amp; Panelleri">
+                  <option value="Fivem Full Pack - 1 Aylık">Fivem Full Pack - 1 Aylık</option>
+                  <option value="Fivem Full Pack - 3 Aylık">Fivem Full Pack - 3 Aylık</option>
+                  <option value="Fivem Full Pack - 6 Aylık">Fivem Full Pack - 6 Aylık</option>
+                  <option value="Fivem Full Pack - 1 Yıllık">Fivem Full Pack - 1 Yıllık</option>
+                  <option value="FiveM Oyun İçi Admin Paneli - 1 Aylık">FiveM Oyun İçi Admin Paneli - 1 Aylık</option>
+                  <option value="FiveM Oyun İçi Admin Paneli - 3 Aylık">FiveM Oyun İçi Admin Paneli - 3 Aylık</option>
+                  <option value="FiveM Oyun İçi Admin Paneli - 6 Aylık">FiveM Oyun İçi Admin Paneli - 6 Aylık</option>
+                  <option value="FiveM Oyun İçi Admin Paneli - 1 Yıllık">FiveM Oyun İçi Admin Paneli - 1 Yıllık</option>
+                </optgroup>
+
+                <optgroup label="💻 Yönetim Web Panelleri">
+                  <option value="Discord Web Yönetim Paneli - 1 Aylık">Discord Web Yönetim Paneli - 1 Aylık</option>
+                  <option value="Discord Web Yönetim Paneli - 3 Aylık">Discord Web Yönetim Paneli - 3 Aylık</option>
+                  <option value="Discord Web Yönetim Paneli - 6 Aylık">Discord Web Yönetim Paneli - 6 Aylık</option>
+                  <option value="Discord Web Yönetim Paneli - 1 Yıllık">Discord Web Yönetim Paneli - 1 Yıllık</option>
+                </optgroup>
+
+                <optgroup label="⚡ Kişiye Özel Yazılım &amp; Uygulama">
+                  <option value="Kişiye Özel Uygulama - 1 Aylık">Kişiye Özel Uygulama - 1 Aylık</option>
+                  <option value="Kişiye Özel Uygulama - 3 Aylık">Kişiye Özel Uygulama - 3 Aylık</option>
+                  <option value="Kişiye Özel Uygulama - 6 Aylık">Kişiye Özel Uygulama - 6 Aylık</option>
+                  <option value="Kişiye Özel Uygulama - 1 Yıllık">Kişiye Özel Uygulama - 1 Yıllık</option>
+                  <option value="Tüm Yazılım Çözümleri - 1 Aylık">Tüm Yazılım Çözümleri - 1 Aylık</option>
+                  <option value="Tüm Yazılım Çözümleri - 1 Yıllık">Tüm Yazılım Çözümleri - 1 Yıllık</option>
+                </optgroup>
+
+                <optgroup label="🌐 Web Siteleri">
+                  <option value="Website - Donate - 1 Aylık">Website - Donate - 1 Aylık</option>
+                  <option value="Website - Donate - 1 Yıllık">Website - Donate - 1 Yıllık</option>
+                  <option value="Website - Community - 1 Aylık">Website - Community - 1 Aylık</option>
+                  <option value="Website - XM Studio - 1 Aylık">Website - XM Studio - 1 Aylık</option>
+                  <option value="Website - Legal - 1 Aylık">Website - Legal - 1 Aylık</option>
+                </optgroup>
               </select>
+
+              {/* Custom Tag Override Field */}
+              <div style={{ marginTop: '0.45rem' }}>
+                <input
+                  type="text"
+                  placeholder="Veya özel ilan tagı yazın (Örn: Discord Full Pack - 3 Aylık)..."
+                  value={subscription}
+                  onChange={(e) => setSubscription(e.target.value as SubscriptionTier)}
+                  className="admin-form-input"
+                  style={{ fontSize: '0.75rem', padding: '0.35rem 0.65rem' }}
+                />
+              </div>
             </div>
 
             {/* Hesap Durumu & Kısıtlama */}

@@ -74,14 +74,11 @@ export async function POST(req: NextRequest) {
         );
       }
 
-      // Tier belirleme: Free, Plus, Plus+
-      let tier: 'Free' | 'Plus' | 'Plus+' = 'Plus';
+      // Plan Tagı belirleme: Satın alınan ilan ve periyot
       const rawTarget = (matchedPin.targetApp || '').trim();
-      if (rawTarget === 'Free') tier = 'Free';
-      else if (rawTarget === 'Plus+' || rawTarget.includes('Plus+')) tier = 'Plus+';
-      else tier = 'Plus';
-
-      const role = tier === 'Plus+' ? 'VIP' : tier === 'Plus' ? 'Plus' : 'Member';
+      const planTag = rawTarget || 'Discord Full Pack - 1 Aylık';
+      const tier = planTag;
+      const role = planTag.toLowerCase().includes('full') || planTag.toLowerCase().includes('plus') || planTag.toLowerCase().includes('admin') ? 'VIP' : 'Müşteri';
 
       // Kullanım sayacını artır
       matchedPin.currentUses = (matchedPin.currentUses || 0) + 1;
@@ -191,9 +188,10 @@ export async function POST(req: NextRequest) {
         success: true,
         tier,
         role,
-        message: `✓ [${tier}] lisans kodu başarıyla hesabınıza tanımlandı ve üyeliğiniz ${tier} seviyesine yükseltildi!`,
+        message: `✓ [${tier}] lisans kodu başarıyla doğrulandı ve müşteri paneliniz aktif edildi!`,
         pin: {
           pin: matchedPin.pin,
+          targetApp: tier,
           tier,
           expiresAt: matchedPin.expiresAt,
         },
