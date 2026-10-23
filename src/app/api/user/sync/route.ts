@@ -123,6 +123,7 @@ export async function POST(request: NextRequest) {
         id: savedRecord.id,
         username: savedRecord.username,
         avatarUrl: savedRecord.avatarUrl || verifiedSession.avatarUrl,
+        email: savedRecord.email || verifiedSession.email || '',
       });
       response.cookies.set('wisp_session', signedSession, {
         httpOnly: true,

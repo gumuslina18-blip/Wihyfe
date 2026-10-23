@@ -22,6 +22,7 @@ export default function CheckoutModal() {
     balanceFormatted,
     deductBalance,
     setIsDepositModalOpen,
+    updateUserProfile,
   } = useStore();
 
   const [step, setStep] = useState<1 | 2 | 3 | 'success'>(1);
@@ -81,6 +82,10 @@ export default function CheckoutModal() {
     if (!discordTag.trim() || !serverId.trim() || !email.trim()) {
       alert('Lütfen tüm alanları eksiksiz doldurunuz.');
       return;
+    }
+    // Sync email to user profile if user is logged in
+    if (email.trim() && user && (!user.email || user.email !== email.trim())) {
+      updateUserProfile({ email: email.trim() });
     }
     setStep(2);
   };

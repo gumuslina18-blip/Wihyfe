@@ -30,6 +30,7 @@ export async function GET(request: NextRequest) {
       persistedUser = saveUserRecord({
         id: sessionUser.id,
         username: sessionUser.username,
+        email: sessionUser.email || '',
         avatarUrl: sessionUser.avatarUrl || '/wihyfe-icon.png',
         tier: 'Free',
         role: 'Member',
@@ -41,13 +42,15 @@ export async function GET(request: NextRequest) {
       });
     }
 
+    const effectiveEmail = persistedUser.email || sessionUser.email || '';
+
     // Merge session with authoritative persisted data
     const fullUser = {
       id: persistedUser.id,
       username: persistedUser.username,
       discriminator: persistedUser.discriminator || '',
       avatarUrl: persistedUser.avatarUrl || sessionUser.avatarUrl || '/wihyfe-icon.png',
-      email: persistedUser.email || '',
+      email: effectiveEmail,
       balance: typeof persistedUser.balance === 'number' ? persistedUser.balance : 0,
       tier: persistedUser.tier || 'Free',
       role: persistedUser.role || 'Member',

@@ -146,13 +146,14 @@ export async function GET(request: NextRequest) {
     // 5. Look up existing persisted user or create new record
     const { getUserRecord, saveUserRecord } = await import('@/lib/serverStore');
     const existingRecord = getUserRecord(userData.id) || getUserRecord(usernameStr);
+    const userEmail = userData.email || existingRecord?.email || '';
 
     saveUserRecord({
       id: userData.id,
       username: usernameStr,
       discriminator: discriminatorStr,
       avatarUrl,
-      email: userData.email || '',
+      email: userEmail,
       serversCount: serversCount || 0,
       guilds: userGuilds,
       tier: existingRecord?.tier || 'Free',
@@ -174,6 +175,7 @@ export async function GET(request: NextRequest) {
       id: userData.id,
       username: usernameStr,
       avatarUrl,
+      email: userEmail,
     });
 
     response.cookies.set('wisp_session', sessionToken, {

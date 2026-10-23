@@ -24,6 +24,7 @@ export default function AccountSettingsModal({
   const [activeTab, setActiveTab] = useState<'profile' | 'integrations' | 'subscription'>(initialTab);
   const [displayName, setDisplayName] = useState('');
   const [email, setEmail] = useState('');
+  const [isEditingEmail, setIsEditingEmail] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
   const [saveToast, setSaveToast] = useState<string | null>(null);
   const [showDevicesModal, setShowDevicesModal] = useState(false);
@@ -43,7 +44,7 @@ export default function AccountSettingsModal({
       setDisplayName(user.username || '');
       setEmail(user.email || '');
     }
-  }, [user, isOpen]);
+  }, [user?.username, user?.email, isOpen]);
 
   if (!isOpen) return null;
 
@@ -65,18 +66,14 @@ export default function AccountSettingsModal({
       username: displayName.trim(),
     };
 
-    // Only allow setting email if it was never set before
-    if (!isEmailLocked && email.trim()) {
+    if (email.trim()) {
       updates.email = email.trim();
     }
 
     updateUserProfile(updates);
+    setIsEditingEmail(false);
 
-    setSaveToast(
-      !isEmailLocked && email.trim()
-        ? 'E-posta adresiniz kaydedildi ve güvenlik gereği kilitlendi.'
-        : 'Profil bilgileriniz başarıyla güncellendi.'
-    );
+    setSaveToast('Profil ve e-posta bilgileriniz başarıyla güncellendi.');
     setTimeout(() => setSaveToast(null), 3500);
   };
 
@@ -281,39 +278,56 @@ export default function AccountSettingsModal({
                 <div className="account-input-group">
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.25rem' }}>
                     <label className="account-input-label" style={{ margin: 0 }}>E-posta Adresi</label>
-                    {isEmailLocked && (
-                      <span style={{
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: '0.25rem',
-                        fontSize: '0.68rem',
-                        fontWeight: 700,
-                        color: '#fbbf24',
-                        background: 'rgba(245, 158, 11, 0.14)',
-                        border: '1px solid rgba(245, 158, 11, 0.3)',
-                        padding: '0.1rem 0.45rem',
-                        borderRadius: '999px',
-                      }}>
-                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                          <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-                          <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-                        </svg>
-                        <span>Kilitli</span>
-                      </span>
-                    )}
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                      {isEmailLocked && !isEditingEmail && (
+                        <button
+                          type="button"
+                          onClick={() => setIsEditingEmail(true)}
+                          style={{
+                            fontSize: '0.72rem',
+                            color: '#38bdf8',
+                            background: 'none',
+                            border: 'none',
+                            cursor: 'pointer',
+                            padding: 0,
+                            textDecoration: 'underline',
+                          }}
+                        >
+                          Değiştir
+                        </button>
+                      )}
+                      {isEmailLocked && !isEditingEmail ? (
+                        <span style={{
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '0.25rem',
+                          fontSize: '0.68rem',
+                          fontWeight: 700,
+                          color: '#fbbf24',
+                          background: 'rgba(245, 158, 11, 0.14)',
+                          border: '1px solid rgba(245, 158, 11, 0.3)',
+                          padding: '0.1rem 0.45rem',
+                          borderRadius: '999px',
+                        }}>
+                          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                          </svg>
+                          <span>Kilitli</span>
+                        </span>
+                      ) : null}
+                    </div>
                   </div>
 
                   <div className="account-input-with-action">
                     <input
                       type="email"
                       value={email}
-                      readOnly={isEmailLocked}
-                      onChange={(e) => {
-                        if (!isEmailLocked) setEmail(e.target.value);
-                      }}
+                      readOnly={isEmailLocked && !isEditingEmail}
+                      onChange={(e) => setEmail(e.target.value)}
                       className="account-text-input"
-                      placeholder={isEmailLocked ? email : "kullanici@example.com (Bir kez eklendikten sonra kilitlenir)"}
-                      style={isEmailLocked ? {
+                      placeholder="kullanici@example.com"
+                      style={isEmailLocked && !isEditingEmail ? {
                         cursor: 'not-allowed',
                         opacity: 0.85,
                         background: 'rgba(15, 23, 42, 0.65)',

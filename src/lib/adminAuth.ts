@@ -67,7 +67,7 @@ export function verifyAdminToken(token: string): AdminTokenPayload | null {
 /**
  * Creates a cryptographically signed session token for logged-in users.
  */
-export function signUserSession(payload: { id: string; username: string; avatarUrl?: string }): string {
+export function signUserSession(payload: { id: string; username: string; avatarUrl?: string; email?: string }): string {
   const data = Buffer.from(JSON.stringify(payload)).toString('base64url');
   const signature = crypto.createHmac('sha256', ADMIN_SECRET).update(data).digest('hex');
   return `${data}.${signature}`;
@@ -76,7 +76,7 @@ export function signUserSession(payload: { id: string; username: string; avatarU
 /**
  * Validates a signed user session token.
  */
-export function verifyUserSession(token: string): { id: string; username: string; avatarUrl?: string } | null {
+export function verifyUserSession(token: string): { id: string; username: string; avatarUrl?: string; email?: string } | null {
   try {
     const parts = token.split('.');
     if (parts.length === 2) {
