@@ -1542,3 +1542,352 @@ export function CashVCommunityView() {
   );
 }
 
+/* =========================================================================
+   4. XM STUDIO - WEBSITE COMMUNITY & DEVELOPER STORE SHOWCASE VIEW
+   Integrated from XMstudiosite
+   ========================================================================= */
+export function XMStudioCommunityView() {
+  const [activeTab, setActiveTab] = useState<'all' | 'redm' | 'fivem' | 'free'>('all');
+  const [currency, setCurrency] = useState<'USD' | 'TRY'>('USD');
+  const [showDetailModal, setShowDetailModal] = useState<boolean>(false);
+  const [copiedKeymaster, setCopiedKeymaster] = useState<boolean>(false);
+
+  const handleCopyKeymaster = () => {
+    navigator.clipboard?.writeText('https://keymaster.fivem.net/assets');
+    setCopiedKeymaster(true);
+    setTimeout(() => setCopiedKeymaster(false), 2000);
+  };
+
+  const productPrice = currency === 'USD' ? '$21.60' : '₺699.00';
+
+  return (
+    <div className="demo-xm-container">
+      {/* Top Banner */}
+      <div className="demo-xm-announcement">
+        <span className="demo-xm-badge-pill">YENİ SÜRÜM</span>
+        <span>🔥 <strong>xmstuido! v1.0.0</strong> yayınlandı — RedM &amp; FiveM %100 modüler altyapı paketi!</span>
+      </div>
+
+      {/* Header / Navbar */}
+      <nav className="demo-xm-navbar">
+        <div className="demo-xm-nav-left">
+          <div className="demo-xm-logo-wrap">
+            <img src="/xmstudio/brand/xm-logo-full.png" alt="XM Studio" className="demo-xm-logo-img" />
+          </div>
+          <span className="demo-xm-nav-tag">RedM &amp; FiveM Studio</span>
+        </div>
+
+        <div className="demo-xm-nav-center">
+          <span className="demo-xm-nav-item active">Mağaza</span>
+          <span className="demo-xm-nav-item">Resmon 0.00ms</span>
+          <span className="demo-xm-nav-item">İş Akışı</span>
+          <span className="demo-xm-nav-item">Müşteri Yorumları</span>
+          <span className="demo-xm-nav-item">Son Alımlar</span>
+        </div>
+
+        <div className="demo-xm-nav-right">
+          <button
+            type="button"
+            className="demo-xm-currency-toggle"
+            onClick={() => setCurrency(c => c === 'USD' ? 'TRY' : 'USD')}
+            title="Para Birimini Değiştir"
+          >
+            <span>{currency === 'USD' ? '🇺🇸 $ USD' : '🇹🇷 ₺ TRY'}</span>
+          </button>
+
+          <button
+            type="button"
+            className="demo-xm-btn-keymaster"
+            onClick={handleCopyKeymaster}
+            title="Cfx.re Keymaster Bağlantısını Al"
+          >
+            {copiedKeymaster ? '✓ Kopyalandı' : '🔑 Keymaster'}
+          </button>
+        </div>
+      </nav>
+
+      {/* Hero Section */}
+      <div className="demo-xm-hero">
+        <div className="demo-xm-hero-glow" />
+        <div className="demo-xm-hero-tag">
+          <span className="demo-xm-dot-pulse" />
+          <span>REDM &amp; FIVEM HIGH-PERFORMANCE SUITE</span>
+        </div>
+
+        <h1 className="demo-xm-hero-title">
+          XM Studio <span className="demo-xm-gradient-text">Rol Yapma Altyapı Çözümleri</span>
+        </h1>
+
+        <p className="demo-xm-hero-desc">
+          VORP, RSG, QBCore, ESX ve Qbox sunucuları için sıfırdan geliştirilmiş; 0.00 ms idle resmon tüketimli, açık konfigürasyonlu ve doğrudan Cfx.re Keymaster hesabınıza teslim edilen sistemler.
+        </p>
+
+        {/* Framework Badges */}
+        <div className="demo-xm-frameworks-row">
+          <span className="demo-xm-fw-pill">VORP Core</span>
+          <span className="demo-xm-fw-pill">RSG Core</span>
+          <span className="demo-xm-fw-pill">QBCore</span>
+          <span className="demo-xm-fw-pill">ESX Legacy</span>
+          <span className="demo-xm-fw-pill">Qbox Framework</span>
+        </div>
+
+        {/* Hero Metrics Row */}
+        <div className="demo-xm-metrics-grid">
+          <div className="demo-xm-metric-card">
+            <span className="demo-xm-metric-val">0.00 ms</span>
+            <span className="demo-xm-metric-lbl">Boşta Resmon Tüketimi</span>
+          </div>
+          <div className="demo-xm-metric-card">
+            <span className="demo-xm-metric-val">5 Framework</span>
+            <span className="demo-xm-metric-lbl">Tam Çoklu Uyumluluk</span>
+          </div>
+          <div className="demo-xm-metric-card">
+            <span className="demo-xm-metric-val">Anında</span>
+            <span className="demo-xm-metric-lbl">Cfx Keymaster Teslimatı</span>
+          </div>
+          <div className="demo-xm-metric-card">
+            <span className="demo-xm-metric-val">7/24</span>
+            <span className="demo-xm-metric-lbl">Discord Geliştirici Desteği</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Store & Products Section */}
+      <div className="demo-xm-section">
+        <div className="demo-xm-section-header">
+          <div>
+            <span className="demo-xm-section-badge">KATALOG &amp; ÜRÜNLER</span>
+            <h2 className="demo-xm-section-title">Geliştirici Mağazası</h2>
+          </div>
+
+          <div className="demo-xm-tabs">
+            <button
+              type="button"
+              className={`demo-xm-tab-btn ${activeTab === 'all' ? 'active' : ''}`}
+              onClick={() => setActiveTab('all')}
+            >
+              Tüm Ürünler
+            </button>
+            <button
+              type="button"
+              className={`demo-xm-tab-btn ${activeTab === 'redm' ? 'active' : ''}`}
+              onClick={() => setActiveTab('redm')}
+            >
+              RedM
+            </button>
+            <button
+              type="button"
+              className={`demo-xm-tab-btn ${activeTab === 'fivem' ? 'active' : ''}`}
+              onClick={() => setActiveTab('fivem')}
+            >
+              FiveM
+            </button>
+            <button
+              type="button"
+              className={`demo-xm-tab-btn ${activeTab === 'free' ? 'active' : ''}`}
+              onClick={() => setActiveTab('free')}
+            >
+              Ücretsiz (Free)
+            </button>
+          </div>
+        </div>
+
+        {/* Product Card: xmstuido! */}
+        <div className="demo-xm-product-card">
+          <div className="demo-xm-product-banner">
+            <img
+              src="/xmstudio/packages/xmstuido-banner.png"
+              alt="xmstuido!"
+              className="demo-xm-product-img"
+            />
+            <div className="demo-xm-banner-badges">
+              <span className="demo-xm-badge-featured">⭐ ÖNE ÇIKAN SİSTEM</span>
+              <span className="demo-xm-badge-resmon">⚡ 0.00 ms Resmon</span>
+            </div>
+          </div>
+
+          <div className="demo-xm-product-content">
+            <div className="demo-xm-product-top">
+              <div>
+                <h3 className="demo-xm-product-title">xmstuido!</h3>
+                <p className="demo-xm-product-sub">
+                  RedM ve FiveM için sıfırdan geliştirilmiş özel XM Studio ana altyapı ve sistem paketi. 0.00ms resmon garantili, tam modüler ve zengin konfigürasyonlu.
+                </p>
+              </div>
+              <div className="demo-xm-price-box">
+                <span className="demo-xm-price-num">{productPrice}</span>
+                <span className="demo-xm-price-tag">Tek Seferlik / Lisanslı</span>
+              </div>
+            </div>
+
+            <div className="demo-xm-features-list">
+              <div className="demo-xm-feat-item">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#22c55e" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>
+                <span>0.00 ms boşta kaynak tüketimi (Ultra optimize resmon mimarisi)</span>
+              </div>
+              <div className="demo-xm-feat-item">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#22c55e" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>
+                <span>RedM &amp; FiveM çoklu altyapı entegrasyonu (VORP, RSG, QBCore, ESX, Qbox)</span>
+              </div>
+              <div className="demo-xm-feat-item">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#22c55e" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>
+                <span>Tamamen açık ve modüler config.lua yapılandırması</span>
+              </div>
+              <div className="demo-xm-feat-item">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#22c55e" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>
+                <span>Otomatik Cfx Keymaster lisans doğrulaması ve anında teslimat</span>
+              </div>
+              <div className="demo-xm-feat-item">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#22c55e" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>
+                <span>7/24 Discord destek ve otomatik güncelleme bildirimleri</span>
+              </div>
+            </div>
+
+            <div className="demo-xm-product-actions">
+              <button
+                type="button"
+                className="demo-xm-btn-buy"
+                onClick={() => setShowDetailModal(true)}
+              >
+                <span>Satın Al &amp; İncele &rarr;</span>
+              </button>
+              <button
+                type="button"
+                className="demo-xm-btn-detail"
+                onClick={() => setShowDetailModal(true)}
+              >
+                <span>Changelog &amp; Detaylar</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Workflow Section */}
+      <div className="demo-xm-section">
+        <span className="demo-xm-section-badge">KURULUM &amp; ENTEGRASYON</span>
+        <h2 className="demo-xm-section-title">Nasıl Çalışır?</h2>
+
+        <div className="demo-xm-workflow-grid">
+          <div className="demo-xm-step-card">
+            <span className="demo-xm-step-num">01</span>
+            <h4 className="demo-xm-step-title">Ürünü Seç &amp; Lisansla</h4>
+            <p className="demo-xm-step-desc">İhtiyacınız olan script veya harita paketini seçin, güvenli ödeme ile lisansınızı oluşturun.</p>
+          </div>
+          <div className="demo-xm-step-card">
+            <span className="demo-xm-step-num">02</span>
+            <h4 className="demo-xm-step-title">Anında Keymaster</h4>
+            <p className="demo-xm-step-desc">Satın alma anında Cfx.re Keymaster hesabınıza otomatik olarak tanımlanır.</p>
+          </div>
+          <div className="demo-xm-step-card">
+            <span className="demo-xm-step-num">03</span>
+            <h4 className="demo-xm-step-title">0.00ms Kurulum</h4>
+            <p className="demo-xm-step-desc">Sunucunuzun resources klasörüne bırakın ve açık config.lua ile anında aktif edin.</p>
+          </div>
+          <div className="demo-xm-step-card">
+            <span className="demo-xm-step-num">04</span>
+            <h4 className="demo-xm-step-title">7/24 Geliştirici Desteği</h4>
+            <p className="demo-xm-step-desc">XM Studio Discord sunucusunda doğrudan geliştirici ekibinden yardım alın.</p>
+          </div>
+        </div>
+      </div>
+
+      {/* Verified Reviews Section */}
+      <div className="demo-xm-section">
+        <span className="demo-xm-section-badge">DOĞRULANMIŞ YORUMLAR</span>
+        <h2 className="demo-xm-section-title">Topluluk Görüşleri</h2>
+
+        <div className="demo-xm-reviews-grid">
+          <div className="demo-xm-review-card">
+            <div className="demo-xm-review-top">
+              <img src="/xmstudio/buyers/buyer-fakin.png" alt="Buyer" className="demo-xm-buyer-avatar" />
+              <div>
+                <span className="demo-xm-buyer-name">Verified Buyer</span>
+                <span className="demo-xm-buyer-tag">Doğrulanmış Müşteri</span>
+              </div>
+            </div>
+            <p className="demo-xm-review-text">
+              &quot;xmstuido! sistemini sunucumuza kurduk, gecikme sıfıra indi ve oyuncu deneyimi inanılmaz derecede akıcılaştı. Harika bir sistem!&quot;
+            </p>
+          </div>
+
+          <div className="demo-xm-review-card">
+            <div className="demo-xm-review-top">
+              <img src="/xmstudio/buyers/buyer-kane.png" alt="Buyer" className="demo-xm-buyer-avatar" />
+              <div>
+                <span className="demo-xm-buyer-name">RedM Developer</span>
+                <span className="demo-xm-buyer-tag">Topluluk Geliştiricisi</span>
+              </div>
+            </div>
+            <p className="demo-xm-review-text">
+              &quot;Kod kalitesi ve mimarisi tek kelimeyle mükemmel. Config üzerinden her şeyi rahatça özelleştirebildik.&quot;
+            </p>
+          </div>
+
+          <div className="demo-xm-review-card">
+            <div className="demo-xm-review-top">
+              <img src="/xmstudio/buyers/buyer-luna.png" alt="Buyer" className="demo-xm-buyer-avatar" />
+              <div>
+                <span className="demo-xm-buyer-name">Server Owner</span>
+                <span className="demo-xm-buyer-tag">Sunucu Sahibi</span>
+              </div>
+            </div>
+            <p className="demo-xm-review-text">
+              &quot;Hem RedM hem FiveM tarafında kusursuz çalışıyor. Destek taleplerimize dakikalar içinde geri döndüler.&quot;
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Product Detail Modal */}
+      {showDetailModal && (
+        <div className="demo-xm-modal-overlay" onClick={() => setShowDetailModal(false)}>
+          <div className="demo-xm-modal-box" onClick={(e) => e.stopPropagation()}>
+            <div className="demo-xm-modal-header">
+              <div className="flex items-center gap-2">
+                <span className="demo-xm-badge-featured">xmstuido! v1.0.0</span>
+                <span className="demo-xm-badge-resmon">0.00ms</span>
+              </div>
+              <button
+                type="button"
+                className="demo-xm-modal-close"
+                onClick={() => setShowDetailModal(false)}
+              >
+                ✕
+              </button>
+            </div>
+            <div className="demo-xm-modal-body">
+              <h3 className="text-xl font-bold mb-2 text-white">xmstuido! — Yeni Nesil Rol Yapma Altyapı Paketi</h3>
+              <p className="text-sm text-slate-300 mb-4 leading-relaxed">
+                xmstuido! rol yapma sunucuları için sıfırdan geliştirilmiş, üstün performanslı ve tamamen modüler sistem paketidir. Hem RedM hem FiveM sunucularıyla tam uyumlu olup, 0.00 ms resmon tüketimi ve zengin config seçenekleriyle sunucunuzu bir üst seviyeye taşır.
+              </p>
+
+              <h4 className="text-sm font-bold text-amber-400 mb-2">Sürüm Notları (v1.0.0):</h4>
+              <ul className="text-xs text-slate-400 space-y-1 mb-5">
+                <li>• İlk kararlı genel sürüm yayınlandı.</li>
+                <li>• Gelişmiş bellek temizliği ve 0.00 ms idle optimizasyonu tamamlandı.</li>
+                <li>• VORP, RSG, QBCore, ESX ve Qbox framework kütüphaneleri entegre edildi.</li>
+                <li>• Cfx.re Keymaster otomatik lisans bağlama dosyaları hazırlandı.</li>
+              </ul>
+
+              <div className="flex justify-between items-center pt-3 border-t border-slate-700/60">
+                <div className="text-lg font-extrabold text-white">{productPrice}</div>
+                <button
+                  type="button"
+                  className="demo-xm-btn-buy"
+                  onClick={() => {
+                    alert('xmstuido! sistem lisansı Cfx.re Keymaster hesabınıza yönlendiriliyor.');
+                    setShowDetailModal(false);
+                  }}
+                >
+                  Keymaster ile Satın Al &rarr;
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+

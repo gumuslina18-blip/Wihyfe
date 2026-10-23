@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useEffect, MouseEvent } from 'react';
 import { useLanguage } from '@/context/LanguageContext';
-import { DonateMarketView, MdtCadView, CashVCommunityView } from '@/components/ShowcaseDemoViews';
+import { DonateMarketView, MdtCadView, CashVCommunityView, XMStudioCommunityView } from '@/components/ShowcaseDemoViews';
 
 export type DeviceType = 'desktop' | 'laptop' | 'tablet' | 'mobile';
 
@@ -17,6 +17,37 @@ export interface ShowcaseTemplate {
 }
 
 export const SHOWCASE_TEMPLATES: ShowcaseTemplate[] = [
+  {
+    id: 'community-cashv',
+    name: 'CashV Community Portalı',
+    tag: 'Web - Community',
+    badge: 'Canlı Vitrin',
+    icon: (
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+        <circle cx="9" cy="7" r="4" />
+        <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+      </svg>
+    ),
+    url: '/showcase/community-cashv',
+    desc: 'CashV FiveM roleplay topluluk vitrini, canlı sunucu istatistikleri, başvuru ve Discord bağlantısı.',
+  },
+  {
+    id: 'community-xmstudio',
+    name: 'XM Studio Community & Store',
+    tag: 'Web - Community',
+    badge: 'Canlı Vitrin',
+    icon: (
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <polygon points="12 2 2 7 12 12 22 7 12 2" />
+        <polyline points="2 17 12 22 22 17" />
+        <polyline points="2 12 12 17 22 12" />
+      </svg>
+    ),
+    url: '/showcase/community-xmstudio',
+    desc: 'XM Studio RedM & FiveM script, harita, MLO ve topluluk geliştirici vitrini.',
+  },
   {
     id: 'donate-market',
     name: 'Donate & Market Sistemi',
@@ -44,22 +75,6 @@ export const SHOWCASE_TEMPLATES: ShowcaseTemplate[] = [
     ),
     url: '/showcase/mdt-cad',
     desc: 'Canlı 911 ihbar akışı, GBT vatandaş sorgulama, devriye birim takibi ve vaka raporları.',
-  },
-  {
-    id: 'community-cashv',
-    name: 'CashV Community Portalı',
-    tag: 'Web - Community',
-    badge: 'Topluluk Portalı',
-    icon: (
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-        <circle cx="9" cy="7" r="4" />
-        <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-      </svg>
-    ),
-    url: 'http://localhost:3001',
-    desc: 'CashV FiveM roleplay topluluk vitrini, canlı sunucu istatistikleri, başvuru ve Discord bağlantısı.',
   },
 ];
 
@@ -180,7 +195,7 @@ export default function WebsiteLiveShowcase() {
     setSelectedTemplate(template);
     setCurrentUrl(template.url);
     setShowMockupPreview(false);
-    if (template.id === 'community-cashv') {
+    if (template.id === 'community-cashv' || template.id === 'community-xmstudio') {
       setAddressBarInput('Wihyfe Tarafından Yapıldı');
     } else if (template.url.startsWith('http://') || template.url.startsWith('https://')) {
       setAddressBarInput(template.url);
@@ -189,6 +204,18 @@ export default function WebsiteLiveShowcase() {
     }
     triggerReload();
   };
+
+  useEffect(() => {
+    const handleTemplateSwitch = (e: CustomEvent<{ templateId: string }>) => {
+      if (e.detail?.templateId) {
+        const tmpl = SHOWCASE_TEMPLATES.find((t) => t.id === e.detail.templateId);
+        if (tmpl) handleSelectTemplate(tmpl);
+      }
+    };
+
+    window.addEventListener('switch-showcase-template', handleTemplateSwitch as EventListener);
+    return () => window.removeEventListener('switch-showcase-template', handleTemplateSwitch as EventListener);
+  }, []);
 
   const handleAddressSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -655,6 +682,10 @@ export default function WebsiteLiveShowcase() {
               ) : selectedTemplate.id === 'mdt-cad' && !currentUrl.startsWith('http://') && !currentUrl.startsWith('https://') ? (
                 <div className="device-screen-scroll-container">
                   <MdtCadView />
+                </div>
+              ) : selectedTemplate.id === 'community-xmstudio' ? (
+                <div className="device-screen-scroll-container">
+                  <XMStudioCommunityView />
                 </div>
               ) : selectedTemplate.id === 'community-cashv' && (!useLocalhostIframe || (typeof window !== 'undefined' && window.location.protocol === 'https:') || currentUrl.includes('/showcase/community-cashv')) ? (
                 <div className="device-screen-scroll-container">

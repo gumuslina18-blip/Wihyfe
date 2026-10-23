@@ -30352,6 +30352,601 @@ img, a {
   }
 }
 
+/* =========================================================================
+   XM STUDIO - COMMUNITY & DEVELOPER SUITE SHOWCASE STYLES
+   ========================================================================= */
+.demo-xm-container {
+  background: #07090e;
+  color: #f1f5f9;
+  min-height: 100%;
+  position: relative;
+  overflow-x: hidden;
+  padding-bottom: 2.5rem;
+}
+
+.demo-xm-announcement {
+  background: linear-gradient(90deg, rgba(239, 68, 68, 0.15), rgba(249, 115, 22, 0.15));
+  border-bottom: 1px solid rgba(239, 68, 68, 0.25);
+  padding: 0.4rem 1rem;
+  font-size: 0.75rem;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  color: #fca5a5;
+}
+
+.demo-xm-badge-pill {
+  background: #dc2626;
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 0.62rem;
+  padding: 0.1rem 0.45rem;
+  border-radius: 9999px;
+  letter-spacing: 0.05em;
+}
+
+.demo-xm-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: rgba(7, 9, 14, 0.92);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  padding: 0.75rem 1.25rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.demo-xm-nav-left {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.demo-xm-logo-wrap {
+  display: flex;
+  align-items: center;
+}
+
+.demo-xm-logo-img {
+  height: 24px;
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 0 8px rgba(239, 68, 68, 0.5));
+}
+
+.demo-xm-nav-tag {
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.15rem 0.45rem;
+  border-radius: 0.35rem;
+  background: rgba(239, 68, 68, 0.15);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.demo-xm-nav-center {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.demo-xm-nav-item {
+  font-size: 0.78rem;
+  color: #94a3b8;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.demo-xm-nav-item:hover,
+.demo-xm-nav-item.active {
+  color: #ffffff;
+}
+
+.demo-xm-nav-right {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.demo-xm-currency-toggle {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #cbd5e1;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.35rem 0.65rem;
+  border-radius: 0.45rem;
+  cursor: pointer;
+}
+
+.demo-xm-btn-keymaster {
+  background: linear-gradient(135deg, #ef4444, #f97316);
+  color: #ffffff;
+  border: none;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.4rem 0.85rem;
+  border-radius: 0.45rem;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(239, 68, 68, 0.35);
+}
+
+/* Hero Section */
+.demo-xm-hero {
+  position: relative;
+  padding: 3rem 1.5rem 2.5rem;
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.demo-xm-hero-glow {
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 420px;
+  height: 240px;
+  background: radial-gradient(circle, rgba(239, 68, 68, 0.22) 0%, rgba(249, 115, 22, 0.08) 50%, transparent 70%);
+  filter: blur(45px);
+  pointer-events: none;
+}
+
+.demo-xm-hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  padding: 0.3rem 0.8rem;
+  border-radius: 9999px;
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  color: #fca5a5;
+  margin-bottom: 1.25rem;
+}
+
+.demo-xm-dot-pulse {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #ef4444;
+  box-shadow: 0 0 8px #ef4444;
+  animation: pulseAmber 1.4s infinite ease-in-out;
+}
+
+.demo-xm-hero-title {
+  font-size: 2.2rem;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+  color: #ffffff;
+}
+
+.demo-xm-gradient-text {
+  background: linear-gradient(135deg, #f87171 0%, #fb923c 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: block;
+}
+
+.demo-xm-hero-desc {
+  font-size: 0.92rem;
+  line-height: 1.65;
+  color: #94a3b8;
+  max-width: 680px;
+  margin: 0 auto 1.5rem;
+}
+
+.demo-xm-frameworks-row {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-bottom: 2rem;
+}
+
+.demo-xm-fw-pill {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.25rem 0.65rem;
+  border-radius: 0.45rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #e2e8f0;
+}
+
+.demo-xm-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.75rem;
+}
+
+.demo-xm-metric-card {
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  padding: 0.85rem 0.65rem;
+  border-radius: 0.65rem;
+  text-align: center;
+}
+
+.demo-xm-metric-val {
+  display: block;
+  font-size: 1.15rem;
+  font-weight: 900;
+  color: #ef4444;
+  margin-bottom: 0.15rem;
+}
+
+.demo-xm-metric-lbl {
+  font-size: 0.68rem;
+  color: #94a3b8;
+  font-weight: 600;
+}
+
+/* Sections */
+.demo-xm-section {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 1.5rem 1.25rem;
+}
+
+.demo-xm-section-badge {
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #ef4444;
+  text-transform: uppercase;
+}
+
+.demo-xm-section-title {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-top: 0.2rem;
+  margin-bottom: 1.25rem;
+}
+
+.demo-xm-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.demo-xm-tabs {
+  display: flex;
+  gap: 0.4rem;
+  background: rgba(255, 255, 255, 0.04);
+  padding: 0.25rem;
+  border-radius: 0.55rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.demo-xm-tab-btn {
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.35rem 0.75rem;
+  border-radius: 0.4rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.demo-xm-tab-btn.active {
+  background: #ef4444;
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.4);
+}
+
+/* Product Card */
+.demo-xm-product-card {
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+}
+
+.demo-xm-product-banner {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  background: #000;
+  overflow: hidden;
+}
+
+.demo-xm-product-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.demo-xm-product-card:hover .demo-xm-product-img {
+  transform: scale(1.02);
+}
+
+.demo-xm-banner-badges {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  display: flex;
+  gap: 0.45rem;
+}
+
+.demo-xm-badge-featured {
+  background: rgba(239, 68, 68, 0.9);
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 0.68rem;
+  padding: 0.2rem 0.55rem;
+  border-radius: 0.35rem;
+  backdrop-filter: blur(8px);
+}
+
+.demo-xm-badge-resmon {
+  background: rgba(34, 197, 94, 0.9);
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 0.68rem;
+  padding: 0.2rem 0.55rem;
+  border-radius: 0.35rem;
+  backdrop-filter: blur(8px);
+}
+
+.demo-xm-product-content {
+  padding: 1.25rem;
+}
+
+.demo-xm-product-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.85rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.demo-xm-product-title {
+  font-size: 1.35rem;
+  font-weight: 900;
+  color: #ffffff;
+  margin-bottom: 0.25rem;
+}
+
+.demo-xm-product-sub {
+  font-size: 0.82rem;
+  color: #94a3b8;
+  line-height: 1.5;
+  max-width: 580px;
+}
+
+.demo-xm-price-box {
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.demo-xm-price-num {
+  display: block;
+  font-size: 1.45rem;
+  font-weight: 900;
+  color: #ffffff;
+}
+
+.demo-xm-price-tag {
+  font-size: 0.65rem;
+  color: #64748b;
+  font-weight: 600;
+}
+
+.demo-xm-features-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  margin-bottom: 1.25rem;
+}
+
+.demo-xm-feat-item {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.78rem;
+  color: #cbd5e1;
+}
+
+.demo-xm-product-actions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.demo-xm-btn-buy {
+  background: linear-gradient(135deg, #ef4444, #f97316);
+  color: #ffffff;
+  border: none;
+  font-weight: 700;
+  font-size: 0.82rem;
+  padding: 0.65rem 1.25rem;
+  border-radius: 0.55rem;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(239, 68, 68, 0.35);
+  transition: all 0.15s ease;
+}
+
+.demo-xm-btn-buy:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(239, 68, 68, 0.5);
+}
+
+.demo-xm-btn-detail {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #cbd5e1;
+  font-weight: 600;
+  font-size: 0.82rem;
+  padding: 0.65rem 1.1rem;
+  border-radius: 0.55rem;
+  cursor: pointer;
+}
+
+/* Workflow Grid */
+.demo-xm-workflow-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.75rem;
+}
+
+.demo-xm-step-card {
+  background: rgba(15, 23, 42, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  padding: 1rem 0.85rem;
+  border-radius: 0.75rem;
+  position: relative;
+}
+
+.demo-xm-step-num {
+  font-size: 1.25rem;
+  font-weight: 900;
+  color: #ef4444;
+  opacity: 0.85;
+  display: block;
+  margin-bottom: 0.4rem;
+}
+
+.demo-xm-step-title {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 0.35rem;
+}
+
+.demo-xm-step-desc {
+  font-size: 0.72rem;
+  color: #94a3b8;
+  line-height: 1.5;
+}
+
+/* Reviews Grid */
+.demo-xm-reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+}
+
+.demo-xm-review-card {
+  background: rgba(15, 23, 42, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  padding: 1rem 0.85rem;
+  border-radius: 0.75rem;
+}
+
+.demo-xm-review-top {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-bottom: 0.65rem;
+}
+
+.demo-xm-buyer-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid rgba(239, 68, 68, 0.4);
+}
+
+.demo-xm-buyer-name {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.demo-xm-buyer-tag {
+  font-size: 0.65rem;
+  color: #ef4444;
+  font-weight: 600;
+}
+
+.demo-xm-review-text {
+  font-size: 0.76rem;
+  color: #cbd5e1;
+  line-height: 1.5;
+  font-style: italic;
+}
+
+/* Modal */
+.demo-xm-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 1rem;
+}
+
+.demo-xm-modal-box {
+  background: #0f172a;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: 1rem;
+  max-width: 520px;
+  width: 100%;
+  padding: 1.5rem;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+}
+
+.demo-xm-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.demo-xm-modal-close {
+  background: rgba(255, 255, 255, 0.08);
+  border: none;
+  color: #fff;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .demo-xm-metrics-grid,
+  .demo-xm-workflow-grid,
+  .demo-xm-reviews-grid {
+    grid-template-columns: 1fr;
+  }
+  .demo-xm-nav-center {
+    display: none;
+  }
+  .demo-xm-product-top {
+    flex-direction: column;
+  }
+  .demo-xm-price-box {
+    text-align: left;
+  }
+}
+
+
 
 
 
