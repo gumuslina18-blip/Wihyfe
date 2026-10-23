@@ -133,7 +133,7 @@ export default function WebsiteLiveShowcase() {
   const [selectedTemplate, setSelectedTemplate] = useState<ShowcaseTemplate>(defaultTmpl);
   const [selectedDevice, setSelectedDevice] = useState<DeviceType>('desktop');
   const [currentUrl, setCurrentUrl] = useState<string>(defaultTmpl.url);
-  const [addressBarInput, setAddressBarInput] = useState<string>('https://demo.wihyfe.com' + defaultTmpl.url);
+  const [addressBarInput, setAddressBarInput] = useState<string>('Wihyfe Tarafından Yapıldı');
   const [showMockupPreview, setShowMockupPreview] = useState<boolean>(false);
   const [is3DMode, setIs3DMode] = useState<boolean>(true);
   const [isAutoFloating, setIsAutoFloating] = useState<boolean>(false);
@@ -180,7 +180,9 @@ export default function WebsiteLiveShowcase() {
     setSelectedTemplate(template);
     setCurrentUrl(template.url);
     setShowMockupPreview(false);
-    if (template.url.startsWith('http://') || template.url.startsWith('https://')) {
+    if (template.id === 'community-cashv') {
+      setAddressBarInput('Wihyfe Tarafından Yapıldı');
+    } else if (template.url.startsWith('http://') || template.url.startsWith('https://')) {
       setAddressBarInput(template.url);
     } else {
       setAddressBarInput('https://demo.wihyfe.com' + template.url);
@@ -559,9 +561,9 @@ export default function WebsiteLiveShowcase() {
                       fontWeight: 700,
                     }}
                     onClick={() => setUseLocalhostIframe(!useLocalhostIframe)}
-                    title="Yerel Port 3001 ile Entegre Vitrin Arasında Geçiş Yap"
+                    title="Canlı Önizleme Görünümünü Değiştir"
                   >
-                    {useLocalhostIframe ? '⚡ Yerel:3001' : '👁️ Vitrin'}
+                    {useLocalhostIframe ? '⚡ Canlı Sistem' : '👁️ Vitrin'}
                   </button>
                 )}
                 <span className="device-res-pill" title="Aktif Çözünürlük">
